@@ -3,6 +3,7 @@
 namespace Prezent\Tests\Grid;
 
 use Prezent\Grid\ColumnDescription;
+use Prezent\Grid\ColumnType;
 use Prezent\Grid\ColumnView;
 use Prezent\Grid\Grid;
 use Prezent\Grid\GridView;
@@ -53,7 +54,7 @@ class GridTest extends \PHPUnit_Framework_TestCase
     {
         $options = ['option' => 'value'];
 
-        $columnView = new ColumnView('column');
+        $columnView = new ColumnView('column', $this->getMock(ColumnType::class));
 
         $type = $this->getMockBuilder(ResolvedColumnType::class)->disableOriginalConstructor()->getMock();
         $type->expects($this->once())

@@ -5,6 +5,7 @@ namespace Prezent\Grid\Extension\Core\Type;
 use Prezent\Grid\BaseColumnType;
 use Prezent\Grid\ColumnView;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 
 /**
  * ColumnType
@@ -24,7 +25,7 @@ class ColumnType extends BaseColumnType
      *
      * @param PropertyAccess $accessor
      */
-    public function __construct(PropertyAccessor $accessor)
+    public function __construct(PropertyAccessorInterface $accessor)
     {
         $this->accessor = $accessor;
     }
@@ -34,7 +35,7 @@ class ColumnType extends BaseColumnType
      */
     public function configureOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefault([
+        $resolver->setDefaults([
             'property_path' => null,
             'label'         => null,
         ]);
@@ -43,7 +44,7 @@ class ColumnType extends BaseColumnType
     public function buildView(ColumnView $view, array $options)
     {
         $view->vars['property_path'] = $options['property_path'] ?: $view->name;
-        $view->vars['label']         = $options['label'] !== false ? $options['label'] : $view->name;
+        $view->vars['label']         = $options['label'] === null ? $view->name : $options['label'];
     }
 
     public function getValue(ColumnView $view, $item)
@@ -57,12 +58,5 @@ class ColumnType extends BaseColumnType
     public function getName()
     {
         return 'column';
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getParent()
-    {
     }
 }

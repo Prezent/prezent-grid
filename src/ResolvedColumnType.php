@@ -62,7 +62,7 @@ class ResolvedColumnType
      */
     public function createView($name, array $options = [])
     {
-        $view = new ColumnView($name);
+        $view = new ColumnView($name, $this->innerType);
         $options = $this->getOptionsResolver()->resolve($options);
 
         $this->buildView($view, $options);

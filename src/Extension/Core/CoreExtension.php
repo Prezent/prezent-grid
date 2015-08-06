@@ -31,18 +31,18 @@ class CoreExtension extends BaseGridExtension
     /**
      * {@inheritDoc}
      */
-    protected function getTypes()
+    protected function loadColumnTypes()
     {
         return [
-            new ColumnType($this->accessor),
-            new StringType(),
+            new Type\ColumnType($this->accessor),
+            new Type\StringType(),
         ];
     }
 
     /**
      * {@inheritDoc}
      */
-    protected function getTypeExtensions()
+    protected function loadColumnTypeExtensions()
     {
         return [];
     }

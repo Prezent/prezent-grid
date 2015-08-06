@@ -8,7 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 /**
  * StringType
  *
- * @see ColumnType
+ * @see BaseColumnType
  * @author Sander Marechal
  */
 class StringType extends BaseColumnType
