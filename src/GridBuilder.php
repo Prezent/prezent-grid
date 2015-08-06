@@ -2,6 +2,7 @@
 
 namespace Prezent\Grid;
 
+use Prezent\Grid\Exception\InvalidArgumentException;
 use Prezent\Grid\Exception\UnexpectedTypeException;
 
 /**
@@ -42,8 +43,7 @@ class GridBuilder
     public function add($name, $type = null, array $options = [])
     {
         if (!is_string($name)) {
-            // TODO
-            throw new \Exception();
+            throw new UnexpectedTypeException('string', $name);
         }
 
         $this->columns[$name] = $this->create($type, $options);
@@ -84,8 +84,7 @@ class GridBuilder
     public function get($name)
     {
         if (!$this->has($name)) {
-            // TODO
-            throw new \Exception();
+            throw new InvalidArgumentException(sprintf('Column "%s" does not exist', $name));
         }
 
         return $this->columns[$name];
@@ -98,13 +97,7 @@ class GridBuilder
      */
     public function getGrid()
     {
-        $grid = new Grid();
-
-        foreach ($this->columns as $name => $column) {
-            $grid->addColumn($name, $column);
-        }
-
-        return $grid;
+        return new Grid($this->columns);
     }
 
     /**
@@ -115,22 +108,18 @@ class GridBuilder
      */
     private function resolveType($type)
     {
-        if ($type instanceof ResolvedColumnType) {
-            return $type;
-        }
-
         if (is_string($type)) {
             return $this->columnTypeFactory->getType($type);
         }
+
+        if ($type instanceof ColumnType) {
+            return $this->columnTypeFactory->resolveType($type);
+        }
+
+        if ($type instanceof ResolvedColumnType) {
+            return $type;
+        }
         
-        if (!($type instanceof ColumnType)) {
-            throw new UnexpectedTypeException('string|' . ColumnType::class . '|' . ResolvedColumnType::class, $type);
-        }
-
-        if ($parentType = $type->getParent()) {
-            $parentType = $this->resolveType($parentType);
-        }
-
-        return new ResolvedColumnType($type, [], $parentType);
+        throw new UnexpectedTypeException('string|' . ColumnType::class . '|' . ResolvedColumnType::class, $type);
     }
 }

@@ -15,11 +15,27 @@ class GridTest extends \PHPUnit_Framework_TestCase
         $type = $this->getMockBuilder(ResolvedColumnType::class)->disableOriginalConstructor()->getMock();
         $column = new ColumnDescription($type, ['option' => 'value']);
 
-        $grid = new Grid();
-        $grid->addColumn('column', $column);
+        $grid = new Grid(['column' => $column]);
 
         $this->assertTrue($grid->hasColumn('column'));
         $this->assertSame($column, $grid->getColumn('column'));
+    }
+
+    /**
+     * @expectedException Prezent\Grid\Exception\UnexpectedTypeException
+     */
+    public function testUnnamedColumn()
+    {
+        $column = $this->getMockBuilder(ColumnDescription::class)->disableOriginalConstructor()->getMock();
+        $grid = new Grid([$column]);
+    }
+
+    /**
+     * @expectedException Prezent\Grid\Exception\UnexpectedTypeException
+     */
+    public function testInvalidColumn()
+    {
+        $grid = new Grid(['column' => 'invalid']);
     }
 
     /**
@@ -47,8 +63,7 @@ class GridTest extends \PHPUnit_Framework_TestCase
 
         $column = new ColumnDescription($type, ['option' => 'value']);
 
-        $grid = new Grid();
-        $grid->addColumn('column', $column);
+        $grid = new Grid(['column' => $column]);
 
         $view = $grid->createView();
 

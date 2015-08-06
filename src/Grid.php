@@ -3,6 +3,7 @@
 namespace Prezent\Grid;
 
 use Prezent\Grid\Exception\InvalidArgumentException;
+use Prezent\Grid\Exception\UnexpectedTypeException;
 
 /**
  * Grid
@@ -17,16 +18,23 @@ class Grid
     private $columns;
 
     /**
-     * Add a column
+     * Constructor
      *
-     * @param string $name
-     * @param ColumnDescription $column
-     * @return self
+     * @param ColumnDescription[] $columns Column descriptions, indexed by column name
      */
-    public function addColumn($name, ColumnDescription $column)
+    public function __construct(array $columns = [])
     {
-        $this->columns[$name] = $column;
-        return $this;
+        foreach ($columns as $name => $column) {
+            if (!is_string($name)) {
+                throw new UnexpectedTypeException('string', $name);
+            }
+
+            if (!($column instanceof ColumnDescription)) {
+                throw new UnexpectedTypeException(ColumnDescription::class, $column);
+            }
+        }
+
+        $this->columns = $columns;
     }
 
     /**
