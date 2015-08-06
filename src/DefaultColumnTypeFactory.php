@@ -86,7 +86,7 @@ class DefaultColumnTypeFactory implements ColumnTypeFactory
         if ($parentType instanceof ColumnType) {
             $parentType = $this->resolveType($parentType);
         } elseif ($parentType !== null) {
-            $parentType = $this->getType($type);
+            $parentType = $this->getType($parentType);
         }
 
         return new ResolvedColumnType($type, $typeExtensions, $parentType);
