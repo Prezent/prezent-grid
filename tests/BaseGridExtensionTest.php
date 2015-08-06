@@ -16,9 +16,6 @@ class BaseGridExtensionTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($extension->hasColumnType('column'));
         $this->assertInstanceOf(ColumnType::class, $extension->getColumntype('column'));
 
-        $this->assertFalse($extension->hasColumnTypeExtensions('invalid'));
-        $this->assertTrue($extension->hasColumnTypeExtensions('column'));
-
         $typeExtensions = $extension->getColumnTypeExtensions('column');
 
         $this->assertCount(1, $typeExtensions);

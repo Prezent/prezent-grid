@@ -50,21 +50,13 @@ abstract class BaseGridExtension implements GridExtension
     /**
      * {@inheritDoc}
      */
-    public function hasColumnTypeExtensions($name)
+    public function getColumnTypeExtensions($name)
     {
         if (null == $this->columnTypeExtensions) {
             $this->initColumnTypeExtensions();
         }
 
-        return isset($this->columnTypeExtensions[$name]);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getColumnTypeExtensions($name)
-    {
-        if (!$this->hasColumnTypeExtensions($name)) {
+        if (!isset($this->columnTypeExtensions[$name])) {
             return [];
         }
 

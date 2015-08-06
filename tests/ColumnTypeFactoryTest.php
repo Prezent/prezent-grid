@@ -24,6 +24,7 @@ class ColumnTypeFactoryTest extends \PHPUnit_Framework_TestCase
         $extension = $this->getMockBuilder(GridExtension::class)->getMock();
         $extension->method('hasColumnType')->willReturn(true);
         $extension->method('getColumnType')->willReturn($type);
+        $extension->method('getColumnTypeExtensions')->willReturn([]);
 
         $factory = new DefaultColumnTypeFactory([$extension]);
 

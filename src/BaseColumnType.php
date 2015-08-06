@@ -22,7 +22,7 @@ abstract class BaseColumnType implements ColumnType
     /**
      * {@inheritDoc}
      */
-    public function createView(ColumnView $view, array $options)
+    public function buildView(ColumnView $view, array $options)
     {
     }
 

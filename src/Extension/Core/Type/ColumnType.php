@@ -40,7 +40,7 @@ class ColumnType extends BaseColumnType
         ]);
     }
 
-    public function createView(ColumnView $view, array $options)
+    public function buildView(ColumnView $view, array $options)
     {
         $view->vars['property_path'] = $options['property_path'] ?: $view->name;
         $view->vars['label']         = $options['label'] !== false ? $options['label'] : $view->name;

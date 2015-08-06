@@ -50,6 +50,7 @@ class DefaultColumnTypeFactory implements ColumnTypeFactory
 
         if (!isset($this->types[$name])) {
             $type = null;
+            $typeExtensions = [];
 
             foreach ($this->extensions as $extension) {
                 if ($extension->hasColumnType($name)) {
@@ -62,7 +63,11 @@ class DefaultColumnTypeFactory implements ColumnTypeFactory
                 throw new InvalidArgumentException('Could not load column type "%s"', $type);
             }
 
-            $this->types[$name] = $this->resolveType($type);
+            foreach ($this->extensions as $extension) {
+                $typeExtensions = array_merge($typeExtensions, $extension->getColumnTypeExtensions($name));
+            }
+
+            $this->types[$name] = $this->resolveType($type, $typeExtensions);
         }
 
         return $this->types[$name];
@@ -74,7 +79,7 @@ class DefaultColumnTypeFactory implements ColumnTypeFactory
      * @param ColumnType $type
      * @return ResolvedColumnType
      */
-    private function resolveType(ColumnType $type)
+    private function resolveType(ColumnType $type, array $typeExtensions = [])
     {
         $parentType = $type->getParent();
 
@@ -84,6 +89,6 @@ class DefaultColumnTypeFactory implements ColumnTypeFactory
             $parentType = $this->getType($type);
         }
 
-        return new ResolvedColumnType($type, $parentType);
+        return new ResolvedColumnType($type, $typeExtensions, $parentType);
     }
 }

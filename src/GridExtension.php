@@ -29,14 +29,6 @@ interface GridExtension
     public function getColumnType($name);
 
     /**
-     * Check if the extension has a column type extension
-     *
-     * @param string $name
-     * @return bool
-     */
-    public function hasColumnTypeExtensions($name);
-
-    /**
      * Get column type extensions for a type
      *
      * @param string $name

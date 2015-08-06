@@ -26,7 +26,7 @@ interface ColumnType
      * @param array $options
      * @return void
      */
-    public function createView(ColumnView $view, array $options);
+    public function buildView(ColumnView $view, array $options);
 
     /**
      * Get the column value for this type

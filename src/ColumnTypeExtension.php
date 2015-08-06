@@ -26,7 +26,7 @@ interface ColumnTypeExtension
      * @param array $options
      * @return void
      */
-    public function createView(ColumnView $view, array $options);
+    public function buildView(ColumnView $view, array $options);
 
     /**
      * Get the column type name of the extended type

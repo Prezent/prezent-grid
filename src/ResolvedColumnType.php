@@ -2,6 +2,7 @@
 
 namespace Prezent\Grid;
 
+use Prezent\Grid\Exception\UnexpectedTypeException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
@@ -18,6 +19,11 @@ class ResolvedColumnType
     private $innerType;
 
     /**
+     * @var array
+     */
+    private $typeExtensions = [];
+
+    /**
      * @var ResolvedColumnType
      */
     private $parent = null;
@@ -31,11 +37,19 @@ class ResolvedColumnType
      * Constructor
      *
      * @param ColumnType $innerType
+     * @param ColumnTypeExtension[] $typeExtensions
      * @param ResolvedColumnType $parent
      */
-    public function __construct(ColumnType $innerType, ResolvedColumnType $parent = null)
+    public function __construct(ColumnType $innerType, array $typeExtensions = [], ResolvedColumnType $parent = null)
     {
+        foreach ($typeExtensions as $typeExtension) {
+            if (!($typeExtension instanceof ColumnTypeExtension)) {
+                throw new UnexpectedTypeException(ColumnTypeExtension::class, $typeExtension);
+            }
+        }
+
         $this->innerType = $innerType;
+        $this->typeExtensions = $typeExtensions;
         $this->parent = $parent;
     }
 
@@ -51,13 +65,29 @@ class ResolvedColumnType
         $view = new ColumnView($name);
         $options = $this->getOptionsResolver()->resolve($options);
 
-        if ($this->parent) {
-            $this->parent->createView($view, $options);
-        }
-
-        $this->innerType->createView($view, $options);
+        $this->buildView($view, $options);
 
         return $view;
+    }
+
+    /**
+     * Build the view for the column
+     *
+     * @param ColumnView $view
+     * @param mixed $options
+     * @return void
+     */
+    public function buildView(ColumnView $view, array $options = [])
+    {
+        if ($this->parent) {
+            $this->parent->buildView($view, $options);
+        }
+
+        $this->innerType->buildView($view, $options);
+
+        foreach ($this->typeExtensions as $typeExtension) {
+            $typeExtension->buildView($view, $options);
+        }
     }
 
     /**
@@ -75,8 +105,12 @@ class ResolvedColumnType
             }
 
             $this->innerType->configureOptions($this->optionsResolver);
+
+            foreach ($this->typeExtensions as $typeExtension) {
+                $typeExtension->configureOptions($this->optionsResolver);
+            }
         }
 
-        return $this->optionsResolver();
+        return $this->optionsResolver;
     }
 }
