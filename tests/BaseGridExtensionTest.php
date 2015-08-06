@@ -8,6 +8,15 @@ use Prezent\Grid\ColumnTypeExtension;
 
 class BaseGridExtensionTest extends \PHPUnit_Framework_TestCase
 {
+    public function testDefault()
+    {
+        $gridExtension = $this->getMockBuilder(BaseGridExtension::class)
+            ->getMockForAbstractClass();
+
+        $this->assertFalse($gridExtension->hasColumnType('column'));
+        $this->assertCount(0, $gridExtension->getColumnTypeExtensions('column'));
+    }
+
     public function testLoad()
     {
         $extension = $this->createExtension();
