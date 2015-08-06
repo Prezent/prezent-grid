@@ -1,0 +1,44 @@
+{%- block grid -%}
+    <table>
+        <thead>
+            {{- block('grid_header_row') -}}
+        </thead>
+        <tbody>
+            {% for item in data %}
+                {{- block('grid_row') -}}
+            {% endfor %}
+        </tbody>
+    </table>
+{%- endblock grid -%}
+
+{%- block grid_header_row -%}
+    <tr>
+        {% for column in grid %}
+            {{- block('grid_header_column') -}}
+        {% endfor %}
+    </tr>
+{%- endblock grid_header_row -%}
+
+{%- block grid_header_column -%}
+    <th>{{ block('grid_header_widget') }}</th>
+{%- endblock -%}
+
+{%- block grid_row -%}
+    <tr>
+        {% for column in grid %}
+            {{- block('grid_column') -}}
+        {% endfor %}
+    </tr>
+{%- endblock grid_row -%}
+
+{%- block grid_column -%}
+    <td>{{ block('grid_widget') }}</td>
+{%- endblock -%}
+
+{%- block grid_header_widget -%}
+    {{ column.label|trans({}, column.translation_domain) }}
+{%- endblock -%}
+
+{%- block grid_widget -%}
+    {{ item[column.name] }}
+{%- endblock -%}
