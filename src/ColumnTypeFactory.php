@@ -22,4 +22,12 @@ interface ColumnTypeFactory
      * @throws InvalidArgumentException if the type cannot be found
      */
     public function getType($name);
+
+    /**
+     * Resolve a column type
+     *
+     * @param ColumnType $type
+     * @return ResolvedColumnType
+     */
+    public function resolveType(ColumnType $type);
 }

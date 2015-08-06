@@ -4,6 +4,7 @@ namespace Prezent\Tests\Grid;
 
 use Prezent\Grid\BaseGridExtension;
 use Prezent\Grid\ColumnType;
+use Prezent\Grid\ColumnTypeExtension;
 use Prezent\Grid\DefaultColumnTypeFactory;
 use Prezent\Grid\ResolvedColumnType;
 
@@ -20,7 +21,7 @@ class ColumnTypeFactoryTest extends \PHPUnit_Framework_TestCase
     public function testGetType()
     {
         $type = $this->getMockBuilder(ColumnType::class)->getMock();
-        $type->expects($this->once())->method('getName')->willReturn('string');
+        $type->expects($this->atLeastOnce())->method('getName')->willReturn('string');
 
         $extension = $this->createExtension([$type]);
         $factory = new DefaultColumnTypeFactory([$extension]);
@@ -28,14 +29,14 @@ class ColumnTypeFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf(ResolvedColumnType::class, $factory->getType('string'));
     }
 
-    public function testGetParentTypeString()
+    public function testGetTypeWithStringParent()
     {
         $type = $this->getMockBuilder(ColumnType::class)->getMock();
-        $type->expects($this->once())->method('getName')->willReturn('string');
-        $type->expects($this->once())->method('getParent')->willReturn('parent');
+        $type->expects($this->atLeastOnce())->method('getName')->willReturn('string');
+        $type->expects($this->atLeastOnce())->method('getParent')->willReturn('parent');
 
         $parent = $this->getMockBuilder(ColumnType::class)->getMock();
-        $parent->expects($this->once())->method('getName')->willReturn('parent');
+        $parent->expects($this->atLeastOnce())->method('getName')->willReturn('parent');
 
         $extension = $this->createExtension([$type, $parent]);
         $factory = new DefaultColumnTypeFactory([$extension]);
@@ -43,18 +44,72 @@ class ColumnTypeFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf(ResolvedColumnType::class, $factory->getType('string'));
     }
 
-    public function testGetParentTypeObject()
+    public function testGetTypeWithObjectParent()
     {
         $parent = $this->getMockBuilder(ColumnType::class)->getMock();
 
         $type = $this->getMockBuilder(ColumnType::class)->getMock();
-        $type->expects($this->once())->method('getName')->willReturn('string');
-        $type->expects($this->once())->method('getParent')->willReturn($parent);
+        $type->expects($this->atLeastOnce())->method('getName')->willReturn('string');
+        $type->expects($this->atLeastOnce())->method('getParent')->willReturn($parent);
 
         $extension = $this->createExtension([$type]);
         $factory = new DefaultColumnTypeFactory([$extension]);
 
         $this->assertInstanceOf(ResolvedColumnType::class, $factory->getType('string'));
+    }
+
+    public function testGetTypeWithExtension()
+    {
+        $type = $this->getMockBuilder(ColumnType::class)->getMock();
+        $type->expects($this->atLeastOnce())->method('getName')->willReturn('string');
+
+        $typeExtension = $this->getMockBuilder(ColumnTypeExtension::class)->getMock();
+        $typeExtension->expects($this->atLeastOnce())->method('getExtendedType')->willReturn('string');
+
+        $extension = $this->createExtension([$type], [$typeExtension]);
+        $factory = new DefaultColumnTypeFactory([$extension]);
+
+        $this->assertInstanceOf(ResolvedColumnType::class, $factory->getType('string'));
+    }
+
+    public function testResolveUnregisteredType()
+    {
+        $extension = $this->createExtension();
+        $factory = new DefaultColumnTypeFactory([$extension]);
+
+        $type = $this->getMockBuilder(ColumnType::class)->getMock();
+        $type->expects($this->atLeastOnce())->method('getName')->willReturn('string');
+
+        $this->assertInstanceOf(ResolvedColumnType::class, $factory->resolveType($type));
+    }
+
+    public function testResolveUnregisteredTypeWithParent()
+    {
+        $parent = $this->getMockBuilder(ColumnType::class)->getMock();
+        $parent->expects($this->atLeastOnce())->method('getName')->willReturn('parent');
+
+        $extension = $this->createExtension([$parent]);
+        $factory = new DefaultColumnTypeFactory([$extension]);
+
+        $type = $this->getMockBuilder(ColumnType::class)->getMock();
+        $type->expects($this->atLeastOnce())->method('getName')->willReturn('string');
+        $type->expects($this->atLeastOnce())->method('getParent')->willReturn('parent');
+
+        $this->assertInstanceOf(ResolvedColumnType::class, $factory->resolveType($type));
+    }
+
+    public function testResolveUnregisteredTypeWithExtension()
+    {
+        $typeExtension = $this->getMockBuilder(ColumnTypeExtension::class)->getMock();
+        $typeExtension->expects($this->atLeastOnce())->method('getExtendedType')->willReturn('string');
+
+        $extension = $this->createExtension([], [$typeExtension]);
+        $factory = new DefaultColumnTypeFactory([$extension]);
+
+        $type = $this->getMockBuilder(ColumnType::class)->getMock();
+        $type->expects($this->atLeastOnce())->method('getName')->willReturn('string');
+
+        $this->assertInstanceOf(ResolvedColumnType::class, $factory->resolveType($type));
     }
 
     /**

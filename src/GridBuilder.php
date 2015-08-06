@@ -2,6 +2,8 @@
 
 namespace Prezent\Grid;
 
+use Prezent\Grid\Exception\UnexpectedTypeException;
+
 /**
  * Grid builder
  *
@@ -113,19 +115,22 @@ class GridBuilder
      */
     private function resolveType($type)
     {
-        if ($type instanceof ColumnType) {
-            $type = $this->resolveType($type);
-        } elseif (is_string($type)) {
-            $type = $this->columnTypeFactory->getType($type);
-        } elseif (!($type instanceof ResolvedColumnType)) {
-            // TODO: proper exception
-            throw new \Exception('todo');
+        if ($type instanceof ResolvedColumnType) {
+            return $type;
+        }
+
+        if (is_string($type)) {
+            return $this->columnTypeFactory->getType($type);
+        }
+        
+        if (!($type instanceof ColumnType)) {
+            throw new UnexpectedTypeException('string|' . ColumnType::class . '|' . ResolvedColumnType::class, $type);
         }
 
         if ($parentType = $type->getParent()) {
             $parentType = $this->resolveType($parentType);
         }
 
-        return new ResolvedColumnType($type, $parentType);
+        return new ResolvedColumnType($type, [], $parentType);
     }
 }

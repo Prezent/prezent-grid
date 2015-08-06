@@ -37,10 +37,7 @@ class DefaultColumnTypeFactory implements ColumnTypeFactory
     }
 
     /**
-     * Get a type from the registry
-     *
-     * @param string $name
-     * @return ResolvedColumnType
+     * {@inheritDoc}
      */
     public function getType($name)
     {
@@ -60,28 +57,27 @@ class DefaultColumnTypeFactory implements ColumnTypeFactory
             }
 
             if (!$type) {
-                throw new InvalidArgumentException('Could not load column type "%s"', $type);
+                throw new InvalidArgumentException(sprintf('Could not load column type "%s"', $name));
             }
 
-            foreach ($this->extensions as $extension) {
-                $typeExtensions = array_merge($typeExtensions, $extension->getColumnTypeExtensions($name));
-            }
-
-            $this->types[$name] = $this->resolveType($type, $typeExtensions);
+            $this->types[$name] = $this->resolveType($type);
         }
 
         return $this->types[$name];
     }
 
     /**
-     * Resolve a column type
-     *
-     * @param ColumnType $type
-     * @return ResolvedColumnType
+     * {@inheritDoc}
      */
-    private function resolveType(ColumnType $type, array $typeExtensions = [])
+    public function resolveType(ColumnType $type)
     {
+        $name = $type->getName();
+        $typeExtensions = [];
         $parentType = $type->getParent();
+
+        foreach ($this->extensions as $extension) {
+            $typeExtensions = array_merge($typeExtensions, $extension->getColumnTypeExtensions($name));
+        }
 
         if ($parentType instanceof ColumnType) {
             $parentType = $this->resolveType($parentType);
