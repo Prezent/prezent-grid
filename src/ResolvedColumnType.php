@@ -62,7 +62,7 @@ class ResolvedColumnType
      */
     public function createView($name, array $options = [])
     {
-        $view = new ColumnView($name, $this->innerType);
+        $view = new ColumnView($name, $this);
         $options = $this->getOptionsResolver()->resolve($options);
 
         $this->buildView($view, $options);
@@ -88,6 +88,24 @@ class ResolvedColumnType
         foreach ($this->typeExtensions as $typeExtension) {
             $typeExtension->buildView($view, $options);
         }
+    }
+
+    /**
+     * Get the column value from an item
+     *
+     * @param ColumnView $view
+     * @param mixed $item
+     * @return mixed
+     */
+    public function getValue(ColumnView $view, $item)
+    {
+        $value = null;
+
+        if ($this->parent) {
+            $value = $this->parent->getValue($view, $item, $value);
+        }
+
+        return $this->innerType->getValue($view, $item, $value);
     }
 
     /**

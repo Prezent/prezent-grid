@@ -41,13 +41,19 @@ class ColumnType extends BaseColumnType
         ]);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function buildView(ColumnView $view, array $options)
     {
         $view->vars['property_path'] = $options['property_path'] ?: $view->name;
         $view->vars['label']         = $options['label'] === null ? $view->name : $options['label'];
     }
 
-    public function getValue(ColumnView $view, $item)
+    /**
+     * {@inheritDoc}
+     */
+    public function getValue(ColumnView $view, $item, $value)
     {
         return (string) $this->accessor->getValue($item, $view->vars['property_path']);
     }

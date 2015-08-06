@@ -29,7 +29,7 @@ abstract class BaseColumnType implements ColumnType
     /**
      * {@inheritDoc}
      */
-    public function getValue(ColumnView $view, $item)
+    public function getValue(ColumnView $view, $item, $value)
     {
     }
 

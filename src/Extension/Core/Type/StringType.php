@@ -3,7 +3,6 @@
 namespace Prezent\Grid\Extension\Core\Type;
 
 use Prezent\Grid\BaseColumnType;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
  * StringType

@@ -32,10 +32,11 @@ interface ColumnType
      * Get the column value for this type
      *
      * @param ColumnView $view
-     * @param mixed $item
+     * @param mixed $item Row item
+     * @param mixed $value Value returned by the parent type
      * @return void
      */
-    public function getValue(ColumnView $view, $item);
+    public function getValue(ColumnView $view, $item, $value);
 
     /**
      * Get the column type name

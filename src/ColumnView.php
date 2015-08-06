@@ -30,7 +30,7 @@ class ColumnView
      *
      * @param string $name Column name
      */
-    public function __construct($name, ColumnType $type)
+    public function __construct($name, ResolvedColumnType $type)
     {
         $this->name = $name;
         $this->type = $type;

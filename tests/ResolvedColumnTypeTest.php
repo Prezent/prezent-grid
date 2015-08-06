@@ -72,6 +72,29 @@ class ResolvedColumnTypeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($options, $view->vars);
     }
 
+    public function testGetValue()
+    {
+        $parentType = $this->createType(ColumnType::class, ['parent']);
+        $parentType->expects($this->once())
+            ->method('getValue')
+            ->willReturn('value');
+
+        $parent = new ResolvedColumnType($parentType);
+
+        $type = $this->createType(ColumnType::class, ['option']);
+        $type->expects($this->once())
+            ->method('getValue')
+            ->with($this->isInstanceOf(ColumnView::class), $this->anything(), $this->equalTo('value'))
+            ->willReturn('value-added');
+
+        $resolvedType = new ResolvedColumnType($type, [], $parent);
+
+        $options = ['option' => 'value', 'parent' => 'parent'];
+        $view = $resolvedType->createView('column', $options);
+
+        $this->assertEquals('value-added', $resolvedType->getValue($view, []));
+    }
+
     private function createType($class, array $required = [])
     {
         $type = $this->getMock($class);

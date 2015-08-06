@@ -54,9 +54,10 @@ class GridTest extends \PHPUnit_Framework_TestCase
     {
         $options = ['option' => 'value'];
 
-        $columnView = new ColumnView('column', $this->getMock(ColumnType::class));
-
         $type = $this->getMockBuilder(ResolvedColumnType::class)->disableOriginalConstructor()->getMock();
+
+        $columnView = new ColumnView('column', $type);
+
         $type->expects($this->once())
              ->method('createView')
              ->with('column', $options)
