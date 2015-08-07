@@ -67,12 +67,4 @@ class DateTimeType extends BaseColumnType
     {
         return 'datetime';
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getParent()
-    {
-        return 'column';
-    }
 }

@@ -31,19 +31,19 @@ abstract class BaseColumnType implements ColumnType
      */
     public function getValue(ColumnView $view, $item, $value)
     {
+        return $value;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getName()
-    {
-    }
+    abstract public function getName();
 
     /**
      * {@inheritDoc}
      */
     public function getParent()
     {
+        return 'column';
     }
 }

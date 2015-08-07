@@ -65,4 +65,11 @@ class ColumnType extends BaseColumnType
     {
         return 'column';
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getParent()
+    {
+    }
 }

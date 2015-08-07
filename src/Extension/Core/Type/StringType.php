@@ -19,12 +19,4 @@ class StringType extends BaseColumnType
     {
         return 'string';
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getParent()
-    {
-        return 'column';
-    }
 }
