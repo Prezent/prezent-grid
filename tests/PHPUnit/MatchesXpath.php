@@ -1,6 +1,6 @@
 <?php
 
-namespace Prezent\Tests\PHPUnit;
+namespace Prezent\Grid\Tests\PHPUnit;
 
 class MatchesXpath extends \PHPUnit_Framework_Constraint
 {

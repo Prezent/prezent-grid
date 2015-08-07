@@ -3,9 +3,9 @@
 namespace Prezent\Tests\Grid\Twig;
 
 use Prezent\Grid\Grid;
+use Prezent\Grid\Tests\PHPUnit\MatchesXpath;
 use Prezent\Grid\Twig\GridExtension;
 use Prezent\Grid\Twig\GridRenderer;
-use Prezent\Tests\PHPUnit\MatchesXpath;
 use Symfony\Bridge\Twig\Extension\TranslationExtension;
 use Symfony\Bridge\Twig\Tests\Extension\Fixtures\StubTranslator;
 

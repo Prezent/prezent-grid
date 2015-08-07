@@ -2,16 +2,8 @@
 
 namespace Prezent\Grid\Tests\Extension\Core\Type;
 
-use Prezent\Grid\DefaultColumnTypeFactory;
-use Prezent\Grid\DefaultGridFactory;
-use Prezent\Grid\Extension\Core\CoreExtension;
-use Symfony\Component\PropertyAccess\PropertyAccess;
-
-class ColumnTypeTest extends \PHPUnit_Framework_TestCase
+class ColumnTypeTest extends TypeTest
 {
-    private $columnTypeFactory;
-    private $gridFactory;
-
     public function testDefaultsFromName()
     {
         $grid = $this->gridFactory->createBuilder()
@@ -50,14 +42,5 @@ class ColumnTypeTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals('col1', $view['one']->getValue($data));
         $this->assertEquals('col2', $view['two']->getValue($data));
-    }
-
-    public function setUp()
-    {
-        $this->columnTypeFactory = new DefaultColumnTypeFactory([
-            new CoreExtension(PropertyAccess::createPropertyAccessor()),
-        ]);
-
-        $this->gridFactory = new DefaultGridFactory($this->columnTypeFactory);
     }
 }
