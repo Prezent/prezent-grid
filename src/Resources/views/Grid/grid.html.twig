@@ -1,11 +1,11 @@
 {%- block grid -%}
     <table>
         <thead>
-            {{- block('grid_header_row') -}}
+            {{- grid_header_row(grid) -}}
         </thead>
         <tbody>
             {% for item in data %}
-                {{- block('grid_row') -}}
+                {{- grid_row(grid, item) -}}
             {% endfor %}
         </tbody>
     </table>
@@ -14,19 +14,19 @@
 {%- block grid_header_row -%}
     <tr>
         {% for column in grid %}
-            {{- block('grid_header_column') -}}
+            {{- grid_header_column(column) -}}
         {% endfor %}
     </tr>
 {%- endblock grid_header_row -%}
 
 {%- block grid_header_column -%}
-    <th>{{ block('grid_header_widget') }}</th>
+    <th>{{ grid_header_widget(column) }}</th>
 {%- endblock -%}
 
 {%- block grid_row -%}
     <tr>
         {% for column in grid %}
-            {{- block('grid_column') -}}
+            {{- grid_column(column, data) -}}
         {% endfor %}
     </tr>
 {%- endblock grid_row -%}
@@ -36,9 +36,9 @@
 {%- endblock -%}
 
 {%- block grid_header_widget -%}
-    {{ column.label|trans({}, column.translation_domain) }}
+    {{ column.vars.label|trans({}, column.vars.translation_domain) }}
 {%- endblock -%}
 
 {%- block grid_widget -%}
-    {{ item[column.name] }}
+    {{ column.getValue(item) }}
 {%- endblock -%}

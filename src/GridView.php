@@ -22,7 +22,7 @@ class GridView implements \ArrayAccess, \IteratorAggregate, \Countable
      *
      * @param array $columns
      */
-    public function __construct(array $columns)
+    public function __construct(array $columns = [])
     {
         $this->columns = $columns;
     }

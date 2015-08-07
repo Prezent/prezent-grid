@@ -2,7 +2,9 @@
 
 namespace Prezent\Grid\Twig;
 
-use Prezent\Grid\Grid;
+use Prezent\Grid\ColumnView;
+use Prezent\Grid\Exception\UnexpectedTypeException;
+use Prezent\Grid\GridView;
 
 /**
  * Grid renderer
@@ -50,12 +52,21 @@ class GridRenderer
      * Render a block
      *
      * @param string $name
-     * @param Grid $grid
-     * @param mixed $data
+     * @param GridView|ColumnView $view
+     * @param mixed $item
+     * @param array $variables
      * @return string
      */
-    public function renderBlock($name, Grid $grid, $data)
+    public function renderBlock($name, $view, $item = null, array $variables = [])
     {
-        return $this->theme->renderBlock($name, ['grid' => $grid, 'data' => $data]);
+        if ($view instanceof GridView) {
+            $variables = array_merge(['grid' => $view, 'data' => $item], $variables);
+        } elseif ($view instanceof ColumnView) {
+            $variables = array_merge(['column' => $view, 'item' => $item], $view->vars, $variables);
+        } else {
+            throw new UnexpectedTypeException(GridView::class . '|' . ColumnView::class, $view);
+        }
+
+        return $this->theme->renderBlock($name, $variables);
     }
 }

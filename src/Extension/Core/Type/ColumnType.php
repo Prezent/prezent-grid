@@ -36,8 +36,9 @@ class ColumnType extends BaseColumnType
     public function configureOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults([
-            'property_path' => null,
-            'label'         => null,
+            'property_path'      => null,
+            'label'              => null,
+            'translation_domain' => null,
         ]);
     }
 
@@ -46,8 +47,9 @@ class ColumnType extends BaseColumnType
      */
     public function buildView(ColumnView $view, array $options)
     {
-        $view->vars['property_path'] = $options['property_path'] ?: $view->name;
-        $view->vars['label']         = $options['label'] === null ? $view->name : $options['label'];
+        $view->vars['property_path']      = $options['property_path'] ?: $view->name;
+        $view->vars['label']              = $options['label'] === null ? $view->name : $options['label'];
+        $view->vars['translation_domain'] = $options['translation_domain'];
     }
 
     /**

@@ -2,6 +2,9 @@
 
 namespace Prezent\Grid\Twig;
 
+use Prezent\Grid\Twig\Node\RenderBlockNode;
+use Prezent\Grid\Twig\Node\RenderItemBlockNode;
+
 /**
  * Extend twig with grid functions
  *
@@ -39,7 +42,12 @@ class GridExtension extends \Twig_Extension
     public function getFunctions()
     {
         return [
-            new \Twig_SimpleFunction('grid', null, ['node_class' => RenderBlockNode::class, 'is_safe' => ['html']]),
+            new \Twig_SimpleFunction('grid', null, ['node_class' => RenderItemBlockNode::class, 'is_safe' => ['html']]),
+            new \Twig_SimpleFunction('grid_header_row', null, ['node_class' => RenderBlockNode::class, 'is_safe' => ['html']]),
+            new \Twig_SimpleFunction('grid_header_column', null, ['node_class' => RenderBlockNode::class, 'is_safe' => ['html']]),
+            new \Twig_SimpleFunction('grid_header_widget', null, ['node_class' => RenderBlockNode::class, 'is_safe' => ['html']]),
+            new \Twig_SimpleFunction('grid_row', null, ['node_class' => RenderItemBlockNode::class, 'is_safe' => ['html']]),
+            new \Twig_SimpleFunction('grid_column', null, ['node_class' => RenderItemBlockNode::class, 'is_safe' => ['html']]),
         ];
     }
 

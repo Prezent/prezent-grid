@@ -1,0 +1,33 @@
+{{ grid(grid, data, vars) }}
+
+<table>
+    <thead>
+        {{ grid_header_row(grid, vars) }}
+    </thead>
+    <tbody>
+        {% for item in data %}
+            {{ grid_row(grid, item, vars) }}
+        {% endfor %}
+    </tbody>
+</table>
+
+<table>
+    <thead>
+        <tr>
+            {% for column in grid %}
+                {{ grid_header_column(column, vars) }}
+                <th>{{ grid_header_widget(column, vars) }}</th>
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in data %}
+            <tr>
+                {% for column in grid %}
+                    {{ grid_column(column, item, vars) }}
+                    <td>{{ grid_column_widget(column, item, vars) }}</td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
