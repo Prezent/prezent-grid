@@ -55,7 +55,7 @@ class ColumnType extends BaseColumnType
      */
     public function getValue(ColumnView $view, $item, $value)
     {
-        return (string) $this->accessor->getValue($item, $view->vars['property_path']);
+        return $this->accessor->getValue($item, $view->vars['property_path']);
     }
 
     /**
