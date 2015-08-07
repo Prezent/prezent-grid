@@ -35,6 +35,7 @@ class CoreExtension extends BaseGridExtension
     {
         return [
             new Type\ColumnType($this->accessor),
+            new Type\DateTimeType(),
             new Type\StringType(),
         ];
     }

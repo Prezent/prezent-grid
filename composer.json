@@ -2,6 +2,8 @@
     "name": "prezent/grid",
     "description": "Generic data grids",
     "require": {
+        "php": "~5.5",
+        "ext-intl": "*",
         "symfony/options-resolver": "~2.3",
         "symfony/property-access": "~2.3",
         "twig/twig": "~1.18"
