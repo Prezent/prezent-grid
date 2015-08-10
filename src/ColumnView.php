@@ -18,10 +18,10 @@ class ColumnView
     /**
      * @var array
      */
-    public $vars;
+    public $vars = [];
 
     /**
-     * @var ColumnType
+     * @var ResolvedColumnType
      */
     private $type;
 
@@ -45,5 +45,15 @@ class ColumnView
     public function getValue($item)
     {
         return $this->type->getValue($this, $item);
+    }
+
+    /**
+     * Get the column type
+     *
+     * @return ResolvedColumnType
+     */
+    public function getType()
+    {
+        return $this->type;
     }
 }

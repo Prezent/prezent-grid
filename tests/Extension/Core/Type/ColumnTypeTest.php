@@ -43,4 +43,15 @@ class ColumnTypeTest extends TypeTest
         $this->assertEquals('col1', $view['one']->getValue($data));
         $this->assertEquals('col2', $view['two']->getValue($data));
     }
+
+    public function testBlockTypes()
+    {
+        $grid = $this->gridFactory->createBuilder()
+            ->add('foo', 'string')
+            ->getGrid();
+
+        $view = $grid->createView();
+
+        $this->assertEquals(['string', 'column'], $view['foo']->vars['block_types']);
+    }
 }

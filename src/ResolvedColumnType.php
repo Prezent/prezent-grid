@@ -54,6 +54,26 @@ class ResolvedColumnType
     }
 
     /**
+     * Get the type name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->innerType->getName();
+    }
+
+    /**
+     * Get the parent type
+     *
+     * @return ResolvedFormType
+     */
+    public function getParent()
+    {
+        return $this->parent;
+    }
+
+    /**
      * Create the view for the column
      *
      * @param string $name

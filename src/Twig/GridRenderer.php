@@ -67,6 +67,20 @@ class GridRenderer
             throw new UnexpectedTypeException(GridView::class . '|' . ColumnView::class, $view);
         }
 
+        $blockSuffix = strrchr($name, '_');
+        $blockPrefix = strlen($blockSuffix) ? substr($name, 0, -strlen($blockSuffix)) : $name;
+
+        if ('_widget' == $blockSuffix && $view instanceof ColumnView) {
+            foreach ($view->vars['block_types'] as $blockType) {
+                $blockName = $blockPrefix . '_' . $blockType . $blockSuffix;
+
+                if ($this->theme->hasBlock($blockType . '_widget')) {
+                    $name = $blockName;
+                    break;
+                }
+            }
+        }
+
         return $this->theme->renderBlock($name, $variables);
     }
 }
