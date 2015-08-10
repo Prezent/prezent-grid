@@ -1,6 +1,7 @@
 {
     "name": "prezent/grid",
     "description": "Generic data grids",
+    "keywords": ["grid", "datagrid", "list"],
     "require": {
         "php": "~5.5",
         "ext-intl": "*",
