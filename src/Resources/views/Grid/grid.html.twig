@@ -42,3 +42,7 @@
 {%- block grid_widget -%}
     {{ column.getValue(item) }}
 {%- endblock -%}
+
+{%- block grid_boolean_widget -%}
+    {{ column.getValue(item)|trans({}, 'PrezentGrid') }}
+{%- endblock -%}
