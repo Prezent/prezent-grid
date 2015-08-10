@@ -32,11 +32,11 @@
 {%- endblock grid_row -%}
 
 {%- block grid_column -%}
-    <td>{{ block('grid_widget') }}</td>
+    <td>{{ grid_widget(column, item) }}</td>
 {%- endblock -%}
 
 {%- block grid_header_widget -%}
-    {{ column.vars.label|trans({}, column.vars.translation_domain) }}
+    {{ label|trans({}, translation_domain) }}
 {%- endblock -%}
 
 {%- block grid_widget -%}

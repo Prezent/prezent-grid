@@ -30,6 +30,12 @@ class GridExtensionLayoutTest extends \PHPUnit_Framework_TestCase
         $this->assertMatchesXpath('/tr/th', $output);
     }
 
+    public function testRenderGridWidget()
+    {
+        $output = $this->twig->renderer->renderBlock('grid_widget', $this->view['foo'], ['foo' => 'bar']);
+        $this->assertMatchesXpath('[contains(., "bar")]', $output);
+    }
+
     public function testRenderGridColumn()
     {
         $output = $this->twig->renderer->renderBlock('grid_column', $this->view['foo'], ['foo' => 'bar']);

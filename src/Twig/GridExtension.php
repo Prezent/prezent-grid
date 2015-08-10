@@ -48,6 +48,7 @@ class GridExtension extends \Twig_Extension
             new \Twig_SimpleFunction('grid_header_widget', null, ['node_class' => RenderBlockNode::class, 'is_safe' => ['html']]),
             new \Twig_SimpleFunction('grid_row', null, ['node_class' => RenderItemBlockNode::class, 'is_safe' => ['html']]),
             new \Twig_SimpleFunction('grid_column', null, ['node_class' => RenderItemBlockNode::class, 'is_safe' => ['html']]),
+            new \Twig_SimpleFunction('grid_widget', null, ['node_class' => RenderItemBlockNode::class, 'is_safe' => ['html']]),
         ];
     }
 
