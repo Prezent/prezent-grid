@@ -8,10 +8,6 @@
         "symfony/property-access": "~2.3",
         "twig/twig": "~1.18"
     },
-    "require-dev": {
-        "symfony/translation": "~2.3",
-        "symfony/twig-bridge": "~2.3"
-    },
     "license": "MIT",
     "authors": [
         {

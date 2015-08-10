@@ -43,6 +43,10 @@ class GridRenderer
     {
         $this->environment = $environment;
 
+        if (!$this->theme) {
+            $this->theme = dirname(__DIR__) . '/Resources/views/Grid/grid.html.twig';
+        }
+
         if (!($this->theme instanceof \Twig_Template)) {
             $this->theme = $this->environment->loadTemplate($this->theme);
         }

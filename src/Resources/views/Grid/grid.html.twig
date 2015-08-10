@@ -36,13 +36,13 @@
 {%- endblock -%}
 
 {%- block grid_header_widget -%}
-    {{ label|trans({}, label_translation_domain) }}
+    {{- block('grid_header_label') -}}
 {%- endblock -%}
+
+{% block grid_header_label %}
+    {{ label }}
+{% endblock %}
 
 {%- block grid_widget -%}
     {{ column.getValue(item) }}
-{%- endblock -%}
-
-{%- block grid_boolean_widget -%}
-    {{ column.getValue(item)|trans({}, 'PrezentGrid') }}
 {%- endblock -%}

@@ -5,8 +5,6 @@ namespace Prezent\Grid\Tests\PHPUnit;
 use Prezent\Grid\Tests\PHPUnit\MatchesXpath;
 use Prezent\Grid\Twig\GridExtension;
 use Prezent\Grid\Twig\GridRenderer;
-use Symfony\Bridge\Twig\Extension\TranslationExtension;
-use Symfony\Bridge\Twig\Tests\Extension\Fixtures\StubTranslator;
 
 trait TwigProvider
 {
@@ -19,7 +17,6 @@ trait TwigProvider
         $loader = new \Twig_Loader_Filesystem(__DIR__ . '/../../src/Resources/views/Grid');
         
         $environment = new \Twig_Environment($loader, array('strict_variables' => true));
-        $environment->addExtension(new TranslationExtension(new StubTranslator()));
         $environment->addExtension($this->twig);
 
         $this->twig->initRuntime($environment);
