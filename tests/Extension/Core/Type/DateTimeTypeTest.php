@@ -20,6 +20,21 @@ class DateTimeTypeTest extends TypeTest
         $this->assertEquals($expected, $view['date']->getValue($data));
     }
 
+    /**
+     * @expectedException Prezent\Grid\Exception\UnexpectedTypeException
+     */
+    public function testNotDateTime()
+    {
+        $data = (object)['date' => '2000-01-01'];
+
+        $grid = $this->gridFactory->createBuilder()
+            ->add('date', 'datetime')
+            ->getGrid();
+
+        $view = $grid->createView();
+        $view['date']->getValue($data);
+    }
+
     public function optionsProvider()
     {
         return [
