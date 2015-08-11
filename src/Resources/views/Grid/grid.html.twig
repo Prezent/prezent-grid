@@ -44,5 +44,9 @@
 {% endblock %}
 
 {%- block grid_widget -%}
-    {{ column.getValue(item) }}
+    {% if url is defined %}
+        <a href="{{ url }}">{{ column.getValue(item) }}</a>
+    {% else %}
+        {{ column.getValue(item) }}
+    {% endif %}
 {%- endblock -%}
