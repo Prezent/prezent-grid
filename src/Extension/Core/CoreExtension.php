@@ -3,6 +3,7 @@
 namespace Prezent\Grid\Extension\Core;
 
 use Prezent\Grid\BaseGridExtension;
+use Prezent\Grid\VariableResolver;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 
 /**
@@ -19,13 +20,20 @@ class CoreExtension extends BaseGridExtension
     private $accessor;
 
     /**
+     * @var VariableResolver
+     */
+    private $resolver;
+
+    /**
      * Constructor
      *
      * @param PropertyAccessorInterface $accessor
+     * @param VariableResolver $resolver
      */
-    public function __construct(PropertyAccessorInterface $accessor)
+    public function __construct(PropertyAccessorInterface $accessor, VariableResolver $resolver)
     {
         $this->accessor = $accessor;
+        $this->resolver = $resolver;
     }
 
     /**
@@ -46,6 +54,8 @@ class CoreExtension extends BaseGridExtension
      */
     protected function loadColumnTypeExtensions()
     {
-        return [];
+        return [
+            new Type\UrlTypeExtension($this->resolver),
+        ];
     }
 }
