@@ -24,6 +24,11 @@ class GridRenderer
     private $theme;
 
     /**
+     * @var \SlpObjectStorage Variable stacks, indexed by [view][item]
+     */
+    private $variableStack;
+
+    /**
      * Constructor
      *
      * @param mixed $theme
@@ -31,6 +36,7 @@ class GridRenderer
     public function __construct($theme)
     {
         $this->theme = $theme;
+        $this->variableStack = new \SplObjectStorage();
     }
 
     /**
@@ -63,28 +69,105 @@ class GridRenderer
      */
     public function renderBlock($name, $view, $item = null, array $variables = [])
     {
-        if ($view instanceof GridView) {
-            $variables = array_merge(['grid' => $view, 'data' => $item], $variables);
-        } elseif ($view instanceof ColumnView) {
-            $variables = array_merge(['column' => $view, 'item' => $item], $view->vars, $variables);
-        } else {
-            throw new UnexpectedTypeException(GridView::class . '|' . ColumnView::class, $view);
-        }
+        // Environment stacking
+        //
+        // Every nested call to renderBlock adds the variables to the
+        // twig rendering environment for that block
+        $variableStack = $this->getVariableStack($view, $item);
+        $variables = array_merge($variableStack->top(), $variables);
+        $variableStack->push($variables);
 
+        // Widget inheritance
+        //
+        // Widgets blocks can be overridden on a per-type basis. If a block for a subtype exists
+        // then that block will be rendered, else it's parent block type and so forth. Block names
+        // are in the format `grid_[type]_widget`. Example:
+        //
+        // 1) grid_string_widget
+        // 2) grid_column_widget
+        // 3) grid_widget
+        //
+        // or
+        //
+        // 1) grid_header_datetime_widget
+        // 2) grid_header_column_widget
+        // 3) grid_header_widget
+        //
+        // This only applies for column types that extend `column`.
         $blockSuffix = strrchr($name, '_');
         $blockPrefix = strlen($blockSuffix) ? substr($name, 0, -strlen($blockSuffix)) : $name;
 
-        if ('_widget' == $blockSuffix && $view instanceof ColumnView) {
+        if ('_widget' == $blockSuffix && $view instanceof ColumnView && isset($view->vars['block_types'])) {
             foreach ($view->vars['block_types'] as $blockType) {
                 $blockName = $blockPrefix . '_' . $blockType . $blockSuffix;
 
-                if ($this->theme->hasBlock($blockType . '_widget')) {
+                if ($this->theme->hasBlock($blockName)) {
                     $name = $blockName;
                     break;
                 }
             }
         }
 
-        return $this->theme->renderBlock($name, $variables);
+        // Render the block
+        $output = $this->theme->renderBlock($name, $variables);
+        $variableStack->pop();
+
+        return $output;
+    }
+
+    /**
+     * Get a variableStack
+     *
+     * The internal variableStack is organised like this:
+     *
+     * \SplObjectStorage $this->variableStack [
+     *     $view => \SplStack [
+     *         'item' => $item,
+     *         'stack' => \SplStack [
+     *             0 => Bound view variables
+     *             1 => 1st renderBlock variables
+     *             2 => 2nd nested renderBlock variables
+     *             ...
+     *         ],
+     *     ],
+     *     ...
+     * ]
+     *
+     * @param GridView|ColumnView $view
+     * @param mixed $item
+     * @return \SplStack
+     */
+    private function getVariableStack($view, $item)
+    {
+        if (!$this->variableStack->contains($view)) {
+            $this->variableStack->attach($view, new \SplStack());
+        }
+
+        foreach ($this->variableStack[$view] as $stackEntry) {
+            if ($stackEntry['item'] === $item) {
+                return $stackEntry['stack'];
+            }
+        }
+
+        if ($view instanceof GridView) {
+            $variables = array_merge(['grid' => $view, 'data' => $item]);
+        } elseif ($view instanceof ColumnView) {
+            $boundView = clone $view;
+            $boundView->bind($item);
+
+            $variables = array_merge(['column' => $view, 'item' => $item], $boundView->vars);
+        } else {
+            throw new UnexpectedTypeException(GridView::class . '|' . ColumnView::class, $view);
+        }
+
+        $stack = new \SplStack();
+        $stack->push($variables);
+
+        $this->variableStack[$view]->push([
+            'item' => $item,
+            'stack' => $stack,
+        ]);
+
+        return $stack;
     }
 }

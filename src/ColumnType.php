@@ -29,6 +29,15 @@ interface ColumnType
     public function buildView(ColumnView $view, array $options);
 
     /**
+     * Bind an item to the view
+     *
+     * @param ColumnView $view
+     * @param mixed $item
+     * @return void
+     */
+    public function bindView(ColumnView $view, $item);
+
+    /**
      * Get the column value for this type
      *
      * @param ColumnView $view

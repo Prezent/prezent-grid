@@ -37,6 +37,17 @@ class ColumnView
     }
 
     /**
+     * Bind an item to the view
+     *
+     * @param mixed $item
+     * @return void
+     */
+    public function bind($item)
+    {
+        $this->type->bindView($this, $item);
+    }
+
+    /**
      * Get the value for a column
      *
      * @param mixed $item

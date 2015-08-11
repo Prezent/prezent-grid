@@ -29,6 +29,13 @@ abstract class BaseColumnType implements ColumnType
     /**
      * {@inheritDoc}
      */
+    public function bindView(ColumnView $view, $item)
+    {
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function getValue(ColumnView $view, $item, $value)
     {
         return $value;

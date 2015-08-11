@@ -25,7 +25,7 @@
             <tr>
                 {% for column in grid %}
                     {{ grid_column(column, item, vars) }}
-                    <td>{{ grid_column_widget(column, item, vars) }}</td>
+                    <td>{{ grid_widget(column, item, vars) }}</td>
                 {% endfor %}
             </tr>
         {% endfor %}

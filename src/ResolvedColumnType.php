@@ -111,6 +111,26 @@ class ResolvedColumnType
     }
 
     /**
+     * Bind an item to the view
+     *
+     * @param ColumnView $view
+     * @param mixed $item
+     * @return void
+     */
+    public function bindView(ColumnView $view, $item)
+    {
+        if ($this->parent) {
+            $this->parent->bindView($view, $item);
+        }
+
+        $this->innerType->bindView($view, $item);
+
+        foreach ($this->typeExtensions as $typeExtension) {
+            $typeExtension->bindView($view, $item);
+        }
+    }
+
+    /**
      * Get the column value from an item
      *
      * @param ColumnView $view

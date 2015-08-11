@@ -29,5 +29,12 @@ abstract class BaseColumnTypeExtension implements ColumnTypeExtension
     /**
      * {@inheritDoc}
      */
+    public function bindView(ColumnView $view, $item)
+    {
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     abstract public function getExtendedType();
 }
