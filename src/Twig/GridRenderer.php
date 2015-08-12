@@ -152,10 +152,15 @@ class GridRenderer
         if ($view instanceof GridView) {
             $variables = array_merge(['grid' => $view, 'data' => $item]);
         } elseif ($view instanceof ColumnView) {
-            $boundView = clone $view;
-            $boundView->bind($item);
+            if ($item) {
+                $boundView = clone $view;
+                $boundView->bind($item);
+                $variables = $boundView->vars;
+            } else {
+                $variables = $view->vars;
+            }
 
-            $variables = array_merge(['column' => $view, 'item' => $item], $boundView->vars);
+            $variables = array_merge(['column' => $view, 'item' => $item], $variables);
         } else {
             throw new UnexpectedTypeException(GridView::class . '|' . ColumnView::class, $view);
         }
