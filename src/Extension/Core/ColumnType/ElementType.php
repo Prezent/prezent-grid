@@ -8,35 +8,20 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 
 /**
- * ColumnType
+ * ElementType
  *
- * @see ColumnType
+ * @see BaseColumnType
  * @author Sander Marechal
  */
-class ColumnType extends BaseColumnType
+class ElementType extends BaseColumnType
 {
-    /**
-     * @var PropertyAccessor
-     */
-    private $accessor;
-
-    /**
-     * Constructor
-     *
-     * @param PropertyAccess $accessor
-     */
-    public function __construct(PropertyAccessorInterface $accessor)
-    {
-        $this->accessor = $accessor;
-    }
-
     /**
      * {@inheritDoc}
      */
     public function configureOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults([
-            'property_path' => null,
+            'label' => null,
         ]);
     }
 
@@ -45,15 +30,13 @@ class ColumnType extends BaseColumnType
      */
     public function buildView(ColumnView $view, array $options)
     {
-        $view->vars['property_path'] = $options['property_path'] ?: $view->name;
-    }
+        $blockTypes = [];
+        for ($type = $view->getType(); $type != null; $type = $type->getParent()) {
+            $blockTypes[] = $type->getName();
+        }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function getValue(ColumnView $view, $item, $value)
-    {
-        return $this->accessor->getValue($item, $view->vars['property_path']);
+        $view->vars['block_types'] = $blockTypes;
+        $view->vars['label']       = $options['label'] === null ? $view->name : $options['label'];
     }
 
     /**
@@ -61,7 +44,7 @@ class ColumnType extends BaseColumnType
      */
     public function getName()
     {
-        return 'column';
+        return 'element';
     }
 
     /**
@@ -69,6 +52,5 @@ class ColumnType extends BaseColumnType
      */
     public function getParent()
     {
-        return 'element';
     }
 }

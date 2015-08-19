@@ -25,6 +25,6 @@ class ActionType extends BaseColumnType
      */
     public function getParent()
     {
-        return null;
+        return 'element';
     }
 }
