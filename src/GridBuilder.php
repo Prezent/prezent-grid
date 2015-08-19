@@ -105,6 +105,8 @@ class GridBuilder
     public function addAction($name, array $options = [])
     {
         $this->actions[$name] = $this->createColumn('action', $options);
+
+        return $this;
     }
 
     /**

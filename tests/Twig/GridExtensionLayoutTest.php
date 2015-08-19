@@ -25,7 +25,7 @@ class GridExtensionLayoutTest extends \PHPUnit_Framework_TestCase
     public function testRenderGridHeaderRow()
     {
         $output = $this->twig->renderer->renderBlock('grid_header_row', $this->createView());
-        $this->assertMatchesXpath('/tr/th', $output);
+        $this->assertMatchesXpath('/tr/th', $output, 2);
     }
 
     public function testRenderGridWidget()
@@ -40,10 +40,22 @@ class GridExtensionLayoutTest extends \PHPUnit_Framework_TestCase
         $this->assertMatchesXpath('/td[contains(., "bar")]', $output);
     }
 
+    public function testRenderGridAction()
+    {
+        $output = $this->twig->renderer->renderBlock('grid_action', $this->createView()->actions['edit'], ['foo' => 'bar']);
+        $this->assertMatchesXpath('/a[contains(., "edit")]', $output);
+    }
+
+    public function testRenderGridActions()
+    {
+        $output = $this->twig->renderer->renderBlock('grid_actions', $this->createView(), ['foo' => 'bar']);
+        $this->assertMatchesXpath('/td/a[contains(., "edit")]', $output);
+    }
+
     public function testRenderGridRow()
     {
         $output = $this->twig->renderer->renderBlock('grid_row', $this->createView(), [['foo' => 'bar']]);
-        $this->assertMatchesXpath('/tr/td', $output);
+        $this->assertMatchesXpath('/tr/td', $output, 2);
     }
 
     public function testRenderGrid()
@@ -80,6 +92,7 @@ class GridExtensionLayoutTest extends \PHPUnit_Framework_TestCase
     {
         $grid = $this->gridFactory->createBuilder()
             ->addColumn('foo', 'string', ['property_path' => '[foo]'])
+            ->addAction('edit', ['url' => '/edit/foo'])
             ->getGrid();
 
         return $grid->createView();

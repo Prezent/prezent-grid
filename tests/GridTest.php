@@ -50,6 +50,45 @@ class GridTest extends \PHPUnit_Framework_TestCase
         $grid->getColumn('column');
     }
 
+    public function testActions()
+    {
+        $type = $this->getMockBuilder(ResolvedColumnType::class)->disableOriginalConstructor()->getMock();
+        $action = new ColumnDescription($type, ['option' => 'value']);
+
+        $grid = new Grid([], ['action' => $action]);
+
+        $this->assertTrue($grid->hasAction('action'));
+        $this->assertSame($action, $grid->getAction('action'));
+    }
+
+    /**
+     * @expectedException Prezent\Grid\Exception\UnexpectedTypeException
+     */
+    public function testUnnamedAction()
+    {
+        $action = $this->getMockBuilder(ColumnDescription::class)->disableOriginalConstructor()->getMock();
+        $grid = new Grid([], [$action]);
+    }
+
+    /**
+     * @expectedException Prezent\Grid\Exception\UnexpectedTypeException
+     */
+    public function testInvalidAction()
+    {
+        $grid = new Grid([], ['action' => 'invalid']);
+    }
+
+    /**
+     * @expectedException Prezent\Grid\Exception\InvalidArgumentException
+     */
+    public function testActionNotFound()
+    {
+        $grid = new Grid();
+        $this->assertFalse($grid->hasAction('action'));
+
+        $grid->getAction('action');
+    }
+
     public function testCreateView()
     {
         $options = ['option' => 'value'];
@@ -58,20 +97,28 @@ class GridTest extends \PHPUnit_Framework_TestCase
 
         $columnView = new ColumnView('column', $type);
 
-        $type->expects($this->once())
-             ->method('createView')
-             ->with('column', $options)
-             ->willReturn($columnView);
+        $type->expects($this->exactly(2))
+            ->method('createView')
+            ->withConsecutive(
+                ['column', $options],
+                ['action', $options]
+            )
+            ->willReturn($columnView);
 
         $column = new ColumnDescription($type, ['option' => 'value']);
 
-        $grid = new Grid(['column' => $column]);
+        $grid = new Grid(['column' => $column], ['action' => $column]);
 
         $view = $grid->createView();
 
         $this->assertInstanceOf(GridView::class, $view);
-        $this->assertEquals(1, count($view));
+
+        $this->assertEquals(1, count($view->columns));
         $this->assertTrue(isset($view->columns['column']));
         $this->assertSame($columnView, $view->columns['column']);
+
+        $this->assertEquals(1, count($view->actions));
+        $this->assertTrue(isset($view->actions['action']));
+        $this->assertSame($columnView, $view->actions['action']);
     }
 }

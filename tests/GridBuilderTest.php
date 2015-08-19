@@ -83,6 +83,24 @@ class GridBuilderTest extends \PHPUnit_Framework_TestCase
         $builder->getColumn('invalid');
     }
 
+    public function testAddAction()
+    {
+        $builder = new GridBuilder($this->createFactory());
+        $builder->addAction('action', ['option' => 'value']);
+
+        $this->assertTrue($builder->hasAction('action'));
+        $this->assertInstanceOf(ColumnDescription::class, $builder->getAction('action'));
+    }
+
+    /**
+     * @expectedException Prezent\Grid\Exception\InvalidArgumentException
+     */
+    public function testGetInvalidAction()
+    {
+        $builder = new GridBuilder($this->createFactory());
+        $builder->getAction('invalid');
+    }
+
     public function testGetGrid()
     {
         $builder = new GridBuilder($this->createFactory());
