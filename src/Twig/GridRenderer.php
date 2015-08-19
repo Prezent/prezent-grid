@@ -5,6 +5,7 @@ namespace Prezent\Grid\Twig;
 use Prezent\Grid\ColumnView;
 use Prezent\Grid\Exception\UnexpectedTypeException;
 use Prezent\Grid\GridView;
+use Prezent\Grid\View;
 
 /**
  * Grid renderer
@@ -71,7 +72,7 @@ class GridRenderer
      * @param array $variables
      * @return string
      */
-    public function renderBlock($name, $view, $item = null, array $variables = [])
+    public function renderBlock($name, View $view, $item = null, array $variables = [])
     {
         // Environment stacking
         //
@@ -141,7 +142,7 @@ class GridRenderer
      * @param mixed $item
      * @return \SplStack
      */
-    private function getVariableStack($view, $item)
+    private function getVariableStack(View $view, $item)
     {
         if (!$this->variableStack->contains($view)) {
             $this->variableStack->attach($view, new \SplStack());
@@ -166,7 +167,7 @@ class GridRenderer
 
             $variables = array_merge(['column' => $view, 'item' => $item], $variables);
         } else {
-            throw new UnexpectedTypeException(GridView::class . '|' . ColumnView::class, $view);
+            throw new UnexpectedTypeException(View::class, $view);
         }
 
         $stack = new \SplStack();

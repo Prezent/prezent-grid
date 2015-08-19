@@ -7,7 +7,7 @@ namespace Prezent\Grid;
  *
  * @author Sander Marechal
  */
-class ColumnView
+class ColumnView implements View
 {
     /**
      * @var string

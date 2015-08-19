@@ -42,6 +42,7 @@ class CoreExtension extends BaseGridExtension
     protected function loadColumnTypes()
     {
         return [
+            new ColumnType\ActionType(),
             new ColumnType\BooleanType(),
             new ColumnType\ColumnType($this->accessor),
             new ColumnType\DateTimeType(),

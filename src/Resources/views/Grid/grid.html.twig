@@ -16,6 +16,9 @@
         {% for column in grid.columns %}
             {{- grid_header_column(column) -}}
         {% endfor %}
+        {% if grid.actions|length %}
+            <th></th>
+        {% endif %}
     </tr>
 {%- endblock grid_header_row -%}
 
@@ -28,11 +31,22 @@
         {% for column in grid.columns %}
             {{- grid_column(column, data) -}}
         {% endfor %}
+        {% if grid.actions|length %}
+            {{ grid_actions(grid, data) }}
+        {% endif %}
     </tr>
 {%- endblock grid_row -%}
 
 {%- block grid_column -%}
     <td>{{ grid_widget(column, item) }}</td>
+{%- endblock -%}
+
+{%- block grid_actions -%}
+    <td>
+        {% for action in grid.actions %}
+            {{ grid_action(action, data) }}
+        {% endfor %}
+    </td>
 {%- endblock -%}
 
 {%- block grid_header_widget -%}
@@ -49,4 +63,8 @@
     {% else %}
         {{ column.getValue(item) }}
     {% endif %}
+{%- endblock -%}
+
+{%- block grid_action -%}
+    <a href="{{ url }}">{{ label }}</a>
 {%- endblock -%}

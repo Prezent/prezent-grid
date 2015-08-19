@@ -32,6 +32,17 @@ class ColumnDescription
     }
 
     /**
+     * Create a column view
+     *
+     * @param mixed $name
+     * @return void
+     */
+    public function createView($name)
+    {
+        return $this->type->createView($name, $this->options);
+    }
+
+    /**
      * Getter for type
      *
      * @return ResolvedColumnType

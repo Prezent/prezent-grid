@@ -91,13 +91,51 @@ class GridBuilder
     }
 
     /**
+     * Add an action
+     *
+     * @param mixed $name
+     * @param array $options
+     * @return void
+     */
+    public function addAction($name, array $options = [])
+    {
+        $this->actions[$name] = $this->createColumn('action', $options);
+    }
+
+    /**
+     * Check if an action exists
+     *
+     * @param string $name
+     * @return bool
+     */
+    public function hasAction($name)
+    {
+        return isset($this->actions[$name]);
+    }
+
+    /**
+     * Get an action
+     *
+     * @param string $name
+     * @return ColumnDescription
+     */
+    public function getAction($name)
+    {
+        if (!$this->hasAction($name)) {
+            throw new InvalidArgumentException(sprintf('Action "%s" does not exist', $name));
+        }
+
+        return $this->actions[$name];
+    }
+
+    /**
      * Create the grid
      *
      * @return void
      */
     public function getGrid()
     {
-        return new Grid($this->columns);
+        return new Grid($this->columns, $this->actions);
     }
 
     /**

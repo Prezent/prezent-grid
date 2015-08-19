@@ -5,12 +5,9 @@ namespace Prezent\Grid;
 /**
  * Grid view
  *
- * @see \ArrayAccess
- * @see \IteratorAggregate
- * @see \Countable
  * @author Sander Marechal
  */
-class GridView
+class GridView implements View
 {
     /**
      * @var ViewCollection
@@ -18,12 +15,18 @@ class GridView
     public $columns = [];
 
     /**
+     * @var ViewCollection
+     */
+    public $actions = [];
+
+    /**
      * Constructor
      *
      * @param array $columns
      */
-    public function __construct(array $columns = [])
+    public function __construct(array $columns = [], array $actions = [])
     {
         $this->columns = new ViewCollection($columns);
+        $this->actions = new ViewCollection($actions);
     }
 }
