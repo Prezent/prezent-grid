@@ -38,20 +38,6 @@ class GridRendererTest extends \PHPUnit_Framework_TestCase
         $renderer->renderBlock('grid', new GridView(), [], []);
     }
 
-    /**
-     * @expectedException Prezent\Grid\Exception\UnexpectedTypeException
-     */
-    public function testInvalidView()
-    {
-        $theme = $this->getMockBuilder(\Twig_Template::class)->disableOriginalConstructor()->getMock();
-        $theme->method('getBlocks')->willReturn([]);
-
-        $renderer = new GridRenderer($theme);
-        $renderer->setEnvironment($this->getMock(\Twig_Environment::class));
-
-        $renderer->renderBlock('grid', new \stdClass(), [], []);
-    }
-
     public function testVariables()
     {
         $theme = $this->getMockBuilder(\Twig_Template::class)->disableOriginalConstructor()->getMock();

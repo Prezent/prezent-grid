@@ -18,6 +18,11 @@ class GridBuilder
     private $columns = [];
 
     /**
+     * @var ColumnDescription[]
+     */
+    private $actions = [];
+
+    /**
      * @var ColumnTypeFactory
      */
     private $ColumnTypeFactory;
