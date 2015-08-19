@@ -40,13 +40,13 @@ class GridBuilder
      * @param array $options
      * @return self
      */
-    public function add($name, $type = null, array $options = [])
+    public function addColumn($name, $type = null, array $options = [])
     {
         if (!is_string($name)) {
             throw new UnexpectedTypeException('string', $name);
         }
 
-        $this->columns[$name] = $this->create($type, $options);
+        $this->columns[$name] = $this->createColumn($type, $options);
 
         return $this;
     }
@@ -59,7 +59,7 @@ class GridBuilder
      * @param array $options
      * @return void
      */
-    public function create($type, array $options = [])
+    public function createColumn($type, array $options = [])
     {
         return new ColumnDescription($this->resolveType($type), $options);
     }
@@ -70,7 +70,7 @@ class GridBuilder
      * @param string $name
      * @return bool
      */
-    public function has($name)
+    public function hasColumn($name)
     {
         return isset($this->columns[$name]);
     }
@@ -81,9 +81,9 @@ class GridBuilder
      * @param string $name
      * @return ColumnDescription
      */
-    public function get($name)
+    public function getColumn($name)
     {
-        if (!$this->has($name)) {
+        if (!$this->hasColumn($name)) {
             throw new InvalidArgumentException(sprintf('Column "%s" does not exist', $name));
         }
 

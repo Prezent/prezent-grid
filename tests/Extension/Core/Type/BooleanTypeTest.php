@@ -9,13 +9,13 @@ class BooleanTypeTest extends TypeTest
         $data = (object)['foo' => true, 'bar' => false];
 
         $grid = $this->gridFactory->createBuilder()
-            ->add('foo', 'boolean')
-            ->add('bar', 'boolean')
+            ->addColumn('foo', 'boolean')
+            ->addColumn('bar', 'boolean')
             ->getGrid();
 
         $view = $grid->createView();
 
-        $this->assertEquals('yes', $view['foo']->getValue($data));
-        $this->assertEquals('no', $view['bar']->getValue($data));
+        $this->assertEquals('yes', $view->columns['foo']->getValue($data));
+        $this->assertEquals('no', $view->columns['bar']->getValue($data));
     }
 }

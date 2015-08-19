@@ -71,7 +71,7 @@ class GridTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf(GridView::class, $view);
         $this->assertEquals(1, count($view));
-        $this->assertTrue(isset($view['column']));
-        $this->assertSame($columnView, $view['column']);
+        $this->assertTrue(isset($view->columns['column']));
+        $this->assertSame($columnView, $view->columns['column']);
     }
 }

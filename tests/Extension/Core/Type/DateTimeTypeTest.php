@@ -12,12 +12,12 @@ class DateTimeTypeTest extends TypeTest
         $data = (object)['date' => new \DateTime('2015-01-01 12:00:00')];
 
         $grid = $this->gridFactory->createBuilder()
-            ->add('date', 'datetime', $options)
+            ->addColumn('date', 'datetime', $options)
             ->getGrid();
 
         $view = $grid->createView();
 
-        $this->assertEquals($expected, $view['date']->getValue($data));
+        $this->assertEquals($expected, $view->columns['date']->getValue($data));
     }
 
     /**
@@ -28,11 +28,11 @@ class DateTimeTypeTest extends TypeTest
         $data = (object)['date' => '2000-01-01'];
 
         $grid = $this->gridFactory->createBuilder()
-            ->add('date', 'datetime')
+            ->addColumn('date', 'datetime')
             ->getGrid();
 
         $view = $grid->createView();
-        $view['date']->getValue($data);
+        $view->columns['date']->getValue($data);
     }
 
     public function optionsProvider()

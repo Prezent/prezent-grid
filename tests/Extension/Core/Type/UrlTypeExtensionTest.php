@@ -9,14 +9,14 @@ class UrlTypeExtensionTest extends TypeTest
         $data = (object)['id' => 1, 'name' => 'foobar'];
 
         $grid = $this->gridFactory->createBuilder()
-            ->add('item', 'string', [
+            ->addColumn('item', 'string', [
                 'url' => '/get/{name}/{id}'
             ])
             ->getGrid();
 
         $view = $grid->createView();
-        $view['item']->bind($data);
+        $view->columns['item']->bind($data);
 
-        $this->assertEquals('/get/foobar/1', $view['item']->vars['url']);
+        $this->assertEquals('/get/foobar/1', $view->columns['item']->vars['url']);
     }
 }

@@ -14,7 +14,7 @@ class GridBuilderTest extends \PHPUnit_Framework_TestCase
     public function testCreateFromString()
     {
         $builder = new GridBuilder($this->createFactory());
-        $column = $builder->create('column', ['option' => 'value']);
+        $column = $builder->createColumn('column', ['option' => 'value']);
 
         $this->assertInstanceOf(ColumnDescription::class, $column);
         $this->assertInstanceOf(ResolvedColumnType::class, $column->getType());
@@ -26,7 +26,7 @@ class GridBuilderTest extends \PHPUnit_Framework_TestCase
         $type = $this->getMock(ColumnType::class);
 
         $builder = new GridBuilder($this->createFactory());
-        $column = $builder->create($type, ['option' => 'value']);
+        $column = $builder->createColumn($type, ['option' => 'value']);
 
         $this->assertInstanceOf(ColumnDescription::class, $column);
         $this->assertInstanceOf(ResolvedColumnType::class, $column->getType());
@@ -40,7 +40,7 @@ class GridBuilderTest extends \PHPUnit_Framework_TestCase
             ->getMock();
 
         $builder = new GridBuilder($this->createFactory());
-        $column = $builder->create($resolvedType, ['option' => 'value']);
+        $column = $builder->createColumn($resolvedType, ['option' => 'value']);
 
         $this->assertInstanceOf(ColumnDescription::class, $column);
         $this->assertSame($resolvedType, $column->getType());
@@ -53,16 +53,16 @@ class GridBuilderTest extends \PHPUnit_Framework_TestCase
     public function testCreateInvalid()
     {
         $builder = new GridBuilder($this->createFactory());
-        $builder->create(new \DateTime(), ['option' => 'value']);
+        $builder->createColumn(new \DateTime(), ['option' => 'value']);
     }
 
     public function testAdd()
     {
         $builder = new GridBuilder($this->createFactory());
-        $builder->add('column', 'string', ['option' => 'value']);
+        $builder->addColumn('column', 'string', ['option' => 'value']);
 
-        $this->assertTrue($builder->has('column'));
-        $this->assertInstanceOf(ColumnDescription::class, $builder->get('column'));
+        $this->assertTrue($builder->hasColumn('column'));
+        $this->assertInstanceOf(ColumnDescription::class, $builder->getColumn('column'));
     }
 
     /**
@@ -71,7 +71,7 @@ class GridBuilderTest extends \PHPUnit_Framework_TestCase
     public function testAddInvalidColumnName()
     {
         $builder = new GridBuilder($this->createFactory());
-        $builder->add(new \DateTime(), 'string', ['option' => 'value']);
+        $builder->addColumn(new \DateTime(), 'string', ['option' => 'value']);
     }
 
     /**
@@ -80,13 +80,13 @@ class GridBuilderTest extends \PHPUnit_Framework_TestCase
     public function testGetInvalidColumn()
     {
         $builder = new GridBuilder($this->createFactory());
-        $builder->get('invalid');
+        $builder->getColumn('invalid');
     }
 
     public function testGetGrid()
     {
         $builder = new GridBuilder($this->createFactory());
-        $builder->add('column', 'string', ['option' => 'value']);
+        $builder->addColumn('column', 'string', ['option' => 'value']);
 
         $grid = $builder->getGrid();
 

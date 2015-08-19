@@ -9,7 +9,7 @@ class StringTypeTest extends TypeTest
         $data = (object)['foo' => 'bar'];
         $view = $this->createGridView();
 
-        $this->assertEquals('bar', $view['foo']->getValue($data));
+        $this->assertEquals('bar', $view->columns['foo']->getValue($data));
     }
 
     public function testObjectStringCast()
@@ -17,7 +17,7 @@ class StringTypeTest extends TypeTest
         $data = (object)['foo' => new \Twig_Token(\Twig_Token::TEXT_TYPE, 'foo', 0)];
         $view = $this->createGridView();
 
-        $this->assertContains('foo', $view['foo']->getValue($data));
+        $this->assertContains('foo', $view->columns['foo']->getValue($data));
     }
 
     public function testArrayStringCast()
@@ -25,7 +25,7 @@ class StringTypeTest extends TypeTest
         $data = (object)['foo' => ['bar' => 'baz']];
         $view = $this->createGridView();
 
-        $this->assertContains('baz', $view['foo']->getValue($data));
+        $this->assertContains('baz', $view->columns['foo']->getValue($data));
     }
 
     /**
@@ -36,13 +36,13 @@ class StringTypeTest extends TypeTest
         $data = (object)['foo' => new \stdClass()];
         $view = $this->createGridView();
 
-        $view['foo']->getValue($data);
+        $view->columns['foo']->getValue($data);
     }
 
     private function createGridView()
     {
         $grid = $this->gridFactory->createBuilder()
-            ->add('foo', 'string')
+            ->addColumn('foo', 'string')
             ->getGrid();
 
         return $grid->createView();

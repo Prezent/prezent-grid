@@ -12,13 +12,13 @@ class GridExtensionLayoutTest extends \PHPUnit_Framework_TestCase
 
     public function testRenderGridHeaderWidget()
     {
-        $output = $this->twig->renderer->renderBlock('grid_header_widget', $this->createView()['foo']);
+        $output = $this->twig->renderer->renderBlock('grid_header_widget', $this->createView()->columns['foo']);
         $this->assertMatchesXpath('[contains(., "foo")]', $output);
     }
 
     public function testRenderGridHeaderColumn()
     {
-        $output = $this->twig->renderer->renderBlock('grid_header_column', $this->createView()['foo']);
+        $output = $this->twig->renderer->renderBlock('grid_header_column', $this->createView()->columns['foo']);
         $this->assertMatchesXpath('/th[contains(., "foo")]', $output);
     }
 
@@ -30,13 +30,13 @@ class GridExtensionLayoutTest extends \PHPUnit_Framework_TestCase
 
     public function testRenderGridWidget()
     {
-        $output = $this->twig->renderer->renderBlock('grid_widget', $this->createView()['foo'], ['foo' => 'bar']);
+        $output = $this->twig->renderer->renderBlock('grid_widget', $this->createView()->columns['foo'], ['foo' => 'bar']);
         $this->assertMatchesXpath('[contains(., "bar")]', $output);
     }
 
     public function testRenderGridColumn()
     {
-        $output = $this->twig->renderer->renderBlock('grid_column', $this->createView()['foo'], ['foo' => 'bar']);
+        $output = $this->twig->renderer->renderBlock('grid_column', $this->createView()->columns['foo'], ['foo' => 'bar']);
         $this->assertMatchesXpath('/td[contains(., "bar")]', $output);
     }
 
@@ -57,7 +57,7 @@ class GridExtensionLayoutTest extends \PHPUnit_Framework_TestCase
     public function testRenderUrl()
     {
         $grid = $this->gridFactory->createBuilder()
-            ->add('foo', 'string', [
+            ->addColumn('foo', 'string', [
                 'property_path' => '[foo]',
                 'url' => '/get/{[foo]}'
             ])
@@ -65,7 +65,7 @@ class GridExtensionLayoutTest extends \PHPUnit_Framework_TestCase
 
         $view = $grid->createView();
 
-        $output = $this->twig->renderer->renderBlock('grid_widget', $view['foo'], ['foo' => 'bar']);
+        $output = $this->twig->renderer->renderBlock('grid_widget', $view->columns['foo'], ['foo' => 'bar']);
         $this->assertMatchesXpath('/a[@href="/get/bar"][contains(., "bar")]', $output);
     }
 
@@ -79,7 +79,7 @@ class GridExtensionLayoutTest extends \PHPUnit_Framework_TestCase
     public function createView()
     {
         $grid = $this->gridFactory->createBuilder()
-            ->add('foo', 'string', ['property_path' => '[foo]'])
+            ->addColumn('foo', 'string', ['property_path' => '[foo]'])
             ->getGrid();
 
         return $grid->createView();
