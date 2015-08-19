@@ -29,14 +29,20 @@ class GridRenderer
     private $variableStack;
 
     /**
+     * @var \SplObjectStorage
+     */
+    private $blocks = [];
+
+    /**
      * Constructor
      *
-     * @param mixed $theme
+     * @param string|\Twig_Template $theme
      */
-    public function __construct($theme)
+    public function __construct($theme = null)
     {
-        $this->theme = $theme;
+        $this->theme = $theme ?: dirname(__DIR__) . '/Resources/views/Grid/grid.html.twig';
         $this->variableStack = new \SplObjectStorage();
+        $this->blocks = new \SplObjectStorage();
     }
 
     /**
@@ -49,13 +55,11 @@ class GridRenderer
     {
         $this->environment = $environment;
 
-        if (!$this->theme) {
-            $this->theme = dirname(__DIR__) . '/Resources/views/Grid/grid.html.twig';
-        }
-
         if (!($this->theme instanceof \Twig_Template)) {
             $this->theme = $this->environment->loadTemplate($this->theme);
         }
+
+        $this->loadBlocks($this->theme);
     }
 
     /**
@@ -101,7 +105,7 @@ class GridRenderer
             foreach ($view->vars['block_types'] as $blockType) {
                 $blockName = $blockPrefix . '_' . $blockType . $blockSuffix;
 
-                if ($this->theme->hasBlock($blockName)) {
+                if (in_array($blockName, $this->blocks[$this->theme])) {
                     $name = $blockName;
                     break;
                 }
@@ -174,5 +178,20 @@ class GridRenderer
         ]);
 
         return $stack;
+    }
+
+    /**
+     * Load all blocks from the current theme
+     *
+     * @return void
+     */
+    public function loadBlocks(\Twig_Template $theme)
+    {
+        $this->blocks[$theme] = array_keys($theme->getBlocks());
+
+        if ($parent = $theme->getParent([])) {
+            $this->loadBlocks($parent);
+            $this->blocks[$theme] = array_merge($this->blocks[$theme], $this->blocks[$parent]);
+        }
     }
 }
