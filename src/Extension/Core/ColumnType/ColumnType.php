@@ -1,6 +1,6 @@
 <?php
 
-namespace Prezent\Grid\Extension\Core\Type;
+namespace Prezent\Grid\Extension\Core\ColumnType;
 
 use Prezent\Grid\BaseColumnType;
 use Prezent\Grid\ColumnView;

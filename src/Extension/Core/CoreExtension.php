@@ -42,10 +42,10 @@ class CoreExtension extends BaseGridExtension
     protected function loadColumnTypes()
     {
         return [
-            new Type\BooleanType(),
-            new Type\ColumnType($this->accessor),
-            new Type\DateTimeType(),
-            new Type\StringType(),
+            new ColumnType\BooleanType(),
+            new ColumnType\ColumnType($this->accessor),
+            new ColumnType\DateTimeType(),
+            new ColumnType\StringType(),
         ];
     }
 
@@ -55,7 +55,7 @@ class CoreExtension extends BaseGridExtension
     protected function loadColumnTypeExtensions()
     {
         return [
-            new Type\UrlTypeExtension($this->resolver),
+            new ColumnType\UrlTypeExtension($this->resolver),
         ];
     }
 }
