@@ -1,19 +1,19 @@
 <?php
 
-namespace Prezent\Grid\Extension\Core\ColumnType;
+namespace Prezent\Grid\Extension\Core\Type;
 
-use Prezent\Grid\BaseColumnType;
-use Prezent\Grid\ColumnView;
+use Prezent\Grid\BaseElementType;
+use Prezent\Grid\ElementView;
 use Prezent\Grid\Exception\UnexpectedTypeException;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
- * DateTimeType
+ * DateTime column
  *
- * @see BaseColumnType
+ * @see BaseElementType
  * @author Sander Marechal
  */
-class DateTimeType extends BaseColumnType
+class DateTimeType extends BaseElementType
 {
     /**
      * {@inheritDoc}
@@ -31,7 +31,7 @@ class DateTimeType extends BaseColumnType
     /**
      * {@inheritDoc}
      */
-    public function buildView(ColumnView $view, array $options)
+    public function buildView(ElementView $view, array $options)
     {
         $view->vars['locale']      = $options['locale'];
         $view->vars['date_format'] = $options['date_format'];
@@ -42,7 +42,7 @@ class DateTimeType extends BaseColumnType
     /**
      * {@inheritDoc}
      */
-    public function getValue(ColumnView $view, $item, $value)
+    public function getValue(ElementView $view, $item, $value)
     {
         if (!($value instanceof \DateTimeInterface)) {
             throw new UnexpectedTypeException('DateTimeInterface', $value);

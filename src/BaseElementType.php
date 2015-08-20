@@ -5,12 +5,12 @@ namespace Prezent\Grid;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
- * Base column type
+ * Base element type
  *
- * @see ColumnType
+ * @see ElementType
  * @author Sander Marechal
  */
-abstract class BaseColumnType implements ColumnType
+abstract class BaseElementType implements ElementType
 {
     /**
      * {@inheritDoc}
@@ -22,21 +22,21 @@ abstract class BaseColumnType implements ColumnType
     /**
      * {@inheritDoc}
      */
-    public function buildView(ColumnView $view, array $options)
+    public function buildView(ElementView $view, array $options)
     {
     }
 
     /**
      * {@inheritDoc}
      */
-    public function bindView(ColumnView $view, $item)
+    public function bindView(ElementView $view, $item)
     {
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getValue(ColumnView $view, $item, $value)
+    public function getValue(ElementView $view, $item, $value)
     {
         return $value;
     }

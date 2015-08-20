@@ -7,14 +7,14 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
- * Resolved column type
+ * Resolved element type
  *
  * @author Sander Marechal
  */
-class ResolvedColumnType
+class ResolvedElementType
 {
     /**
-     * @var ColumnType
+     * @var ElementType
      */
     private $innerType;
 
@@ -24,7 +24,7 @@ class ResolvedColumnType
     private $typeExtensions = [];
 
     /**
-     * @var ResolvedColumnType
+     * @var ResolvedElementType
      */
     private $parent = null;
 
@@ -36,15 +36,15 @@ class ResolvedColumnType
     /**
      * Constructor
      *
-     * @param ColumnType $innerType
-     * @param ColumnTypeExtension[] $typeExtensions
-     * @param ResolvedColumnType $parent
+     * @param ElementType $innerType
+     * @param ElementTypeExtension[] $typeExtensions
+     * @param ResolvedElementType $parent
      */
-    public function __construct(ColumnType $innerType, array $typeExtensions = [], ResolvedColumnType $parent = null)
+    public function __construct(ElementType $innerType, array $typeExtensions = [], ResolvedElementType $parent = null)
     {
         foreach ($typeExtensions as $typeExtension) {
-            if (!($typeExtension instanceof ColumnTypeExtension)) {
-                throw new UnexpectedTypeException(ColumnTypeExtension::class, $typeExtension);
+            if (!($typeExtension instanceof ElementTypeExtension)) {
+                throw new UnexpectedTypeException(ElementTypeExtension::class, $typeExtension);
             }
         }
 
@@ -74,7 +74,7 @@ class ResolvedColumnType
     }
 
     /**
-     * Create the view for the column
+     * Create the view for the element
      *
      * @param string $name
      * @param array $options
@@ -82,7 +82,7 @@ class ResolvedColumnType
      */
     public function createView($name, array $options = [])
     {
-        $view = new ColumnView($name, $this);
+        $view = new ElementView($name, $this);
         $options = $this->getOptionsResolver()->resolve($options);
 
         $this->buildView($view, $options);
@@ -91,13 +91,13 @@ class ResolvedColumnType
     }
 
     /**
-     * Build the view for the column
+     * Build the view for the element
      *
-     * @param ColumnView $view
+     * @param ElementView $view
      * @param mixed $options
      * @return void
      */
-    public function buildView(ColumnView $view, array $options = [])
+    public function buildView(ElementView $view, array $options = [])
     {
         if ($this->parent) {
             $this->parent->buildView($view, $options);
@@ -113,11 +113,11 @@ class ResolvedColumnType
     /**
      * Bind an item to the view
      *
-     * @param ColumnView $view
+     * @param ElementView $view
      * @param mixed $item
      * @return void
      */
-    public function bindView(ColumnView $view, $item)
+    public function bindView(ElementView $view, $item)
     {
         if ($this->parent) {
             $this->parent->bindView($view, $item);
@@ -131,13 +131,13 @@ class ResolvedColumnType
     }
 
     /**
-     * Get the column value from an item
+     * Get the element value from an item
      *
-     * @param ColumnView $view
+     * @param ElementView $view
      * @param mixed $item
      * @return mixed
      */
-    public function getValue(ColumnView $view, $item)
+    public function getValue(ElementView $view, $item)
     {
         $value = null;
 

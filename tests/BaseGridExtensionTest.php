@@ -3,8 +3,8 @@
 namespace Prezent\Grid\Tests;
 
 use Prezent\Grid\BaseGridExtension;
-use Prezent\Grid\ColumnType;
-use Prezent\Grid\ColumnTypeExtension;
+use Prezent\Grid\ElementType;
+use Prezent\Grid\ElementTypeExtension;
 
 class BaseGridExtensionTest extends \PHPUnit_Framework_TestCase
 {
@@ -13,75 +13,75 @@ class BaseGridExtensionTest extends \PHPUnit_Framework_TestCase
         $gridExtension = $this->getMockBuilder(BaseGridExtension::class)
             ->getMockForAbstractClass();
 
-        $this->assertFalse($gridExtension->hasColumnType('column'));
-        $this->assertCount(0, $gridExtension->getColumnTypeExtensions('column'));
+        $this->assertFalse($gridExtension->hasElementType('column'));
+        $this->assertCount(0, $gridExtension->getElementTypeExtensions('column'));
     }
 
     public function testLoad()
     {
         $extension = $this->createExtension();
 
-        $this->assertFalse($extension->hasColumnType('invalid'));
-        $this->assertTrue($extension->hasColumnType('column'));
-        $this->assertInstanceOf(ColumnType::class, $extension->getColumntype('column'));
+        $this->assertFalse($extension->hasElementType('invalid'));
+        $this->assertTrue($extension->hasElementType('column'));
+        $this->assertInstanceOf(ElementType::class, $extension->getElementType('column'));
 
-        $typeExtensions = $extension->getColumnTypeExtensions('column');
+        $typeExtensions = $extension->getElementTypeExtensions('column');
 
         $this->assertCount(1, $typeExtensions);
-        $this->assertInstanceOf(ColumnTypeExtension::class, $typeExtensions[0]);
+        $this->assertInstanceOf(ElementTypeExtension::class, $typeExtensions[0]);
     }
 
     /**
      * @expectedException Prezent\Grid\Exception\InvalidArgumentException
      */
-    public function testUnknownColumnType()
+    public function testUnknownElementType()
     {
         $extension = $this->createExtension();
-        $extension->getColumnType('invalid');
+        $extension->getElementType('invalid');
     }
 
-    public function testUnknownColumnTypeExtension()
+    public function testUnknownElementTypeExtension()
     {
         $extension = $this->createExtension();
-        $this->assertEquals([], $extension->getColumnTypeExtensions('invalid'));
+        $this->assertEquals([], $extension->getElementTypeExtensions('invalid'));
     }
 
     /**
      * @expectedException Prezent\Grid\Exception\UnexpectedTypeException
      */
-    public function testInvalidColumnType()
+    public function testInvalidElementType()
     {
         $extension = $this->createExtension(['invalid']);
-        $extension->getColumnType('invalid');
+        $extension->getElementType('invalid');
     }
 
     /**
      * @expectedException Prezent\Grid\Exception\UnexpectedTypeException
      */
-    public function testInvalidColumnTypeExtension()
+    public function testInvalidElementTypeExtension()
     {
         $extension = $this->createExtension([], ['invalid']);
-        $extension->getColumnTypeExtensions('invalid');
+        $extension->getElementTypeExtensions('invalid');
     }
 
     private function createExtension($types = [], $extensions = [])
     {
-        $type = $this->getMockBuilder(ColumnType::class)->getMock();
+        $type = $this->getMockBuilder(ElementType::class)->getMock();
         $type->method('getName')->willReturn('column');
 
         $types[] = $type;
 
-        $extension = $this->getMockBuilder(ColumnTypeExtension::class)->getMock();
+        $extension = $this->getMockBuilder(ElementTypeExtension::class)->getMock();
         $extension->method('getExtendedType')->willReturn('column');
 
         $extensions[] = $extension;
 
         $gridExtension = $this->getMockBuilder(BaseGridExtension::class)
-            ->setMethods(['loadColumnTypes', 'loadColumnTypeExtensions'])
+            ->setMethods(['loadElementTypes', 'loadElementTypeExtensions'])
             ->getMockForAbstractClass();
 
-        $gridExtension->method('loadColumnTypes')->willReturn($types);
-        $gridExtension->method('loadColumnTypeExtensions')->willReturn($extensions);
+        $gridExtension->method('loadElementTypes')->willReturn($types);
+        $gridExtension->method('loadElementTypeExtensions')->willReturn($extensions);
 
         return $gridExtension;
     }

@@ -6,12 +6,12 @@ use Prezent\Grid\Exception\InvalidArgumentException;
 use Prezent\Grid\Exception\UnexpectedTypeException;
 
 /**
- * Default column type factory
+ * Default element type factory
  *
- * @see ColumnTypeFactory
+ * @see ElementTypeFactory
  * @author Sander Marechal
  */
-class DefaultColumnTypeFactory implements ColumnTypeFactory
+class DefaultElementTypeFactory implements ElementTypeFactory
 {
     /**
      * @var array
@@ -50,14 +50,14 @@ class DefaultColumnTypeFactory implements ColumnTypeFactory
             $typeExtensions = [];
 
             foreach ($this->extensions as $extension) {
-                if ($extension->hasColumnType($name)) {
-                    $type = $extension->getColumnType($name);
+                if ($extension->hasElementType($name)) {
+                    $type = $extension->getElementType($name);
                     break;
                 }
             }
 
             if (!$type) {
-                throw new InvalidArgumentException(sprintf('Could not load column type "%s"', $name));
+                throw new InvalidArgumentException(sprintf('Could not load element type "%s"', $name));
             }
 
             $this->types[$name] = $this->resolveType($type);
@@ -69,22 +69,22 @@ class DefaultColumnTypeFactory implements ColumnTypeFactory
     /**
      * {@inheritDoc}
      */
-    public function resolveType(ColumnType $type)
+    public function resolveType(ElementType $type)
     {
         $name = $type->getName();
         $typeExtensions = [];
         $parentType = $type->getParent();
 
         foreach ($this->extensions as $extension) {
-            $typeExtensions = array_merge($typeExtensions, $extension->getColumnTypeExtensions($name));
+            $typeExtensions = array_merge($typeExtensions, $extension->getElementTypeExtensions($name));
         }
 
-        if ($parentType instanceof ColumnType) {
+        if ($parentType instanceof ElementType) {
             $parentType = $this->resolveType($parentType);
         } elseif ($parentType !== null) {
             $parentType = $this->getType($parentType);
         }
 
-        return new ResolvedColumnType($type, $typeExtensions, $parentType);
+        return new ResolvedElementType($type, $typeExtensions, $parentType);
     }
 }

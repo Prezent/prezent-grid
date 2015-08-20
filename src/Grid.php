@@ -13,20 +13,20 @@ use Prezent\Grid\Exception\UnexpectedTypeException;
 class Grid
 {
     /**
-     * @var ColumnDescription[]
+     * @var ElementDescription[]
      */
     private $columns;
 
     /**
-     * @var ColumnDescription[]
+     * @var ElementDescription[]
      */
     private $actions;
 
     /**
      * Constructor
      *
-     * @param ColumnDescription[] $columns Column descriptions, indexed by column name
-     * @param ColumnDescription[] $actions Action descriptions, indexed by action name
+     * @param ElementDescription[] $columns Column descriptions, indexed by column name
+     * @param ElementDescription[] $actions Action descriptions, indexed by action name
      */
     public function __construct(array $columns = [], array $actions = [])
     {
@@ -52,7 +52,7 @@ class Grid
      * Get a column
      *
      * @param string $name
-     * @return ColumnDescription
+     * @return ElementDescription
      */
     public function getColumn($name)
     {
@@ -111,7 +111,7 @@ class Grid
     }
 
     /**
-     * Check that all array items are column descriptions
+     * Check that all array items are element descriptions
      *
      * @param array $items
      * @return void
@@ -123,8 +123,8 @@ class Grid
                 throw new UnexpectedTypeException('string', $name);
             }
 
-            if (!($item instanceof ColumnDescription)) {
-                throw new UnexpectedTypeException(ColumnDescription::class, $item);
+            if (!($item instanceof ElementDescription)) {
+                throw new UnexpectedTypeException(ElementDescription::class, $item);
             }
         }
     }

@@ -2,24 +2,24 @@
 
 namespace Prezent\Grid\Tests;
 
-use Prezent\Grid\ColumnType;
-use Prezent\Grid\ColumnTypeExtension;
-use Prezent\Grid\ColumnView;
-use Prezent\Grid\ResolvedColumnType;
+use Prezent\Grid\ElementType;
+use Prezent\Grid\ElementTypeExtension;
+use Prezent\Grid\ElementView;
+use Prezent\Grid\ResolvedElementType;
 
-class ResolvedColumnTypeTest extends \PHPUnit_Framework_TestCase
+class ResolvedElementTypeTest extends \PHPUnit_Framework_TestCase
 {
     public function testConstruction()
     {
-        $type = $this->getMock(ColumnType::class);
-        $extension = $this->getMock(ColumnTypeExtension::class);
-        $parent = $this->getMockBuilder(ResolvedColumnType::class)
+        $type = $this->getMock(ElementType::class);
+        $extension = $this->getMock(ElementTypeExtension::class);
+        $parent = $this->getMockBuilder(ResolvedElementType::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $resolvedType = new ResolvedColumnType($type, [$extension], $parent);
+        $resolvedType = new ResolvedElementType($type, [$extension], $parent);
 
-        $this->assertInstanceOf(ResolvedColumnType::class, $resolvedType);
+        $this->assertInstanceOf(ResolvedElementType::class, $resolvedType);
     }
 
     /**
@@ -27,67 +27,67 @@ class ResolvedColumnTypeTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvalidConstruction()
     {
-        $type = $this->getMock(ColumnType::class);
-        $resolvedType = new ResolvedColumnType($type, ['invalid']);
+        $type = $this->getMock(ElementType::class);
+        $resolvedType = new ResolvedElementType($type, ['invalid']);
     }
 
     public function testCreateView()
     {
-        $type = $this->createType(ColumnType::class, ['option']);
-        $resolvedType = new ResolvedColumnType($type);
+        $type = $this->createType(ElementType::class, ['option']);
+        $resolvedType = new ResolvedElementType($type);
 
         $options = ['option' => 'value'];
         $view = $resolvedType->createView('column', $options);
 
-        $this->assertInstanceOf(ColumnView::class, $view);
+        $this->assertInstanceOf(ElementView::class, $view);
         $this->assertEquals('column', $view->name);
         $this->assertEquals($options, $view->vars);
     }
 
     public function testCreateParentView()
     {
-        $parent = new ResolvedColumnType($this->createType(ColumnType::class, ['parent']));
-        $type = $this->createType(ColumnType::class, ['option']);
-        $resolvedType = new ResolvedColumnType($type, [], $parent);
+        $parent = new ResolvedElementType($this->createType(ElementType::class, ['parent']));
+        $type = $this->createType(ElementType::class, ['option']);
+        $resolvedType = new ResolvedElementType($type, [], $parent);
 
         $options = ['option' => 'value', 'parent' => 'parent'];
         $view = $resolvedType->createView('column', $options);
 
-        $this->assertInstanceOf(ColumnView::class, $view);
+        $this->assertInstanceOf(ElementView::class, $view);
         $this->assertEquals('column', $view->name);
         $this->assertEquals($options, $view->vars);
     }
 
     public function testCreateViewExtension()
     {
-        $type = $this->createType(ColumnType::class, ['option']);
-        $extension = $this->createType(ColumnTypeExtension::class, ['extension']);
-        $resolvedType = new ResolvedColumnType($type, [$extension]);
+        $type = $this->createType(ElementType::class, ['option']);
+        $extension = $this->createType(ElementTypeExtension::class, ['extension']);
+        $resolvedType = new ResolvedElementType($type, [$extension]);
 
         $options = ['option' => 'value', 'extension' => 'ext'];
         $view = $resolvedType->createView('column', $options);
 
-        $this->assertInstanceOf(ColumnView::class, $view);
+        $this->assertInstanceOf(ElementView::class, $view);
         $this->assertEquals('column', $view->name);
         $this->assertEquals($options, $view->vars);
     }
 
     public function testGetValue()
     {
-        $parentType = $this->createType(ColumnType::class, ['parent']);
+        $parentType = $this->createType(ElementType::class, ['parent']);
         $parentType->expects($this->once())
             ->method('getValue')
             ->willReturn('value');
 
-        $parent = new ResolvedColumnType($parentType);
+        $parent = new ResolvedElementType($parentType);
 
-        $type = $this->createType(ColumnType::class, ['option']);
+        $type = $this->createType(ElementType::class, ['option']);
         $type->expects($this->once())
             ->method('getValue')
-            ->with($this->isInstanceOf(ColumnView::class), $this->anything(), $this->equalTo('value'))
+            ->with($this->isInstanceOf(ElementView::class), $this->anything(), $this->equalTo('value'))
             ->willReturn('value-added');
 
-        $resolvedType = new ResolvedColumnType($type, [], $parent);
+        $resolvedType = new ResolvedElementType($type, [], $parent);
 
         $options = ['option' => 'value', 'parent' => 'parent'];
         $view = $resolvedType->createView('column', $options);

@@ -7,7 +7,7 @@ namespace Prezent\Grid;
  *
  * @author Sander Marechal
  */
-class ColumnView implements View
+class ElementView implements View
 {
     /**
      * @var string
@@ -21,16 +21,16 @@ class ColumnView implements View
     public $vars = [];
 
     /**
-     * @var ResolvedColumnType
+     * @var ResolvedElementType
      */
     private $type;
 
     /**
      * Constructor
      *
-     * @param string $name Column name
+     * @param string $name Element name
      */
-    public function __construct($name, ResolvedColumnType $type)
+    public function __construct($name, ResolvedElementType $type)
     {
         $this->name = $name;
         $this->type = $type;
@@ -48,7 +48,7 @@ class ColumnView implements View
     }
 
     /**
-     * Get the value for a column
+     * Get the value for an element
      *
      * @param mixed $item
      * @return mixed
@@ -59,9 +59,9 @@ class ColumnView implements View
     }
 
     /**
-     * Get the column type
+     * Get the element type
      *
-     * @return ResolvedColumnType
+     * @return ResolvedElementType
      */
     public function getType()
     {

@@ -1,16 +1,16 @@
 <?php
 
-namespace Prezent\Grid\Extension\Core\ColumnType;
+namespace Prezent\Grid\Extension\Core\Type;
 
-use Prezent\Grid\BaseColumnType;
+use Prezent\Grid\BaseElementType;
 
 /**
  * ActionType
  *
- * @see BaseColumnType
+ * @see BaseElementType
  * @author Sander Marechal
  */
-class ActionType extends BaseColumnType
+class ActionType extends BaseElementType
 {
     /**
      * {@inheritDoc}

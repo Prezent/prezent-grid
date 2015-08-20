@@ -1,23 +1,23 @@
 <?php
 
-namespace Prezent\Grid\Extension\Core\ColumnType;
+namespace Prezent\Grid\Extension\Core\Type;
 
-use Prezent\Grid\BaseColumnType;
-use Prezent\Grid\ColumnView;
+use Prezent\Grid\BaseElementType;
+use Prezent\Grid\ElementView;
 use Prezent\Grid\Exception\InvalidArgumentException;
 
 /**
  * StringType
  *
- * @see BaseColumnType
+ * @see BaseElementType
  * @author Sander Marechal
  */
-class StringType extends BaseColumnType
+class StringType extends BaseElementType
 {
     /**
      * {@inheritDoc}
      */
-    public function getValue(ColumnView $view, $item, $value)
+    public function getValue(ElementView $view, $item, $value)
     {
         if (is_object($value) && !method_exists($value, '__toString')) {
             throw new InvalidArgumentException('Objects must implement __toString() in a string column type');

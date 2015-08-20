@@ -1,19 +1,19 @@
 <?php
 
-namespace Prezent\Grid\Extension\Core\ColumnType;
+namespace Prezent\Grid\Extension\Core\Type;
 
-use Prezent\Grid\BaseColumnType;
-use Prezent\Grid\ColumnView;
+use Prezent\Grid\BaseElementType;
+use Prezent\Grid\ElementView;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 
 /**
  * ElementType
  *
- * @see BaseColumnType
+ * @see BaseElementType
  * @author Sander Marechal
  */
-class ElementType extends BaseColumnType
+class ElementType extends BaseElementType
 {
     /**
      * {@inheritDoc}
@@ -28,7 +28,7 @@ class ElementType extends BaseColumnType
     /**
      * {@inheritDoc}
      */
-    public function buildView(ColumnView $view, array $options)
+    public function buildView(ElementView $view, array $options)
     {
         $blockTypes = [];
         for ($type = $view->getType(); $type != null; $type = $type->getParent()) {

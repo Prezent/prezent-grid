@@ -3,14 +3,14 @@
 namespace Prezent\Grid;
 
 /**
- * Column description
+ * Element description
  *
  * @author Sander Marechal
  */
-class ColumnDescription
+class ElementDescription
 {
     /**
-     * @var ResolvedColumnType
+     * @var ResolvedElementType
      */
     private $type;
 
@@ -22,17 +22,17 @@ class ColumnDescription
     /**
      * Constructor
      *
-     * @param ResolvedColumnType $type
+     * @param ResolvedElementType $type
      * @param array $options
      */
-    public function __construct(ResolvedColumnType $type, array $options = [])
+    public function __construct(ResolvedElementType $type, array $options = [])
     {
         $this->type = $type;
         $this->options = $options;
     }
 
     /**
-     * Create a column view
+     * Create an element view
      *
      * @param mixed $name
      * @return void
@@ -45,7 +45,7 @@ class ColumnDescription
     /**
      * Getter for type
      *
-     * @return ResolvedColumnType
+     * @return ResolvedElementType
      */
     public function getType()
     {

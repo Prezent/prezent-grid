@@ -2,7 +2,7 @@
 
 namespace Prezent\Grid\Twig;
 
-use Prezent\Grid\ColumnView;
+use Prezent\Grid\ElementView;
 use Prezent\Grid\Exception\UnexpectedTypeException;
 use Prezent\Grid\GridView;
 use Prezent\Grid\View;
@@ -67,7 +67,7 @@ class GridRenderer
      * Render a block
      *
      * @param string $name
-     * @param GridView|ColumnView $view
+     * @param GridView|ElementView $view
      * @param mixed $item
      * @param array $variables
      * @return string
@@ -102,7 +102,7 @@ class GridRenderer
         $blockSuffix = strrchr($name, '_');
         $blockPrefix = strlen($blockSuffix) ? substr($name, 0, -strlen($blockSuffix)) : $name;
 
-        if ('_widget' == $blockSuffix && $view instanceof ColumnView && isset($view->vars['block_types'])) {
+        if ('_widget' == $blockSuffix && $view instanceof ElementView && isset($view->vars['block_types'])) {
             foreach ($view->vars['block_types'] as $blockType) {
                 $blockName = $blockPrefix . '_' . $blockType . $blockSuffix;
 
@@ -138,7 +138,7 @@ class GridRenderer
      *     ...
      * ]
      *
-     * @param GridView|ColumnView $view
+     * @param GridView|ElementView $view
      * @param mixed $item
      * @return \SplStack
      */
@@ -160,7 +160,7 @@ class GridRenderer
             $variables = array_merge(['grid' => $view, 'data' => $item]);
         }
         
-        if ($view instanceof ColumnView) {
+        if ($view instanceof ElementView) {
             if ($item) {
                 $boundView = clone $view;
                 $boundView->bind($item);

@@ -7,10 +7,10 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 /**
  * Base column type extension
  *
- * @see ColumnType
+ * @see ElementType
  * @author Sander Marechal
  */
-abstract class BaseColumnTypeExtension implements ColumnTypeExtension
+abstract class BaseElementTypeExtension implements ElementTypeExtension
 {
     /**
      * {@inheritDoc}
@@ -22,14 +22,14 @@ abstract class BaseColumnTypeExtension implements ColumnTypeExtension
     /**
      * {@inheritDoc}
      */
-    public function buildView(ColumnView $view, array $options)
+    public function buildView(ElementView $view, array $options)
     {
     }
 
     /**
      * {@inheritDoc}
      */
-    public function bindView(ColumnView $view, $item)
+    public function bindView(ElementView $view, $item)
     {
     }
 

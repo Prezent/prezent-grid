@@ -17,22 +17,22 @@ interface GridExtension
      * @param string $name
      * @return bool
      */
-    public function hasColumnType($name);
+    public function hasElementType($name);
 
     /**
      * Get a column type
      *
      * @param string $name
      * @throws InvalidArgumentException
-     * @return ColumnType
+     * @return ElementType
      */
-    public function getColumnType($name);
+    public function getElementType($name);
 
     /**
      * Get column type extensions for a type
      *
      * @param string $name
-     * @return ColumnTypeExtension[]
+     * @return ElementTypeExtension[]
      */
-    public function getColumnTypeExtensions($name);
+    public function getElementTypeExtensions($name);
 }

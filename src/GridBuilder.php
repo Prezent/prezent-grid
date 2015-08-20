@@ -13,35 +13,35 @@ use Prezent\Grid\Exception\UnexpectedTypeException;
 class GridBuilder
 {
     /**
-     * @var ColumnDescription[]
+     * @var ElementDescription[]
      */
     private $columns = [];
 
     /**
-     * @var ColumnDescription[]
+     * @var ElementDescription[]
      */
     private $actions = [];
 
     /**
-     * @var ColumnTypeFactory
+     * @var ElementTypeFactory
      */
-    private $ColumnTypeFactory;
+    private $ElementTypeFactory;
 
     /**
      * Constructor
      *
-     * @param ColumnTypeFactory $columnTypeFactory
+     * @param ElementTypeFactory $elementTypeFactory
      */
-    public function __construct(ColumnTypeFactory $columnTypeFactory)
+    public function __construct(ElementTypeFactory $elementTypeFactory)
     {
-        $this->columnTypeFactory = $columnTypeFactory;
+        $this->elementTypeFactory = $elementTypeFactory;
     }
 
     /**
      * Add a column
      *
      * @param string $name
-     * @param string|ColumnType|ResolvedColumnType $type
+     * @param string|ElementType|ResolvedElementType $type
      * @param array $options
      * @return self
      */
@@ -60,13 +60,13 @@ class GridBuilder
      * Create a column
      *
      * @param string $name
-     * @param string|ColumnType|ResolvedColumnType $type
+     * @param string|ElementType|ResolvedElementType $type
      * @param array $options
      * @return void
      */
     public function createColumn($type, array $options = [])
     {
-        return new ColumnDescription($this->resolveType($type), $options);
+        return new ElementDescription($this->resolveType($type), $options);
     }
 
     /**
@@ -84,7 +84,7 @@ class GridBuilder
      * Get a column
      *
      * @param string $name
-     * @return ColumnDescription
+     * @return ElementDescription
      */
     public function getColumn($name)
     {
@@ -124,7 +124,7 @@ class GridBuilder
      * Get an action
      *
      * @param string $name
-     * @return ColumnDescription
+     * @return ElementDescription
      */
     public function getAction($name)
     {
@@ -148,23 +148,23 @@ class GridBuilder
     /**
      * Resolve a column type
      *
-     * @param string|ColumnType|ResolvedColumnType $type
-     * @return ResolvedColumnType
+     * @param string|ElementType|ResolvedElementType $type
+     * @return ResolvedElementType
      */
     private function resolveType($type)
     {
         if (is_string($type)) {
-            return $this->columnTypeFactory->getType($type);
+            return $this->elementTypeFactory->getType($type);
         }
 
-        if ($type instanceof ColumnType) {
-            return $this->columnTypeFactory->resolveType($type);
+        if ($type instanceof ElementType) {
+            return $this->elementTypeFactory->resolveType($type);
         }
 
-        if ($type instanceof ResolvedColumnType) {
+        if ($type instanceof ResolvedElementType) {
             return $type;
         }
         
-        throw new UnexpectedTypeException('string|' . ColumnType::class . '|' . ResolvedColumnType::class, $type);
+        throw new UnexpectedTypeException('string|' . ElementType::class . '|' . ResolvedElementType::class, $type);
     }
 }

@@ -2,6 +2,8 @@
 
 namespace Prezent\Grid;
 
+use Prezent\Grid\Exception\UnexpectedTypeException;
+
 /**
  * Immutable view collection
  *
@@ -24,6 +26,12 @@ class ViewCollection implements \ArrayAccess, \IteratorAggregate, \Countable
      */
     public function __construct(array $views = [])
     {
+        foreach ($views as $view) {
+            if (!($view instanceof View)) {
+                throw new UnexpectedTypeException(View::class, $view);
+            }
+        }
+
         $this->views = $views;
     }
 

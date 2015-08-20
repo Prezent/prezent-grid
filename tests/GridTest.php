@@ -2,19 +2,19 @@
 
 namespace Prezent\Tests\Grid;
 
-use Prezent\Grid\ColumnDescription;
-use Prezent\Grid\ColumnType;
-use Prezent\Grid\ColumnView;
+use Prezent\Grid\ElementDescription;
+use Prezent\Grid\ElementType;
+use Prezent\Grid\ElementView;
 use Prezent\Grid\Grid;
 use Prezent\Grid\GridView;
-use Prezent\Grid\ResolvedColumnType;
+use Prezent\Grid\ResolvedElementType;
 
 class GridTest extends \PHPUnit_Framework_TestCase
 {
     public function testColumns()
     {
-        $type = $this->getMockBuilder(ResolvedColumnType::class)->disableOriginalConstructor()->getMock();
-        $column = new ColumnDescription($type, ['option' => 'value']);
+        $type = $this->getMockBuilder(ResolvedElementType::class)->disableOriginalConstructor()->getMock();
+        $column = new ElementDescription($type, ['option' => 'value']);
 
         $grid = new Grid(['column' => $column]);
 
@@ -27,7 +27,7 @@ class GridTest extends \PHPUnit_Framework_TestCase
      */
     public function testUnnamedColumn()
     {
-        $column = $this->getMockBuilder(ColumnDescription::class)->disableOriginalConstructor()->getMock();
+        $column = $this->getMockBuilder(ElementDescription::class)->disableOriginalConstructor()->getMock();
         $grid = new Grid([$column]);
     }
 
@@ -52,8 +52,8 @@ class GridTest extends \PHPUnit_Framework_TestCase
 
     public function testActions()
     {
-        $type = $this->getMockBuilder(ResolvedColumnType::class)->disableOriginalConstructor()->getMock();
-        $action = new ColumnDescription($type, ['option' => 'value']);
+        $type = $this->getMockBuilder(ResolvedElementType::class)->disableOriginalConstructor()->getMock();
+        $action = new ElementDescription($type, ['option' => 'value']);
 
         $grid = new Grid([], ['action' => $action]);
 
@@ -66,7 +66,7 @@ class GridTest extends \PHPUnit_Framework_TestCase
      */
     public function testUnnamedAction()
     {
-        $action = $this->getMockBuilder(ColumnDescription::class)->disableOriginalConstructor()->getMock();
+        $action = $this->getMockBuilder(ElementDescription::class)->disableOriginalConstructor()->getMock();
         $grid = new Grid([], [$action]);
     }
 
@@ -93,9 +93,9 @@ class GridTest extends \PHPUnit_Framework_TestCase
     {
         $options = ['option' => 'value'];
 
-        $type = $this->getMockBuilder(ResolvedColumnType::class)->disableOriginalConstructor()->getMock();
+        $type = $this->getMockBuilder(ResolvedElementType::class)->disableOriginalConstructor()->getMock();
 
-        $columnView = new ColumnView('column', $type);
+        $columnView = new ElementView('column', $type);
 
         $type->expects($this->exactly(2))
             ->method('createView')
@@ -105,7 +105,7 @@ class GridTest extends \PHPUnit_Framework_TestCase
             )
             ->willReturn($columnView);
 
-        $column = new ColumnDescription($type, ['option' => 'value']);
+        $column = new ElementDescription($type, ['option' => 'value']);
 
         $grid = new Grid(['column' => $column], ['action' => $column]);
 

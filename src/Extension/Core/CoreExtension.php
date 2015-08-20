@@ -39,25 +39,25 @@ class CoreExtension extends BaseGridExtension
     /**
      * {@inheritDoc}
      */
-    protected function loadColumnTypes()
+    protected function loadElementTypes()
     {
         return [
-            new ColumnType\ActionType(),
-            new ColumnType\BooleanType(),
-            new ColumnType\ColumnType($this->accessor),
-            new ColumnType\DateTimeType(),
-            new ColumnType\ElementType(),
-            new ColumnType\StringType(),
+            new Type\ActionType(),
+            new Type\BooleanType(),
+            new Type\ColumnType($this->accessor),
+            new Type\DateTimeType(),
+            new Type\ElementType(),
+            new Type\StringType(),
         ];
     }
 
     /**
      * {@inheritDoc}
      */
-    protected function loadColumnTypeExtensions()
+    protected function loadElementTypeExtensions()
     {
         return [
-            new ColumnType\UrlTypeExtension($this->resolver),
+            new Type\UrlTypeExtension($this->resolver),
         ];
     }
 }

@@ -2,9 +2,9 @@
 
 namespace Prezent\Grid\Tests\Twig;
 
-use Prezent\Grid\ColumnView;
+use Prezent\Grid\ElementView;
 use Prezent\Grid\GridView;
-use Prezent\Grid\ResolvedColumnType;
+use Prezent\Grid\ResolvedElementType;
 use Prezent\Grid\Twig\GridRenderer;
 
 class GridRendererTest extends \PHPUnit_Framework_TestCase
@@ -43,12 +43,12 @@ class GridRendererTest extends \PHPUnit_Framework_TestCase
         $theme = $this->getMockBuilder(\Twig_Template::class)->disableOriginalConstructor()->getMock();
         $theme->method('getBlocks')->willReturn([]);
 
-        $type = $this->getMockBuilder(ResolvedColumnType::class)->disableOriginalConstructor()->getMock();
+        $type = $this->getMockBuilder(ResolvedElementType::class)->disableOriginalConstructor()->getMock();
 
         $renderer = new GridRenderer($theme);
         $renderer->setEnvironment($this->getMock(\Twig_Environment::class));
 
-        $view = new ColumnView('column', $type);
+        $view = new ElementView('column', $type);
         $view->vars['foo'] = 'bar';
         $view->vars['baz'] = 'quu';
 
@@ -69,12 +69,12 @@ class GridRendererTest extends \PHPUnit_Framework_TestCase
         $theme = $this->getMockBuilder(\Twig_Template::class)->disableOriginalConstructor()->getMock();
         $theme->method('getBlocks')->willReturn([]);
 
-        $type = $this->getMockBuilder(ResolvedColumnType::class)->disableOriginalConstructor()->getMock();
+        $type = $this->getMockBuilder(ResolvedElementType::class)->disableOriginalConstructor()->getMock();
 
         $renderer = new GridRenderer($theme);
         $renderer->setEnvironment($this->getMock(\Twig_Environment::class));
 
-        $view = new ColumnView('column', $type);
+        $view = new ElementView('column', $type);
         $view->vars['foo'] = 'bar';
         $view->vars['baz'] = 'quu';
 
@@ -101,12 +101,12 @@ class GridRendererTest extends \PHPUnit_Framework_TestCase
         $theme = $this->getMockBuilder(\Twig_Template::class)->disableOriginalConstructor()->getMock();
         $theme->method('getBlocks')->willReturn(['grid_column_widget' => []]);
 
-        $type = $this->getMockBuilder(ResolvedColumnType::class)->disableOriginalConstructor()->getMock();
+        $type = $this->getMockBuilder(ResolvedElementType::class)->disableOriginalConstructor()->getMock();
 
         $renderer = new GridRenderer($theme);
         $renderer->setEnvironment($this->getMock(\Twig_Environment::class));
 
-        $view = new ColumnView('column', $type);
+        $view = new ElementView('column', $type);
         $view->vars['block_types'] = ['string', 'column'];
 
         $theme->expects($this->once())
@@ -125,12 +125,12 @@ class GridRendererTest extends \PHPUnit_Framework_TestCase
         $theme->method('getBlocks')->willReturn(['grid_string_widget' => []]);
         $theme->method('getParent')->willReturn($parent);
 
-        $type = $this->getMockBuilder(ResolvedColumnType::class)->disableOriginalConstructor()->getMock();
+        $type = $this->getMockBuilder(ResolvedElementType::class)->disableOriginalConstructor()->getMock();
 
         $renderer = new GridRenderer($theme);
         $renderer->setEnvironment($this->getMock(\Twig_Environment::class));
 
-        $view = new ColumnView('column', $type);
+        $view = new ElementView('column', $type);
         $view->vars['block_types'] = ['string', 'column'];
 
         $theme->expects($this->once())

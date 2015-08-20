@@ -2,12 +2,12 @@
 
 namespace Prezent\Tests\Grid;
 
-use Prezent\Grid\ColumnType;
-use Prezent\Grid\ColumnTypeFactory;
-use Prezent\Grid\ColumnDescription;
+use Prezent\Grid\ElementType;
+use Prezent\Grid\ElementTypeFactory;
+use Prezent\Grid\ElementDescription;
 use Prezent\Grid\Grid;
 use Prezent\Grid\GridBuilder;
-use Prezent\Grid\ResolvedColumnType;
+use Prezent\Grid\ResolvedElementType;
 
 class GridBuilderTest extends \PHPUnit_Framework_TestCase
 {
@@ -16,33 +16,33 @@ class GridBuilderTest extends \PHPUnit_Framework_TestCase
         $builder = new GridBuilder($this->createFactory());
         $column = $builder->createColumn('column', ['option' => 'value']);
 
-        $this->assertInstanceOf(ColumnDescription::class, $column);
-        $this->assertInstanceOf(ResolvedColumnType::class, $column->getType());
+        $this->assertInstanceOf(ElementDescription::class, $column);
+        $this->assertInstanceOf(ResolvedElementType::class, $column->getType());
         $this->assertEquals(['option' => 'value'], $column->getOptions());
     }
 
     public function testCreateFromType()
     {
-        $type = $this->getMock(ColumnType::class);
+        $type = $this->getMock(ElementType::class);
 
         $builder = new GridBuilder($this->createFactory());
         $column = $builder->createColumn($type, ['option' => 'value']);
 
-        $this->assertInstanceOf(ColumnDescription::class, $column);
-        $this->assertInstanceOf(ResolvedColumnType::class, $column->getType());
+        $this->assertInstanceOf(ElementDescription::class, $column);
+        $this->assertInstanceOf(ResolvedElementType::class, $column->getType());
         $this->assertEquals(['option' => 'value'], $column->getOptions());
     }
 
     public function testCreateFromResolvedType()
     {
-        $resolvedType = $this->getMockBuilder(ResolvedColumnType::class)
+        $resolvedType = $this->getMockBuilder(ResolvedElementType::class)
             ->disableOriginalConstructor()
             ->getMock();
 
         $builder = new GridBuilder($this->createFactory());
         $column = $builder->createColumn($resolvedType, ['option' => 'value']);
 
-        $this->assertInstanceOf(ColumnDescription::class, $column);
+        $this->assertInstanceOf(ElementDescription::class, $column);
         $this->assertSame($resolvedType, $column->getType());
         $this->assertEquals(['option' => 'value'], $column->getOptions());
     }
@@ -62,7 +62,7 @@ class GridBuilderTest extends \PHPUnit_Framework_TestCase
         $builder->addColumn('column', 'string', ['option' => 'value']);
 
         $this->assertTrue($builder->hasColumn('column'));
-        $this->assertInstanceOf(ColumnDescription::class, $builder->getColumn('column'));
+        $this->assertInstanceOf(ElementDescription::class, $builder->getColumn('column'));
     }
 
     /**
@@ -89,7 +89,7 @@ class GridBuilderTest extends \PHPUnit_Framework_TestCase
         $builder->addAction('action', ['option' => 'value']);
 
         $this->assertTrue($builder->hasAction('action'));
-        $this->assertInstanceOf(ColumnDescription::class, $builder->getAction('action'));
+        $this->assertInstanceOf(ElementDescription::class, $builder->getAction('action'));
     }
 
     /**
@@ -110,16 +110,16 @@ class GridBuilderTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf(Grid::class, $grid);
         $this->assertTrue($grid->hasColumn('column'));
-        $this->assertInstanceOf(ColumnDescription::class, $grid->getColumn('column'));
+        $this->assertInstanceOf(ElementDescription::class, $grid->getColumn('column'));
     }
 
     private function createFactory()
     {
-        $resolvedType = $this->getMockBuilder(ResolvedColumnType::class)
+        $resolvedType = $this->getMockBuilder(ResolvedElementType::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $factory = $this->getMock(ColumnTypeFactory::class);
+        $factory = $this->getMock(ElementTypeFactory::class);
         $factory->expects($this->any())->method('getType')->willReturn($resolvedType);
         $factory->expects($this->any())->method('resolveType')->willReturn($resolvedType);
 

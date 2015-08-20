@@ -15,9 +15,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class DefaultGridFactory implements GridFactory
 {
     /**
-     * @var ColumnTypeFactory
+     * @var ElementTypeFactory
      */
-    private $columnTypeFactory;
+    private $elementTypeFactory;
 
     /**
      * @var GridType[]
@@ -27,12 +27,12 @@ class DefaultGridFactory implements GridFactory
     /**
      * Constructor
      *
-     * @param ColumnTypeFactory $columnTypeFactory
+     * @param ElementTypeFactory $elementTypeFactory
      * @param GridType[] $types
      */
-    public function __construct(ColumnTypeFactory $columnTypeFactory, array $types = [])
+    public function __construct(ElementTypeFactory $elementTypeFactory, array $types = [])
     {
-        $this->columnTypeFactory = $columnTypeFactory;
+        $this->elementTypeFactory = $elementTypeFactory;
         $this->types = $types;
     }
 
@@ -81,6 +81,6 @@ class DefaultGridFactory implements GridFactory
      */
     protected function newBuilder()
     {
-        return new GridBuilder($this->columnTypeFactory);
+        return new GridBuilder($this->elementTypeFactory);
     }
 }

@@ -6,17 +6,17 @@ use Prezent\Grid\Exception\InvalidargumentException;
 use Prezent\Grid\Exception\UnexpectedTypeException;
 
 /**
- * Column type factory interface
+ * Element type factory interface
  *
  * @author Sander Marechal
  */
-interface ColumnTypeFactory
+interface ElementTypeFactory
 {
     /**
      * Get a type from the factory
      *
      * @param string $name
-     * @return ResolvedColumnType
+     * @return ResolvedElementType
      *
      * @throws UnexpectedTypeException if $name is not a string
      * @throws InvalidArgumentException if the type cannot be found
@@ -24,10 +24,10 @@ interface ColumnTypeFactory
     public function getType($name);
 
     /**
-     * Resolve a column type
+     * Resolve an element type
      *
-     * @param ColumnType $type
-     * @return ResolvedColumnType
+     * @param ElementType $type
+     * @return ResolvedElementType
      */
-    public function resolveType(ColumnType $type);
+    public function resolveType(ElementType $type);
 }

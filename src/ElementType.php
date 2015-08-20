@@ -5,11 +5,11 @@ namespace Prezent\Grid;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
- * Interface for column types
+ * Interface for element types
  *
  * @author Sander Marechal
  */
-interface ColumnType
+interface ElementType
 {
     /**
      * Configure options for this type
@@ -22,33 +22,33 @@ interface ColumnType
     /**
      * Set up the view for this type
      *
-     * @param ColumnView $view
+     * @param ElementView $view
      * @param array $options
      * @return void
      */
-    public function buildView(ColumnView $view, array $options);
+    public function buildView(ElementView $view, array $options);
 
     /**
      * Bind an item to the view
      *
-     * @param ColumnView $view
+     * @param ElementView $view
      * @param mixed $item
      * @return void
      */
-    public function bindView(ColumnView $view, $item);
+    public function bindView(ElementView $view, $item);
 
     /**
-     * Get the column value for this type
+     * Get the element value for this type
      *
-     * @param ColumnView $view
+     * @param ElementView $view
      * @param mixed $item Row item
      * @param mixed $value Value returned by the parent type
      * @return void
      */
-    public function getValue(ColumnView $view, $item, $value);
+    public function getValue(ElementView $view, $item, $value);
 
     /**
-     * Get the column type name
+     * Get the element type name
      *
      * @return string
      */

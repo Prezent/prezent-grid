@@ -14,108 +14,108 @@ use Prezent\Grid\Exception\UnexpectedTypeException;
 abstract class BaseGridExtension implements GridExtension
 {
     /**
-     * @var ColumnType[]
+     * @var ElementType[]
      */
-    private $columnTypes = null;
+    private $elementTypes = null;
 
     /**
-     * @var ColumnTypeExtension[]
+     * @var ElementTypeExtension[]
      */
-    private $columnTypeExtensions = null;
+    private $elementTypeExtensions = null;
 
     /**
      * {@inheritDoc}
      */
-    public function hasColumnType($name)
+    public function hasElementType($name)
     {
-        if (null == $this->columnTypes) {
-            $this->initColumnTypes();
+        if (null == $this->elementTypes) {
+            $this->initElementTypes();
         }
 
-        return isset($this->columnTypes[$name]);
+        return isset($this->elementTypes[$name]);
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getColumnType($name)
+    public function getElementType($name)
     {
-        if (!$this->hasColumnType($name)) {
+        if (!$this->hasElementType($name)) {
             throw new InvalidArgumentException(sprintf('The column type "%s" cannot be loaded', $name));
         }
 
-        return $this->columnTypes[$name];
+        return $this->elementTypes[$name];
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getColumnTypeExtensions($name)
+    public function getElementTypeExtensions($name)
     {
-        if (null == $this->columnTypeExtensions) {
-            $this->initColumnTypeExtensions();
+        if (null == $this->elementTypeExtensions) {
+            $this->initElementTypeExtensions();
         }
 
-        if (!isset($this->columnTypeExtensions[$name])) {
+        if (!isset($this->elementTypeExtensions[$name])) {
             return [];
         }
 
-        return $this->columnTypeExtensions[$name];
+        return $this->elementTypeExtensions[$name];
     }
 
     /**
-     * Get column types
+     * Get element types
      *
      * @return array
      */
-    protected function loadColumnTypes()
+    protected function loadElementTypes()
     {
         return [];
     }
 
     /**
-     * Get column type extensions
+     * Get element type extensions
      *
      * @return array
      */
-    protected function loadColumnTypeExtensions()
+    protected function loadElementTypeExtensions()
     {
         return [];
     }
 
     /**
-     * Initialize column types
+     * Initialize element types
      *
      * @return void
      */
-    private function initColumnTypes()
+    private function initElementTypes()
     {
-        $this->columnTypes = [];
+        $this->elementTypes = [];
 
-        foreach ($this->loadColumnTypes() as $columnType) {
-            if (!$columnType instanceof ColumnType) {
-                throw new UnexpectedTypeException(ColumnType::class, $columnType);
+        foreach ($this->loadElementTypes() as $elementType) {
+            if (!$elementType instanceof ElementType) {
+                throw new UnexpectedTypeException(ElementType::class, $elementType);
             }
 
-            $this->columnTypes[$columnType->getName()] = $columnType;
+            $this->elementTypes[$elementType->getName()] = $elementType;
         }
     }
 
     /**
-     * Initialize column type extensions
+     * Initialize element type extensions
      *
      * @return void
      */
-    private function initColumnTypeExtensions()
+    private function initElementTypeExtensions()
     {
-        $this->columnTypeExtensions = [];
+        $this->elementTypeExtensions = [];
 
-        foreach ($this->loadColumnTypeExtensions() as $columnTypeExtension) {
-            if (!$columnTypeExtension instanceof ColumnTypeExtension) {
-                throw new UnexpectedTypeException(ColumnTypeExtension::class, $columnTypeExtension);
+        foreach ($this->loadElementTypeExtensions() as $elementTypeExtension) {
+            if (!$elementTypeExtension instanceof ElementTypeExtension) {
+                throw new UnexpectedTypeException(ElementTypeExtension::class, $elementTypeExtension);
             }
 
-            $this->columnTypeExtensions[$columnTypeExtension->getExtendedType()][] = $columnTypeExtension;
+            $this->elementTypeExtensions[$elementTypeExtension->getExtendedType()][] = $elementTypeExtension;
         }
     }
 }
