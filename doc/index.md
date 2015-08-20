@@ -3,13 +3,11 @@ prezent/grid
 
 A framework-independent library for building and rendering generic datagrids in PHP.
 
-## Installation
+## Index
 
-This extension can be installed using Composer. Tell composer to install the extension:
-
-```bash
-$ php composer.phar require prezent/grid
-```
+1. [Installation](installation.md)
+2. [Define your grids](define-grids.md)
+3. [Element type reference](types/index.md)
 
 ## Quick example
 
@@ -65,7 +63,3 @@ Finally, render the grid using Twig:
 ```
 {{ grid(grid, data) }}
 ```
-
-## Documentation
-
-The complete documentation can be found in the [doc directory](doc/index.md).
