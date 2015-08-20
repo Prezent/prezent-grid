@@ -53,7 +53,7 @@ Or even:
 
 The following twig functions are available to render your grids:
 
-### grid(<grid>, <data>[, <vars>])
+### grid(grid, data[, vars])
 
 Render an entire grid. The variables are exposed to the inner elements of the grid.
 
