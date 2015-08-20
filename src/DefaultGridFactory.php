@@ -71,7 +71,7 @@ class DefaultGridFactory implements GridFactory
      */
     public function createGrid($type, array $options = [])
     {
-        return $this->createBuilder($type)->getGrid();
+        return $this->createBuilder($type, $options)->getGrid();
     }
 
     /**
