@@ -62,11 +62,14 @@ $builder
 You can also define your grids as separate classes. The easiest way to do this is to extend the `BaseGridType` class. When you create
 the grid using the grid factory, the `buildGrid` method will be called where you can add your columns and actions.
 
+Grids can also have options. Use the `configureOptions` method to define which options are supported by a grid.
+
 ```php
 <?php
 
 use Prezent\Grid\BaseGridType;
 use Prezent\Grid\GridBuilder;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class MyGrid extends BaseGridType
 {
@@ -75,6 +78,18 @@ class MyGrid extends BaseGridType
         $builder
             ->addColumn('id', 'string')
             ->addColumn('name', 'string', ['label' => 'Full name'])
+        ;
+
+        if ($options['show_email']) {
+            $builder->addColumn('email', 'string');
+        }
+    }
+
+    public function configureOptions(OptionsResolverInterface $resolver)
+    {
+        $resolver
+            ->addDefaults(['show_email' => false])
+            ->setAllowedTypes(['show_email' => 'bool'])
         ;
     }
 }
