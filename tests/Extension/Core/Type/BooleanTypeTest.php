@@ -14,8 +14,10 @@ class BooleanTypeTest extends TypeTest
             ->getGrid();
 
         $view = $grid->createView();
+        $view->columns['foo']->bind($data);
+        $view->columns['bar']->bind($data);
 
-        $this->assertEquals('yes', $view->columns['foo']->getValue($data));
-        $this->assertEquals('no', $view->columns['bar']->getValue($data));
+        $this->assertEquals('yes', $view->columns['foo']->vars['value']);
+        $this->assertEquals('no', $view->columns['bar']->vars['value']);
     }
 }

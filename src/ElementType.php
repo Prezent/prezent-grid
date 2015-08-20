@@ -38,16 +38,6 @@ interface ElementType
     public function bindView(ElementView $view, $item);
 
     /**
-     * Get the element value for this type
-     *
-     * @param ElementView $view
-     * @param mixed $item Row item
-     * @param mixed $value Value returned by the parent type
-     * @return void
-     */
-    public function getValue(ElementView $view, $item, $value);
-
-    /**
      * Get the element type name
      *
      * @return string

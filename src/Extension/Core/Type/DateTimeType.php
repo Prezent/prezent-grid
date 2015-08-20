@@ -42,10 +42,10 @@ class DateTimeType extends BaseElementType
     /**
      * {@inheritDoc}
      */
-    public function getValue(ElementView $view, $item, $value)
+    public function bindView(ElementView $view, $item)
     {
-        if (!($value instanceof \DateTimeInterface)) {
-            throw new UnexpectedTypeException('DateTimeInterface', $value);
+        if (!($view->vars['value'] instanceof \DateTimeInterface)) {
+            throw new UnexpectedTypeException('DateTimeInterface', $view->vars['value']);
         }
 
         $formatter = \IntlDateFormatter::create(
@@ -57,7 +57,7 @@ class DateTimeType extends BaseElementType
             $view->vars['pattern']
         );
 
-        return $formatter->format($value);
+        $view->vars['value'] = $formatter->format($view->vars['value']);
     }
 
     /**

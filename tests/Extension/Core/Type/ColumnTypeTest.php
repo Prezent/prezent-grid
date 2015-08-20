@@ -15,7 +15,7 @@ class ColumnTypeTest extends TypeTest
         $this->assertEquals('foo', $view->columns['foo']->vars['property_path']);
     }
 
-    public function testGetValue()
+    public function testValue()
     {
         $data = new \stdClass();
         $data->one = 'col1';
@@ -27,8 +27,10 @@ class ColumnTypeTest extends TypeTest
             ->getGrid();
 
         $view = $grid->createView();
+        $view->columns['one']->bind($data);
+        $view->columns['two']->bind($data);
 
-        $this->assertEquals('col1', $view->columns['one']->getValue($data));
-        $this->assertEquals('col2', $view->columns['two']->getValue($data));
+        $this->assertEquals('col1', $view->columns['one']->vars['value']);
+        $this->assertEquals('col2', $view->columns['two']->vars['value']);
     }
 }

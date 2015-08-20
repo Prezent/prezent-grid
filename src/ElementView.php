@@ -48,17 +48,6 @@ class ElementView implements View
     }
 
     /**
-     * Get the value for an element
-     *
-     * @param mixed $item
-     * @return mixed
-     */
-    public function getValue($item)
-    {
-        return $this->type->getValue($this, $item);
-    }
-
-    /**
      * Get the element type
      *
      * @return ResolvedElementType

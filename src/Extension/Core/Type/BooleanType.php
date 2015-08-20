@@ -16,9 +16,9 @@ class BooleanType extends BaseElementType
     /**
      * {@inheritDoc}
      */
-    public function getValue(ElementView $view, $item, $value)
+    public function bindView(ElementView $view, $item)
     {
-        return $value ? 'yes' : 'no';
+        $view->vars['value'] = $view->vars['value'] ? 'yes' : 'no';
     }
 
     /**

@@ -17,17 +17,17 @@ class StringType extends BaseElementType
     /**
      * {@inheritDoc}
      */
-    public function getValue(ElementView $view, $item, $value)
+    public function bindView(ElementView $view, $item)
     {
-        if (is_object($value) && !method_exists($value, '__toString')) {
+        if (is_object($view->vars['value']) && !method_exists($view->vars['value'], '__toString')) {
             throw new InvalidArgumentException('Objects must implement __toString() in a string column type');
         }
 
-        if (is_array($value)) {
-            $value = print_r($value, true);
+        if (is_array($view->vars['value'])) {
+            $view->vars['value'] = print_r($view->vars['value'], true);
         }
 
-        return (string) $value;
+        $view->vars['value'] = (string) $view->vars['value'];
     }
 
     /**

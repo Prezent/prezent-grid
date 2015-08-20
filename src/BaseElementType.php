@@ -36,14 +36,6 @@ abstract class BaseElementType implements ElementType
     /**
      * {@inheritDoc}
      */
-    public function getValue(ElementView $view, $item, $value)
-    {
-        return $value;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     abstract public function getName();
 
     /**

@@ -131,24 +131,6 @@ class ResolvedElementType
     }
 
     /**
-     * Get the element value from an item
-     *
-     * @param ElementView $view
-     * @param mixed $item
-     * @return mixed
-     */
-    public function getValue(ElementView $view, $item)
-    {
-        $value = null;
-
-        if ($this->parent) {
-            $value = $this->parent->getValue($view, $item, $value);
-        }
-
-        return $this->innerType->getValue($view, $item, $value);
-    }
-
-    /**
      * Get the optionsResolver
      *
      * @return OptionsResolverInterface

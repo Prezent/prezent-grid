@@ -45,15 +45,19 @@ class ColumnType extends BaseElementType
      */
     public function buildView(ElementView $view, array $options)
     {
-        $view->vars['property_path'] = $options['property_path'] ?: $view->name;
+        $view->vars['property_path'] = $options['property_path'] === null ? $view->name : $options['property_path'];
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getValue(ElementView $view, $item, $value)
+    public function bindView(ElementView $view, $item)
     {
-        return $this->accessor->getValue($item, $view->vars['property_path']);
+        $view->vars['value'] = null;
+
+        if ($view->vars['property_path']) {
+            $view->vars['value'] = $this->accessor->getValue($item, $view->vars['property_path']);
+        }
     }
 
     /**

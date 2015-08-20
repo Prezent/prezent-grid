@@ -16,8 +16,9 @@ class DateTimeTypeTest extends TypeTest
             ->getGrid();
 
         $view = $grid->createView();
+        $view->columns['date']->bind($data);
 
-        $this->assertEquals($expected, $view->columns['date']->getValue($data));
+        $this->assertEquals($expected, $view->columns['date']->vars['value']);
     }
 
     /**
@@ -32,7 +33,7 @@ class DateTimeTypeTest extends TypeTest
             ->getGrid();
 
         $view = $grid->createView();
-        $view->columns['date']->getValue($data);
+        $view->columns['date']->bind($data);
     }
 
     public function optionsProvider()

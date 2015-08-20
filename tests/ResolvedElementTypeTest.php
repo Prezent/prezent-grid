@@ -72,29 +72,6 @@ class ResolvedElementTypeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($options, $view->vars);
     }
 
-    public function testGetValue()
-    {
-        $parentType = $this->createType(ElementType::class, ['parent']);
-        $parentType->expects($this->once())
-            ->method('getValue')
-            ->willReturn('value');
-
-        $parent = new ResolvedElementType($parentType);
-
-        $type = $this->createType(ElementType::class, ['option']);
-        $type->expects($this->once())
-            ->method('getValue')
-            ->with($this->isInstanceOf(ElementView::class), $this->anything(), $this->equalTo('value'))
-            ->willReturn('value-added');
-
-        $resolvedType = new ResolvedElementType($type, [], $parent);
-
-        $options = ['option' => 'value', 'parent' => 'parent'];
-        $view = $resolvedType->createView('column', $options);
-
-        $this->assertEquals('value-added', $resolvedType->getValue($view, []));
-    }
-
     private function createType($class, array $required = [])
     {
         $type = $this->getMock($class);

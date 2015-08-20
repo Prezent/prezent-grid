@@ -59,9 +59,9 @@
 
 {%- block grid_widget -%}
     {% if url is defined %}
-        <a href="{{ url }}">{{ column.getValue(item) }}</a>
+        <a href="{{ url }}">{{ value }}</a>
     {% else %}
-        {{ column.getValue(item) }}
+        {{ value }}
     {% endif %}
 {%- endblock -%}
 
