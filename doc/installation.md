@@ -46,3 +46,16 @@ $gridFactory = new DefaultGridFactory($elementTypeFactory, [
 ```
 
 If you have many grids you may want to consider extending the grid factory to provide lazy loading.
+
+## Twig extension
+
+This library provides a Twig extension to render grids. You can set up the extension like so:
+
+```php
+<?php
+
+use Prezent\Grid\Twig\TwigExtension;
+use Prezent\Grid\Twig\TwigRenderer;
+
+$extension = new GridExtension(new GridRenderer());
+```
