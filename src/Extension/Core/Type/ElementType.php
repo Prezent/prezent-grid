@@ -20,9 +20,15 @@ class ElementType extends BaseElementType
      */
     public function configureOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults([
-            'label' => null,
-        ]);
+        $resolver
+            ->setDefaults([
+                'label' => null,
+                'attr'  => [],
+            ])
+            ->setAllowedTypes([
+                'attr' => 'array',
+            ])
+        ;
     }
 
     /**
@@ -37,6 +43,7 @@ class ElementType extends BaseElementType
 
         $view->vars['block_types'] = $blockTypes;
         $view->vars['label']       = $options['label'] === null ? $view->name : $options['label'];
+        $view->vars['attr']        = $options['attr'];
     }
 
     /**

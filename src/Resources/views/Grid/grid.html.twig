@@ -23,7 +23,7 @@
 {%- endblock grid_header_row -%}
 
 {%- block grid_header_column -%}
-    <th>{{ grid_header_widget(column) }}</th>
+    <th {{ block('widget_attributes') }}>{{ grid_header_widget(column) }}</th>
 {%- endblock -%}
 
 {%- block grid_row -%}
@@ -38,7 +38,7 @@
 {%- endblock grid_row -%}
 
 {%- block grid_column -%}
-    <td>{{ grid_widget(column, item) }}</td>
+    <td {{ block('grid_attributes') }}>{{ grid_widget(column, item) }}</td>
 {%- endblock -%}
 
 {%- block grid_actions -%}
@@ -66,5 +66,16 @@
 {%- endblock -%}
 
 {%- block grid_action -%}
-    <a href="{{ url }}">{{ label }}</a>
+    <a href="{{ url }}" {{ block('grid_attributes') }}>{{ label }}</a>
+{%- endblock -%}
+
+{%- block grid_attributes -%}
+    {%- for attrname, attrvalue in attr -%}
+        {{- " " -}}
+        {%- if attrvalue is sameas(true) -%}
+            {{- attrname }}="{{ attrname }}"
+        {%- elseif attrvalue is not sameas(false) -%}
+            {{- attrname }}="{{ attrvalue }}"
+        {%- endif -%}
+    {%- endfor -%}
 {%- endblock -%}
