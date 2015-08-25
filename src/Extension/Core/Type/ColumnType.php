@@ -57,6 +57,8 @@ class ColumnType extends BaseElementType
 
         if ($view->vars['property_path']) {
             $view->vars['value'] = $this->accessor->getValue($item, $view->vars['property_path']);
+        } else {
+            $view->vars['value'] = $item;
         }
     }
 
