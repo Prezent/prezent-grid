@@ -11,7 +11,7 @@ class UrlTypeExtensionTest extends TypeTest
         $grid = $this->gridFactory->createBuilder()
             ->addColumn('item', 'string', [
                 'url' => '/get/{name}/{id}',
-                'property_path' => false,
+                'property_path' => 'id',
             ])
             ->getGrid();
 
