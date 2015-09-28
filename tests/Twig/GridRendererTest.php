@@ -32,7 +32,7 @@ class GridRendererTest extends \PHPUnit_Framework_TestCase
             ->method('renderBlock')
             ->with($this->equalTo('grid'));
 
-        $renderer = new GridRenderer($theme);
+        $renderer = new GridRenderer([$theme]);
         $renderer->setEnvironment($this->getMock(\Twig_Environment::class));
 
         $renderer->renderBlock('grid', new GridView(), [], []);
@@ -45,7 +45,7 @@ class GridRendererTest extends \PHPUnit_Framework_TestCase
 
         $type = $this->getMockBuilder(ResolvedElementType::class)->disableOriginalConstructor()->getMock();
 
-        $renderer = new GridRenderer($theme);
+        $renderer = new GridRenderer([$theme]);
         $renderer->setEnvironment($this->getMock(\Twig_Environment::class));
 
         $view = new ElementView('column', $type);
@@ -71,7 +71,7 @@ class GridRendererTest extends \PHPUnit_Framework_TestCase
 
         $type = $this->getMockBuilder(ResolvedElementType::class)->disableOriginalConstructor()->getMock();
 
-        $renderer = new GridRenderer($theme);
+        $renderer = new GridRenderer([$theme]);
         $renderer->setEnvironment($this->getMock(\Twig_Environment::class));
 
         $view = new ElementView('column', $type);
@@ -103,7 +103,7 @@ class GridRendererTest extends \PHPUnit_Framework_TestCase
 
         $type = $this->getMockBuilder(ResolvedElementType::class)->disableOriginalConstructor()->getMock();
 
-        $renderer = new GridRenderer($theme);
+        $renderer = new GridRenderer([$theme]);
         $renderer->setEnvironment($this->getMock(\Twig_Environment::class));
 
         $view = new ElementView('column', $type);
@@ -127,7 +127,7 @@ class GridRendererTest extends \PHPUnit_Framework_TestCase
 
         $type = $this->getMockBuilder(ResolvedElementType::class)->disableOriginalConstructor()->getMock();
 
-        $renderer = new GridRenderer($theme);
+        $renderer = new GridRenderer([$theme]);
         $renderer->setEnvironment($this->getMock(\Twig_Environment::class));
 
         $view = new ElementView('column', $type);

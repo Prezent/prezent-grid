@@ -20,9 +20,9 @@ class GridRenderer
     private $environment;
 
     /**
-     * @var string|\Twig_Template
+     * @var array
      */
-    private $defaultTheme;
+    private $defaultThemes;
 
     /**
      * @var \SplObjectStorage Grid themes, indexed by view
@@ -42,11 +42,11 @@ class GridRenderer
     /**
      * Constructor
      *
-     * @param string|\Twig_Template $theme
+     * @param array $themes default themes, either as string or as \Twig_Template
      */
-    public function __construct($theme = null)
+    public function __construct(array $themes = [])
     {
-        $this->defaultTheme = $theme ?: dirname(__DIR__) . '/Resources/views/Grid/grid.html.twig';
+        $this->defaultThemes = $themes ?: [dirname(__DIR__) . '/Resources/views/Grid/grid.html.twig'];
         $this->themes = new \SplObjectStorage();
         $this->variableStack = new \SplObjectStorage();
         $this->blocks = new \SplObjectStorage();
@@ -62,11 +62,13 @@ class GridRenderer
     {
         $this->environment = $environment;
 
-        if (!($this->defaultTheme instanceof \Twig_Template)) {
-            $this->defaultTheme = $this->environment->loadTemplate($this->defaultTheme);
-        }
+        foreach ($this->defaultThemes as &$theme) {
+            if (!($theme instanceof \Twig_Template)) {
+                $theme = $this->environment->loadTemplate($theme);
+            }
 
-        $this->loadBlocks($this->defaultTheme);
+            $this->loadBlocks($theme);
+        }
     }
 
     /**
@@ -128,24 +130,22 @@ class GridRenderer
         // This only applies for column types that extend `column`.
         $blockSuffix = strrchr($name, '_');
         $blockPrefix = strlen($blockSuffix) ? substr($name, 0, -strlen($blockSuffix)) : $name;
-
-        $template = $this->defaultTheme;
+        $theme = null;
 
         if ('_widget' == $blockSuffix && $view instanceof ElementView && isset($view->vars['block_types'])) {
             foreach ($view->vars['block_types'] as $blockType) {
                 $blockName = $blockPrefix . '_' . $blockType . $blockSuffix;
 
-                if ($found = $this->findTemplateForBlock($blockName, $view)) {
-                    $template = $found;
+                if ($theme = $this->findThemeForBlock($blockName, $view)) {
                     $name = $blockName;
                     break;
                 }
             }
         } else {
-            if ($found = $this->findTemplateForBlock($name, $view)) {
-                $template = $found;
-            }
+            $theme = $this->findThemeForBlock($name, $view);
         }
+
+        $template = $theme ?: reset($this->defaultThemes);
 
         // Render the block
         $output = $template->renderBlock($name, $variables);
@@ -161,7 +161,7 @@ class GridRenderer
      * @param View $view
      * @return \Twig_Template|null
      */
-    private function findTemplateForBlock($name, View $view)
+    private function findThemeForBlock($name, View $view)
     {
         if (isset($this->themes[$view])) {
             foreach ($this->themes[$view] as $theme) {
@@ -171,8 +171,10 @@ class GridRenderer
             }
         }
 
-        if (in_array($name, $this->blocks[$this->defaultTheme])) {
-            return $this->defaultTheme;
+        foreach ($this->defaultThemes as $theme) {
+            if (in_array($name, $this->blocks[$theme])) {
+                return $theme;
+            }
         }
 
         return null;

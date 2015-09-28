@@ -12,7 +12,7 @@ trait TwigProvider
 
     private function setUpTwig()
     {
-        $renderer = new GridRenderer('grid.html.twig');
+        $renderer = new GridRenderer(['grid.html.twig']);
         $this->twig = new GridExtension($renderer);
         $loader = new \Twig_Loader_Filesystem(__DIR__ . '/../../src/Resources/views/Grid');
         
