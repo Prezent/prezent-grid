@@ -44,6 +44,10 @@ class DateTimeType extends BaseElementType
      */
     public function bindView(ElementView $view, $item)
     {
+        if (!$view->vars['value']) {
+            return;
+        }
+
         if (!($view->vars['value'] instanceof \DateTimeInterface)) {
             throw new UnexpectedTypeException('DateTimeInterface', $view->vars['value']);
         }
