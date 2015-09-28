@@ -4,6 +4,7 @@ namespace Prezent\Grid\Twig;
 
 use Prezent\Grid\Twig\Node\RenderBlockNode;
 use Prezent\Grid\Twig\Node\RenderItemBlockNode;
+use Prezent\Grid\Twig\TokenParser\GridThemeTokenParser;
 
 /**
  * Extend twig with grid functions
@@ -51,6 +52,16 @@ class GridExtension extends \Twig_Extension
             new \Twig_SimpleFunction('grid_widget', null, ['node_class' => RenderItemBlockNode::class, 'is_safe' => ['html']]),
             new \Twig_SimpleFunction('grid_actions', null, ['node_class' => RenderItemBlockNode::class, 'is_safe' => ['html']]),
             new \Twig_SimpleFunction('grid_action', null, ['node_class' => RenderItemBlockNode::class, 'is_safe' => ['html']]),
+        ];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getTokenParsers()
+    {
+        return [
+            new GridThemeTokenParser(),
         ];
     }
 
