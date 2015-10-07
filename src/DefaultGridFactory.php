@@ -46,7 +46,7 @@ class DefaultGridFactory implements GridFactory
         if ($type) {
             if (is_string($type)) {
                 if (!isset($this->types[$type])) {
-                    throw new InvalidArgumentException('Grid type "%s" is not loaded');
+                    throw new InvalidArgumentException(sprintf('Grid type "%s" is not loaded', $type));
                 }
 
                 $type = $this->types[$type];
