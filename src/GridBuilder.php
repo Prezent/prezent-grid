@@ -23,11 +23,6 @@ class GridBuilder
     private $actions = [];
 
     /**
-     * @var ElementTypeFactory
-     */
-    private $ElementTypeFactory;
-
-    /**
      * Constructor
      *
      * @param ElementTypeFactory $elementTypeFactory
@@ -59,10 +54,9 @@ class GridBuilder
     /**
      * Create a column
      *
-     * @param string $name
      * @param string|ElementType|ResolvedElementType $type
      * @param array $options
-     * @return void
+     * @return ElementDescription
      */
     public function createColumn($type, array $options = [])
     {
@@ -100,7 +94,7 @@ class GridBuilder
      *
      * @param mixed $name
      * @param array $options
-     * @return void
+     * @return self
      */
     public function addAction($name, array $options = [])
     {
@@ -138,7 +132,7 @@ class GridBuilder
     /**
      * Create the grid
      *
-     * @return void
+     * @return Grid
      */
     public function getGrid()
     {
