@@ -18,6 +18,7 @@ trait TwigProvider
         
         $environment = new \Twig_Environment($loader, array('strict_variables' => true));
         $environment->addExtension($this->twig);
+        $environment->addExtension(new \Twig_Extensions_Extension_Text());
 
         $this->twig->initRuntime($environment);
     }

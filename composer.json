@@ -9,6 +9,7 @@
         "ext-intl": "*",
         "symfony/options-resolver": "~2.3",
         "symfony/property-access": "~2.3",
+        "twig/extensions": "~1.2",
         "twig/twig": "~1.18"
     },
     "license": "MIT",

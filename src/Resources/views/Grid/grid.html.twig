@@ -65,6 +65,14 @@
     {% endif %}
 {%- endblock -%}
 
+{%- block grid_string_widget -%}
+    {% if truncate %}
+        {{ block('grid_widget')|trim|truncate(truncate is sameas (true) ? 32 : truncate, truncate_word, truncate_separator) }}
+    {% else %}
+        {{ block('grid_widget') }}
+    {% endif %}
+{%- endblock -%}
+
 {%- block grid_action -%}
     <a href="{{ url }}" {{ block('grid_attributes') }}>{{ label }}</a>
 {%- endblock -%}

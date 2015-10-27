@@ -57,6 +57,7 @@ class CoreExtension extends BaseGridExtension
     protected function loadElementTypeExtensions()
     {
         return [
+            new Type\TruncateTypeExtension(),
             new Type\UrlTypeExtension($this->resolver),
         ];
     }
