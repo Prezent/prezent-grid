@@ -1,5 +1,5 @@
 {%- block grid -%}
-    <table>
+    <table {{ block('grid_attributes') }}>
         <thead>
             {{- grid_header_row(grid) -}}
         </thead>
