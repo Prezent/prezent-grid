@@ -19,14 +19,14 @@ use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 class PropertyPathResolver implements VariableResolver
 {
     /**
-     * @var PropertyAccessor
+     * @var PropertyAccessorInterface
      */
     private $accessor;
 
     /**
      * Constructor
      *
-     * @param PropertyAccess $accessor
+     * @param PropertyAccessorInterface $accessor
      */
     public function __construct(PropertyAccessorInterface $accessor)
     {

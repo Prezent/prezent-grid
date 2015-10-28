@@ -3,7 +3,6 @@
 namespace Prezent\Grid\Twig;
 
 use Prezent\Grid\ElementView;
-use Prezent\Grid\Exception\UnexpectedTypeException;
 use Prezent\Grid\GridView;
 use Prezent\Grid\View;
 
@@ -30,7 +29,7 @@ class GridRenderer
     private $themes;
 
     /**
-     * @var \SlpObjectStorage Variable stacks, indexed by [view][item]
+     * @var \SplObjectStorage Variable stacks, indexed by [view][item]
      */
     private $variableStack;
 
@@ -75,7 +74,7 @@ class GridRenderer
      * Set themes for a view
      *
      * @param View $view
-     * @param array|\Traversabel $themes
+     * @param array|\Traversable $themes
      * @return void
      */
     public function setTheme(View $view, $themes)

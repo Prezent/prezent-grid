@@ -78,7 +78,7 @@ class Grid
      * Get a action
      *
      * @param string $name
-     * @return ActionDescription
+     * @return ElementDescription
      */
     public function getAction($name)
     {

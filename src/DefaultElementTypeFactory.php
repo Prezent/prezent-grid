@@ -21,7 +21,7 @@ class DefaultElementTypeFactory implements ElementTypeFactory
     /**
      * Constructor
      *
-     * @param GridExtension[]
+     * @param GridExtension[] $extensions
      *
      * @throws UnexpectedTypeException if an invalid extension is passed
      */
@@ -47,7 +47,6 @@ class DefaultElementTypeFactory implements ElementTypeFactory
 
         if (!isset($this->types[$name])) {
             $type = null;
-            $typeExtensions = [];
 
             foreach ($this->extensions as $extension) {
                 if ($extension->hasElementType($name)) {

@@ -12,7 +12,7 @@ interface GridFactory
     /**
      * Create a grid builder
      *
-     * @param string|Gridype $type
+     * @param string|GridType $type
      * @param array $options
      * @return GridBuilder
      */
@@ -21,7 +21,7 @@ interface GridFactory
     /**
      * Create a grid
      *
-     * @param string|Gridype $type
+     * @param string|GridType $type
      * @param array $options
      * @return Grid
      */

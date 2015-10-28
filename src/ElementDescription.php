@@ -35,7 +35,7 @@ class ElementDescription
      * Create an element view
      *
      * @param mixed $name
-     * @return void
+     * @return View
      */
     public function createView($name)
     {

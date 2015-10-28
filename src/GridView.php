@@ -23,6 +23,7 @@ class GridView implements View
      * Constructor
      *
      * @param array $columns
+     * @param array $actions
      */
     public function __construct(array $columns = [], array $actions = [])
     {

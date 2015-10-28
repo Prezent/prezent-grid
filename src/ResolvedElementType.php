@@ -66,7 +66,7 @@ class ResolvedElementType
     /**
      * Get the parent type
      *
-     * @return ResolvedFormType
+     * @return ResolvedElementType
      */
     public function getParent()
     {
@@ -78,7 +78,7 @@ class ResolvedElementType
      *
      * @param string $name
      * @param array $options
-     * @return void
+     * @return View
      */
     public function createView($name, array $options = [])
     {

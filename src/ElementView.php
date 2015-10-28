@@ -29,6 +29,7 @@ class ElementView implements View
      * Constructor
      *
      * @param string $name Element name
+     * @param ResolvedElementType $type
      */
     public function __construct($name, ResolvedElementType $type)
     {
