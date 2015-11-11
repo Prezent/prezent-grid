@@ -216,7 +216,7 @@ class GridRenderer
         $variables = [];
 
         if ($view instanceof GridView) {
-            $variables = array_merge(['grid' => $view, 'data' => $item]);
+            $variables = ['grid' => $view, 'data' => $item];
         }
         
         if ($view instanceof ElementView) {
