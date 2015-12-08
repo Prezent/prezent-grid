@@ -4,7 +4,7 @@ namespace Prezent\Grid\Extension\Core\Type;
 
 use Prezent\Grid\BaseElementType;
 use Prezent\Grid\ElementView;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 
 /**
@@ -16,14 +16,14 @@ use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 class ColumnType extends BaseElementType
 {
     /**
-     * @var PropertyAccessor
+     * @var PropertyAccessorInterface
      */
     private $accessor;
 
     /**
      * Constructor
      *
-     * @param PropertyAccess $accessor
+     * @param PropertyAccessorInterface $accessor
      */
     public function __construct(PropertyAccessorInterface $accessor)
     {
@@ -33,7 +33,7 @@ class ColumnType extends BaseElementType
     /**
      * {@inheritDoc}
      */
-    public function configureOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'property_path' => null,

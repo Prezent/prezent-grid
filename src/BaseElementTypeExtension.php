@@ -2,7 +2,7 @@
 
 namespace Prezent\Grid;
 
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Base column type extension
@@ -15,7 +15,7 @@ abstract class BaseElementTypeExtension implements ElementTypeExtension
     /**
      * {@inheritDoc}
      */
-    public function configureOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
     }
 

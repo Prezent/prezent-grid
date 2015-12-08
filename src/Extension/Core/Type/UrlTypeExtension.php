@@ -5,7 +5,7 @@ namespace Prezent\Grid\Extension\Core\Type;
 use Prezent\Grid\BaseElementTypeExtension;
 use Prezent\Grid\ElementView;
 use Prezent\Grid\VariableResolver;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Make columns linkable
@@ -33,7 +33,7 @@ class UrlTypeExtension extends BaseElementTypeExtension
     /**
      * {@inheritDoc}
      */
-    public function configureOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefined(['url']);
     }

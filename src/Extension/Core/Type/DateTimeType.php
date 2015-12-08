@@ -5,7 +5,7 @@ namespace Prezent\Grid\Extension\Core\Type;
 use Prezent\Grid\BaseElementType;
 use Prezent\Grid\ElementView;
 use Prezent\Grid\Exception\UnexpectedTypeException;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * DateTime column
@@ -18,7 +18,7 @@ class DateTimeType extends BaseElementType
     /**
      * {@inheritDoc}
      */
-    public function configureOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'locale'      => \Locale::getDefault(),

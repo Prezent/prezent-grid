@@ -4,7 +4,7 @@ namespace Prezent\Grid\Extension\Core\Type;
 
 use Prezent\Grid\BaseElementTypeExtension;
 use Prezent\Grid\ElementView;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Allow truncating text
@@ -17,7 +17,7 @@ class TruncateTypeExtension extends BaseElementTypeExtension
     /**
      * {@inheritDoc}
      */
-    public function configureOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver
             ->setDefaults([
@@ -25,11 +25,9 @@ class TruncateTypeExtension extends BaseElementTypeExtension
                 'truncate_word'      => false,
                 'truncate_separator' => '...',
             ])
-            ->setAllowedTypes([
-                'truncate'           => ['bool', 'int'],
-                'truncate_word'      => 'bool',
-                'truncate_separator' => 'string',
-            ])
+            ->setAllowedTypes('truncate', ['bool', 'int'])
+            ->setAllowedTypes('truncate_word', 'bool')
+            ->setAllowedTypes('truncate_separator', 'string')
         ;
     }
 

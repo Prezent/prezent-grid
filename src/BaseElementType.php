@@ -2,7 +2,7 @@
 
 namespace Prezent\Grid;
 
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Base element type
@@ -15,7 +15,7 @@ abstract class BaseElementType implements ElementType
     /**
      * {@inheritDoc}
      */
-    public function configureOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
     }
 
