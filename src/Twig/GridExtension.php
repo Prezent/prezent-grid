@@ -12,7 +12,7 @@ use Prezent\Grid\Twig\TokenParser\GridThemeTokenParser;
  * @see \Twig_Extension
  * @author Sander Marechal
  */
-class GridExtension extends \Twig_Extension
+class GridExtension extends \Twig_Extension implements \Twig_Extension_InitRuntimeInterface
 {
     /**
      * @var GridRenderer The renderer is public for faster access in compiled twig templates
