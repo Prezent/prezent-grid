@@ -21,6 +21,11 @@ class ElementView implements View
     public $vars = [];
 
     /**
+     * @var View
+     */
+    public $parent;
+
+    /**
      * @var ResolvedElementType
      */
     private $type;
@@ -31,10 +36,11 @@ class ElementView implements View
      * @param string $name Element name
      * @param ResolvedElementType $type
      */
-    public function __construct($name, ResolvedElementType $type)
+    public function __construct($name, ResolvedElementType $type, View $parent = null)
     {
         $this->name = $name;
         $this->type = $type;
+        $this->parent = $parent;
     }
 
     /**

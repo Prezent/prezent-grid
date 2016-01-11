@@ -162,6 +162,7 @@ class GridRenderer
      */
     private function findThemeForBlock($name, View $view)
     {
+        // Search themes for current view
         if (isset($this->themes[$view])) {
             foreach ($this->themes[$view] as $theme) {
                 if (in_array($name, $this->blocks[$theme])) {
@@ -170,6 +171,12 @@ class GridRenderer
             }
         }
 
+        // Search themes for parent view
+        if ($view instanceof ElementView && $theme = $this->findThemeForBlock($name, $view->parent)) {
+            return $theme;
+        }
+
+        // Search default themes
         foreach ($this->defaultThemes as $theme) {
             if (in_array($name, $this->blocks[$theme])) {
                 return $theme;

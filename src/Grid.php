@@ -99,15 +99,17 @@ class Grid
         $columnViews = [];
         $actionViews = [];
 
+        $view = new GridView();
+
         foreach ($this->columns as $name => $column) {
-            $columnViews[$name] = $column->createView($name);
+            $view->columns[$name] = $column->createView($name, $view);
         }
 
         foreach ($this->actions as $name => $action) {
-            $actionViews[$name] = $action->createView($name);
+            $view->actions[$name] = $action->createView($name, $view);
         }
 
-        return new GridView($columnViews, $actionViews);
+        return $view;
     }
 
     /**

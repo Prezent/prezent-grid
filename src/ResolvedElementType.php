@@ -77,12 +77,13 @@ class ResolvedElementType
      * Create the view for the element
      *
      * @param string $name
+     * @param View $parent
      * @param array $options
      * @return View
      */
-    public function createView($name, array $options = [])
+    public function createView($name, View $parent = null, array $options = [])
     {
-        $view = new ElementView($name, $this);
+        $view = new ElementView($name, $this, $parent);
         $options = $this->getOptionsResolver()->resolve($options);
 
         $this->buildView($view, $options);

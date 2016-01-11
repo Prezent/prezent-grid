@@ -54,9 +54,13 @@ class ViewCollection implements \ArrayAccess, \IteratorAggregate, \Countable
     /**
      * {@inheritDoc}
      */
-    public function offsetSet($name, $value)
+    public function offsetSet($name, $view)
     {
-        throw new \BadMethodCallException('Not supported');
+        if (!($view instanceof View)) {
+            throw new UnexpectedTypeException(View::class, $view);
+        }
+
+        $this->views[$name] = $view;
     }
 
     /**
@@ -64,7 +68,7 @@ class ViewCollection implements \ArrayAccess, \IteratorAggregate, \Countable
      */
     public function offsetUnset($name)
     {
-        throw new \BadMethodCallException('Not supported');
+        unset($this->views[$name]);
     }
 
     /**

@@ -35,11 +35,12 @@ class ElementDescription
      * Create an element view
      *
      * @param mixed $name
+     * @param View $parent
      * @return View
      */
-    public function createView($name)
+    public function createView($name, View $parent = null)
     {
-        return $this->type->createView($name, $this->options);
+        return $this->type->createView($name, $parent, $this->options);
     }
 
     /**
