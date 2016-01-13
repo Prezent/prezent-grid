@@ -24,13 +24,18 @@ class ColumnTypeTest extends TypeTest
         $grid = $this->gridFactory->createBuilder()
             ->addColumn('one', 'column')
             ->addColumn('two', 'column', ['property_path' => 'other'])
+            ->addColumn('three', 'column', ['property_path' => function ($item) {
+                return get_class($item);
+            }])
             ->getGrid();
 
         $view = $grid->createView();
         $view->columns['one']->bind($data);
         $view->columns['two']->bind($data);
+        $view->columns['three']->bind($data);
 
         $this->assertEquals('col1', $view->columns['one']->vars['value']);
         $this->assertEquals('col2', $view->columns['two']->vars['value']);
+        $this->assertEquals('stdClass', $view->columns['three']->vars['value']);
     }
 }

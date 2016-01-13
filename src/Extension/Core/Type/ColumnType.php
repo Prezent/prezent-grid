@@ -55,8 +55,10 @@ class ColumnType extends BaseElementType
     {
         $view->vars['value'] = null;
 
-        if ($view->vars['property_path']) {
+        if (is_string($view->vars['property_path'])) {
             $view->vars['value'] = $this->accessor->getValue($item, $view->vars['property_path']);
+        } elseif (is_callable($view->vars['property_path'])) {
+            $view->vars['value'] = call_user_func($view->vars['property_path'], $item);
         } else {
             $view->vars['value'] = $item;
         }
