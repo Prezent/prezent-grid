@@ -7,7 +7,7 @@ use Prezent\Grid\DefaultGridFactory;
 use Prezent\Grid\Grid;
 use Prezent\Grid\GridBuilder;
 use Prezent\Grid\GridType;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class GridFactoryTest extends \PHPUnit_Framework_TestCase
 {
@@ -78,7 +78,7 @@ class GridFactoryTest extends \PHPUnit_Framework_TestCase
 
         $type->expects($this->once())
              ->method('configureOptions')
-             ->with($this->isInstanceOf(OptionsResolverInterface::class));
+             ->with($this->isInstanceOf(OptionsResolver::class));
 
         $type->expects($this->once())
              ->method('buildGrid')

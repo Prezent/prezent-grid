@@ -2,7 +2,7 @@
 
 namespace Prezent\Grid;
 
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Base grid type
@@ -22,7 +22,7 @@ abstract class BaseGridType implements GridType
     /**
      * {@inheritDoc}
      */
-    public function configureOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
     }
 }

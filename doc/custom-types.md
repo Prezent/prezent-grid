@@ -14,7 +14,7 @@ First, create a new column type that extends from the current base column type:
 
 use Prezent\Grid\BaseElementType;
 use Prezent\Grid\ElementView;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class XmlType extends BaseElementType
 {
@@ -31,7 +31,7 @@ class XmlType extends BaseElementType
         $view->vars['value'] = $view->vars['value']->saveXML();
     }
 
-    public function configureOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'white_space' => true,
@@ -100,11 +100,11 @@ Start off creating a column type extension that extends the column type.
 
 use Prezent\Grid\BaseElementTypeExtension;
 use Prezent\Grid\ElementView;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ColspanTypeExtension extends BaseElementTypeExtension
 {
-    public function configureOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'colspan' => 1,

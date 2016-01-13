@@ -2,7 +2,7 @@
 
 namespace Prezent\Grid;
 
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Grid type
@@ -23,8 +23,8 @@ interface GridType
     /**
      * Configure options for this grid type
      *
-     * @param OptionsResolverInterface $resolver
+     * @param OptionsResolver $resolver
      * @return void
      */
-    public function configureOptions(OptionsResolverInterface $resolver);
+    public function configureOptions(OptionsResolver $resolver);
 }

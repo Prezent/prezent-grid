@@ -69,7 +69,7 @@ Grids can also have options. Use the `configureOptions` method to define which o
 
 use Prezent\Grid\BaseGridType;
 use Prezent\Grid\GridBuilder;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class MyGrid extends BaseGridType
 {
@@ -85,7 +85,7 @@ class MyGrid extends BaseGridType
         }
     }
 
-    public function configureOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver
             ->addDefaults(['show_email' => false])

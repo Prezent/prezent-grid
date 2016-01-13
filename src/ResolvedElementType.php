@@ -4,7 +4,6 @@ namespace Prezent\Grid;
 
 use Prezent\Grid\Exception\UnexpectedTypeException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
  * Resolved element type
@@ -134,7 +133,7 @@ class ResolvedElementType
     /**
      * Get the optionsResolver
      *
-     * @return OptionsResolverInterface
+     * @return OptionsResolver
      */
     private function getOptionsResolver()
     {
