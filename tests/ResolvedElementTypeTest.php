@@ -37,7 +37,7 @@ class ResolvedElementTypeTest extends \PHPUnit_Framework_TestCase
         $resolvedType = new ResolvedElementType($type);
 
         $options = ['option' => 'value'];
-        $view = $resolvedType->createView('column', $options);
+        $view = $resolvedType->createView('column', null, $options);
 
         $this->assertInstanceOf(ElementView::class, $view);
         $this->assertEquals('column', $view->name);
@@ -51,7 +51,7 @@ class ResolvedElementTypeTest extends \PHPUnit_Framework_TestCase
         $resolvedType = new ResolvedElementType($type, [], $parent);
 
         $options = ['option' => 'value', 'parent' => 'parent'];
-        $view = $resolvedType->createView('column', $options);
+        $view = $resolvedType->createView('column', null, $options);
 
         $this->assertInstanceOf(ElementView::class, $view);
         $this->assertEquals('column', $view->name);
@@ -65,7 +65,7 @@ class ResolvedElementTypeTest extends \PHPUnit_Framework_TestCase
         $resolvedType = new ResolvedElementType($type, [$extension]);
 
         $options = ['option' => 'value', 'extension' => 'ext'];
-        $view = $resolvedType->createView('column', $options);
+        $view = $resolvedType->createView('column', null, $options);
 
         $this->assertInstanceOf(ElementView::class, $view);
         $this->assertEquals('column', $view->name);

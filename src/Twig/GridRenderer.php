@@ -172,7 +172,7 @@ class GridRenderer
         }
 
         // Search themes for parent view
-        if ($view instanceof ElementView && $theme = $this->findThemeForBlock($name, $view->parent)) {
+        if ($view instanceof ElementView && $view->parent && $theme = $this->findThemeForBlock($name, $view->parent)) {
             return $theme;
         }
 

@@ -100,8 +100,8 @@ class GridTest extends \PHPUnit_Framework_TestCase
         $type->expects($this->exactly(2))
             ->method('createView')
             ->withConsecutive(
-                ['column', $options],
-                ['action', $options]
+                ['column', $this->isInstanceOf(GridView::class), $options],
+                ['action', $this->isInstanceOf(GridView::class), $options]
             )
             ->willReturn($columnView);
 
