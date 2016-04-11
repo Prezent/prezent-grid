@@ -67,7 +67,7 @@
 
 {%- block grid_string_widget -%}
     {% if truncate %}
-        {{ block('grid_widget')|trim|truncate(truncate is sameas (true) ? 32 : truncate, truncate_word, truncate_separator) }}
+        {{ block('grid_widget')|trim|truncate(truncate is same as (true) ? 32 : truncate, truncate_word, truncate_separator) }}
     {% else %}
         {{ block('grid_widget') }}
     {% endif %}
@@ -81,9 +81,9 @@
     {% if attr is defined %}
         {%- for attrname, attrvalue in attr -%}
             {{- " " -}}
-            {%- if attrvalue is sameas(true) -%}
+            {%- if attrvalue is same as(true) -%}
                 {{- attrname }}="{{ attrname }}"
-            {%- elseif attrvalue is not sameas(false) -%}
+            {%- elseif attrvalue is not same as(false) -%}
                 {{- attrname }}="{{ attrvalue }}"
             {%- endif -%}
         {%- endfor -%}
