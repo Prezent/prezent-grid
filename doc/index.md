@@ -10,6 +10,7 @@ A framework-independent library for building and rendering generic datagrids in 
 3. [Rendering grids](rendering.md)
 4. [Element type reference](types/index.md)
 5. [Creating your own types](custom-types.md)
+5. [Upgrading from previous versions](upgrading.md)
 
 ## Quick example
 
