@@ -22,7 +22,27 @@ abstract class BaseGridType implements GridType
     /**
      * {@inheritDoc}
      */
+    public function buildView(GridView $view, array $options = [])
+    {
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function configureOptions(OptionsResolver $resolver)
     {
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    abstract public function getName();
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getParent()
+    {
+        return 'grid';
     }
 }

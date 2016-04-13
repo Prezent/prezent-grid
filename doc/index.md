@@ -10,6 +10,7 @@ A framework-independent library for building and rendering generic datagrids in 
 3. [Rendering grids](rendering.md)
 4. [Element type reference](types/index.md)
 5. [Creating your own types](custom-types.md)
+5. [Upgrading from previous versions](upgrading.md)
 
 ## Quick example
 
@@ -23,7 +24,7 @@ namespace My\Grids;
 use Prezent\Grid\BaseGridType;
 use Prezent\Grid\GridBuilder;
 
-class MyGrid extends BaseGridType
+class MyGridType extends BaseGridType
 {
     public function buildGrid(GridBuilder $builder, array $options = [])
     {
@@ -36,6 +37,11 @@ class MyGrid extends BaseGridType
             ->addColumn('created', 'datetime', ['pattern' => 'yyyy qqq'])
             ->addAction('edit', ['url' => '/edit/{id}'])
         ;
+    }
+
+    public function getName()
+    {
+        return 'my_grid';
     }
 }
 ```

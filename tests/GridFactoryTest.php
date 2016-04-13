@@ -3,29 +3,22 @@
 namespace Prezent\Tests\Grid;
 
 use Prezent\Grid\ElementTypeFactory;
+use Prezent\Grid\GridTypeFactory;
 use Prezent\Grid\DefaultGridFactory;
 use Prezent\Grid\Grid;
 use Prezent\Grid\GridBuilder;
 use Prezent\Grid\GridType;
+use Prezent\Grid\ResolvedGridType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class GridFactoryTest extends \PHPUnit_Framework_TestCase
 {
-    public function testCreateEmptyBuilder()
-    {
-        $elementTypeFactory = $this->getMockBuilder(ElementTypeFactory::class)->getMock();
-        $gridFactory = new DefaultGridFactory($elementTypeFactory);
-
-        $this->assertInstanceOf(GridBuilder::class, $gridFactory->createBuilder());
-    }
-
     public function testCreateTypedBuilder()
     {
         $type = $this->createType();
 
         $elementTypeFactory = $this->getMockBuilder(ElementTypeFactory::class)->getMock();
-        $gridFactory = new DefaultGridFactory($elementTypeFactory);
-
+        $gridFactory = new DefaultGridFactory($this->createGridTypeFactory($type), $elementTypeFactory);
 
         $this->assertInstanceOf(GridBuilder::class, $gridFactory->createBuilder($type));
     }
@@ -35,7 +28,7 @@ class GridFactoryTest extends \PHPUnit_Framework_TestCase
         $type = $this->createType();
 
         $elementTypeFactory = $this->getMockBuilder(ElementTypeFactory::class)->getMock();
-        $gridFactory = new DefaultGridFactory($elementTypeFactory, ['grid' => $type]);
+        $gridFactory = new DefaultGridFactory($this->createGridTypeFactory($type), $elementTypeFactory);
 
         $this->assertInstanceOf(GridBuilder::class, $gridFactory->createBuilder('grid'));
     }
@@ -45,7 +38,7 @@ class GridFactoryTest extends \PHPUnit_Framework_TestCase
         $type = $this->createType();
 
         $elementTypeFactory = $this->getMockBuilder(ElementTypeFactory::class)->getMock();
-        $gridFactory = new DefaultGridFactory($elementTypeFactory, ['grid' => $type]);
+        $gridFactory = new DefaultGridFactory($this->createGridTypeFactory($type), $elementTypeFactory);
 
         $this->assertInstanceOf(Grid::class, $gridFactory->createGrid('grid'));
     }
@@ -56,20 +49,9 @@ class GridFactoryTest extends \PHPUnit_Framework_TestCase
     public function testCreateWrongType()
     {
         $elementTypeFactory = $this->getMockBuilder(ElementTypeFactory::class)->getMock();
-        $gridFactory = new DefaultGridFactory($elementTypeFactory);
+        $gridFactory = new DefaultGridFactory($this->createGridTypeFactory(), $elementTypeFactory);
 
         $gridFactory->createBuilder(new \stdClass());
-    }
-
-    /**
-     * @expectedException Prezent\Grid\Exception\InvalidArgumentException
-     */
-    public function testCreateUnknownType()
-    {
-        $elementTypeFactory = $this->getMockBuilder(ElementTypeFactory::class)->getMock();
-        $gridFactory = new DefaultGridFactory($elementTypeFactory);
-
-        $gridFactory->createBuilder('unknown');
     }
 
     private function createType()
@@ -85,5 +67,16 @@ class GridFactoryTest extends \PHPUnit_Framework_TestCase
              ->with($this->isInstanceOf(GridBuilder::class), $this->isType('array'));
 
         return $type;
+    }
+
+    private function createGridTypeFactory($type = null)
+    {
+        $type = new ResolvedGridType($type ?: $this->getMockBuilder(GridType::class)->getMock());
+
+        $factory = $this->getMockBuilder(GridTypeFactory::class)->getMock();
+        $factory->method('getType')->willReturn($type);
+        $factory->method('resolveType')->willReturn($type);
+
+        return $factory;
     }
 }

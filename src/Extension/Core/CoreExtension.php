@@ -39,6 +39,16 @@ class CoreExtension extends BaseGridExtension
     /**
      * {@inheritDoc}
      */
+    protected function loadGridTypes()
+    {
+        return [
+            new GridType(),
+        ];
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     protected function loadElementTypes()
     {
         return [

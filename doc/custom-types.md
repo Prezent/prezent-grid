@@ -6,7 +6,7 @@ You can then package these type extensions together in a grid extension.
 
 ## Creating a new type
 
-For example, let's create a new column type that can display a DOMDocument, with the option to prezerve whitespace.
+For example, let's create a new column type that can display a DOMDocument, with the option to preserve whitespace.
 First, create a new column type that extends from the current base column type:
 
 ```php

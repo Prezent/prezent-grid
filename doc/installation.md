@@ -17,8 +17,10 @@ Create the grid factory and add your grids:
 ```php
 <?php
 
+use Prezent\Grid\BaseGridExtension;
 use Prezent\Grid\DefaultElementTypeFactory;
 use Prezent\Grid\DefaultGridFactory;
+use Prezent\Grid\DefaultGridTypeFactory;
 use Prezent\Grid\Extension\Core\CoreExtension;
 use Prezent\Grid\VariableResolver\CallbackResolver;
 use Prezent\Grid\VariableResolver\ChainResolver;
@@ -32,20 +34,51 @@ $coreExtension = new CoreExtension($accessor, new ChainResolver([
     new PropertyPathResolver($accessor)
 ]));
 
-// Setup the type factory
+// Setup the grid type factory which has all your grids
+$gridTypeFactory = new DefaultGridTypeFactory([
+    $coreExtension,
+    // Add custom extensions here
+]);
+
+// Setup the element type factory which has all your column and action types
 $elementTypeFactory = new DefaultElementTypeFactory([
     $coreExtension,
     // Add custom extensions here
 ]);
 
-// Setup the grid factory
-$gridFactory = new DefaultGridFactory($elementTypeFactory, [
-    // A list of your grids
-    'my_grid' => new My\Grid(),
-]);
+// Setup the main grid factory
+$gridFactory = new DefaultGridFactory($gridTypeFactory, $elementTypeFactory);
 ```
 
-If you have many grids you may want to consider extending the grid factory to provide lazy loading.
+To use named grid classes and custom column and action types, create your own grid extension and add your extension to the
+`GridTypeFactory` and `ElementTypeFactory`:
+
+```php
+<?php
+
+use Prezent\Grid\BaseGridExtension;
+use Prezent\Grid\DefaultElementTypeFactory;
+use Prezent\Grid\DefaultGridTypeFactory;
+
+class MyGridExtension extends BaseGridExtension
+{
+    protected function loadGridTypes()
+    {
+        return [
+            new MyGridType(),
+        ];
+    }
+
+    protected function loadElementTypes()
+    {
+        return [
+            new MyCustomColumnType(),
+        ];
+    }
+}
+```
+
+If you have many grids you may want to consider implementing your own `GridTypeFactory` to provide lazy loading.
 
 ## Twig extension
 

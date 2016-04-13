@@ -13,6 +13,11 @@ use Prezent\Grid\Exception\UnexpectedTypeException;
 class Grid
 {
     /**
+     * @var ResolvedGridType
+     */
+    private $type;
+
+    /**
      * @var ElementDescription[]
      */
     private $columns;
@@ -25,16 +30,30 @@ class Grid
     /**
      * Constructor
      *
+     * @param ResolvedGridType $type
      * @param ElementDescription[] $columns Column descriptions, indexed by column name
      * @param ElementDescription[] $actions Action descriptions, indexed by action name
+     * @param array $options
      */
-    public function __construct(array $columns = [], array $actions = [])
+    public function __construct(ResolvedGridType $type, array $columns = [], array $actions = [], array $options = [])
     {
         $this->checkType($columns);
         $this->checkType($actions);
 
+        $this->type = $type;
         $this->columns = $columns;
         $this->actions = $actions;
+        $this->options = $options;
+    }
+
+    /**
+     * Get type
+     *
+     * @return ResolvedGridType
+     */
+    public function getType()
+    {
+        return $this->type;
     }
 
     /**
@@ -100,6 +119,7 @@ class Grid
         $actionViews = [];
 
         $view = new GridView();
+        $this->type->buildView($view, $this->options);
 
         foreach ($this->columns as $name => $column) {
             $view->columns[$name] = $column->createView($name, $view);

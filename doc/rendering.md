@@ -11,7 +11,7 @@ a lot easier. The easiest way to render your grid is to simply call the `grid()`
 You can also render each part of the grid manually in order to customize it:
 
 ```html
-<table>
+<table {{ block('grid_attributes') }}>
     <thead>
         {{ grid_header_row(grid) }}
     </thead>
@@ -28,7 +28,7 @@ You can also render each part of the grid manually in order to customize it:
 Or even:
 
 ```html
-<table>
+<table {{ block('grid_attributes') }}>
     <thead>
         <th>{{ grid_header_widget(grid.columns.id) }}</th>
         <th>{{ grid_header_widget(grid.columns.name) }}</th>
@@ -117,3 +117,25 @@ The same applies to the widgets used for the cell rows:
 * `grid_widget`
 
 This also works if you add your own column types, as long as they extend the existing `element` type or one of it's children.
+
+## Grid theming
+
+You can set the custom templates to use for a grid with the `grid_theme` tag:
+
+```html
+{% grid_theme grid "theme1.html.twig" "theme2.html.twig" %}
+
+{{ grid(grid, data) }}
+```
+
+You can even define the custom template inline using the `_self` keyword:
+
+```html
+{% block grid_header_label %}
+    {{ label|capitalize }}
+{% endblock %}
+
+{% grid_theme grid _self %}
+
+{{ grid(grid, data) }}
+```

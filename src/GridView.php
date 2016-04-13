@@ -20,6 +20,11 @@ class GridView implements View
     public $actions = [];
 
     /**
+     * @var array
+     */
+    public $vars = [];
+
+    /**
      * Constructor
      *
      * @param array $columns

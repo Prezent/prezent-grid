@@ -60,7 +60,8 @@ $builder
 ## Creating grid classes
 
 You can also define your grids as separate classes. The easiest way to do this is to extend the `BaseGridType` class. When you create
-the grid using the grid factory, the `buildGrid` method will be called where you can add your columns and actions.
+the grid using the grid factory, the `buildGrid` method will be called where you can add your columns and actions. The `buildView`
+method will be called when creating the view.
 
 Grids can also have options. Use the `configureOptions` method to define which options are supported by a grid.
 
@@ -69,9 +70,10 @@ Grids can also have options. Use the `configureOptions` method to define which o
 
 use Prezent\Grid\BaseGridType;
 use Prezent\Grid\GridBuilder;
+use Prezent\Grid\GridView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class MyGrid extends BaseGridType
+class MyGridType extends BaseGridType
 {
     public function buildGrid(GridBuilder $builder, array $options = [])
     {
@@ -85,6 +87,13 @@ class MyGrid extends BaseGridType
         }
     }
 
+    public function buildView(GridView $view, array $options = [])
+    {
+        if ($options['show_email']) {
+            $view->vars['attr']['class'] = 'my-email-table-class';
+        }
+    }
+
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver
@@ -92,20 +101,54 @@ class MyGrid extends BaseGridType
             ->setAllowedTypes(['show_email' => 'bool'])
         ;
     }
+
+    public function getName()
+    {
+        return 'my_grid';
+    }
 }
 ```
 
-Don't forget to add your grid to the grid factory!
+You can use this type by directly instantiating it:
 
 ```php
 <?php
 
-$gridFactory = new DefaultGridFactory($elementTypeFactory, [
-    'my_grid' => new \MyGrid(),
-]);
+$grid = $gridFactory->createGrid(new MyGridType());
 ```
 
-You can now use the grid builder to create the grid for you:
+You can also add all your grids to the grid factory by creating an extension:
+
+```php
+<?php
+
+use Prezent\Grid\BaseGridExtension;
+
+class MyGridExtension extends BaseGridExtension
+{
+    protected function loadGridTypes()
+    {
+        return [
+            new MyGridType(),
+        ];
+    }
+}
+```
+
+Then add your grid extension to the `GridTypefactory`:
+
+```php
+<?php
+
+$gridTypeFactory = new DefaultGridTypeFactory([
+    $coreExtension,
+    new MyGridExtension(),
+]);
+
+$gridFactory = new GridFactory($gridTypeFactory, $elementTypeFactory);
+```
+
+You can now use the grid factory to create the grid for you:
 
 ```php
 <?php
@@ -123,4 +166,76 @@ $builder = $gridFactory->createBuilder('my_grid');
 $builder->addAction('extra', ['url' => '/extra/{id}']);
 
 $grid = $builder->getGrid();
+```
+
+## Extending a grid type
+
+Grids can be extended in much the same way as column types or Symfony form types. Simply overide the `getParent` method
+to set the name of the parent grid type. The example below extends the MyGrid type to add an extra action:
+
+```php
+<?php
+
+use Prezent\Grid\BaseGridType;
+use Prezent\Grid\GridBuilder;
+
+class MyExtendedGrid extends BaseGridType
+{
+    public function buildGrid(GridBuilder $builder, array $options = [])
+    {
+        $builder->addAction('extra', ['url' => '/extra/{id}']);
+    }
+
+    public function getName()
+    {
+        return 'my_extended_grid';
+    }
+
+    public function getParent()
+    {
+        return 'my_grid';
+    }
+}
+```
+
+### Extending all grid types
+
+It is even possible to extend all grids of a certain type. The example below sets a classname on all grids:
+
+```php
+<?php
+
+use Prezent\Grid\BaseGridTypeExtension;
+use Prezent\Grid\GridView;
+
+class MyGridTypeExtension extends BaseGridTypeExtension
+{
+    public function buildView(GridView $view, array $options = [])
+    {
+        $view->vars['attr']['class'] = 'my-table-class';
+    }
+
+    public function getExtendedType()
+    {
+        return 'grid';
+    }
+}
+```
+
+Again, don't forget to add your custom extension to your main grid extension!
+
+```php
+<?php
+
+use Prezent\Grid\BaseGridExtension;
+
+class MyGridExtension extends BaseGridExtension
+{
+    protected function loadGridTypeExtensions()
+    {
+        return [
+            new MyGridTypeExtension(),
+        ];
+    }
+}
 ```
