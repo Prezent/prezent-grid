@@ -1,7 +1,7 @@
 Upgrading from previous versions
 ================================
 
-## Upgrading from 0.3 to 0.4
+## Upgrading from 0.6 to 0.7
 
 * `GridType` classes are now extendable. This requires all your grids to implement a `getName()` method.
 * The `DefaultGridFactory` constructor has changed. See: [Installation](installation.md)
