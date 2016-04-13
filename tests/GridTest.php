@@ -8,6 +8,7 @@ use Prezent\Grid\ElementView;
 use Prezent\Grid\Grid;
 use Prezent\Grid\GridView;
 use Prezent\Grid\ResolvedElementType;
+use Prezent\Grid\ResolvedGridType;
 
 class GridTest extends \PHPUnit_Framework_TestCase
 {
@@ -16,7 +17,7 @@ class GridTest extends \PHPUnit_Framework_TestCase
         $type = $this->getMockBuilder(ResolvedElementType::class)->disableOriginalConstructor()->getMock();
         $column = new ElementDescription($type, ['option' => 'value']);
 
-        $grid = new Grid(['column' => $column]);
+        $grid = $this->createGrid(['column' => $column]);
 
         $this->assertTrue($grid->hasColumn('column'));
         $this->assertSame($column, $grid->getColumn('column'));
@@ -28,7 +29,7 @@ class GridTest extends \PHPUnit_Framework_TestCase
     public function testUnnamedColumn()
     {
         $column = $this->getMockBuilder(ElementDescription::class)->disableOriginalConstructor()->getMock();
-        $grid = new Grid([$column]);
+        $grid = $this->createGrid([$column]);
     }
 
     /**
@@ -36,7 +37,7 @@ class GridTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvalidColumn()
     {
-        $grid = new Grid(['column' => 'invalid']);
+        $grid = $this->createGrid(['column' => 'invalid']);
     }
 
     /**
@@ -44,7 +45,7 @@ class GridTest extends \PHPUnit_Framework_TestCase
      */
     public function testColumnNotFound()
     {
-        $grid = new Grid();
+        $grid = $this->createGrid();
         $this->assertFalse($grid->hasColumn('column'));
 
         $grid->getColumn('column');
@@ -55,7 +56,7 @@ class GridTest extends \PHPUnit_Framework_TestCase
         $type = $this->getMockBuilder(ResolvedElementType::class)->disableOriginalConstructor()->getMock();
         $action = new ElementDescription($type, ['option' => 'value']);
 
-        $grid = new Grid([], ['action' => $action]);
+        $grid = $this->createGrid([], ['action' => $action]);
 
         $this->assertTrue($grid->hasAction('action'));
         $this->assertSame($action, $grid->getAction('action'));
@@ -67,7 +68,7 @@ class GridTest extends \PHPUnit_Framework_TestCase
     public function testUnnamedAction()
     {
         $action = $this->getMockBuilder(ElementDescription::class)->disableOriginalConstructor()->getMock();
-        $grid = new Grid([], [$action]);
+        $grid = $this->createGrid([], [$action]);
     }
 
     /**
@@ -75,7 +76,7 @@ class GridTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvalidAction()
     {
-        $grid = new Grid([], ['action' => 'invalid']);
+        $grid = $this->createGrid([], ['action' => 'invalid']);
     }
 
     /**
@@ -83,7 +84,7 @@ class GridTest extends \PHPUnit_Framework_TestCase
      */
     public function testActionNotFound()
     {
-        $grid = new Grid();
+        $grid = $this->createGrid();
         $this->assertFalse($grid->hasAction('action'));
 
         $grid->getAction('action');
@@ -107,7 +108,7 @@ class GridTest extends \PHPUnit_Framework_TestCase
 
         $column = new ElementDescription($type, ['option' => 'value']);
 
-        $grid = new Grid(['column' => $column], ['action' => $column]);
+        $grid = $this->createGrid(['column' => $column], ['action' => $column]);
 
         $view = $grid->createView();
 
@@ -120,5 +121,12 @@ class GridTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(1, count($view->actions));
         $this->assertTrue(isset($view->actions['action']));
         $this->assertSame($columnView, $view->actions['action']);
+    }
+
+    private function createGrid($columns = [], $actions = [])
+    {
+        $type = $this->getMockBuilder(ResolvedGridType::class)->disableOriginalConstructor()->getMock();
+
+        return new Grid($type, $columns, $actions);
     }
 }

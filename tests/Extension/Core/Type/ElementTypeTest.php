@@ -2,6 +2,8 @@
 
 namespace Prezent\Grid\Tests\Extension\Core\Type;
 
+use Prezent\Grid\Tests\Extension\Core\TypeTest;
+
 class ElementTypeTest extends TypeTest
 {
     public function testDefaultsFromName()

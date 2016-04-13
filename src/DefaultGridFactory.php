@@ -15,53 +15,45 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class DefaultGridFactory implements GridFactory
 {
     /**
+     * @var GridTypeFactory
+     */
+    private $gridTypeFactory;
+
+    /**
      * @var ElementTypeFactory
      */
     private $elementTypeFactory;
 
     /**
-     * @var GridType[]
-     */
-    private $types;
-
-    /**
      * Constructor
      *
+     * @param GridTypeFactory $gridTypeFactory
      * @param ElementTypeFactory $elementTypeFactory
-     * @param GridType[] $types
      */
-    public function __construct(ElementTypeFactory $elementTypeFactory, array $types = [])
+    public function __construct(GridTypeFactory $gridTypeFactory, ElementTypeFactory $elementTypeFactory)
     {
+        $this->gridTypeFactory = $gridTypeFactory;
         $this->elementTypeFactory = $elementTypeFactory;
-        $this->types = $types;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function createBuilder($type = null, array $options = [])
+    public function createBuilder($type = 'grid', array $options = [])
     {
-        $builder = $this->newBuilder();
-
-        if ($type) {
-            if (is_string($type)) {
-                if (!isset($this->types[$type])) {
-                    throw new InvalidArgumentException(sprintf('Grid type "%s" is not loaded', $type));
-                }
-
-                $type = $this->types[$type];
-            }
-
-            if (!($type instanceof GridType)) {
-                throw new UnexpectedTypeException('string|' . GridType::class, $type);
-            }
-
-            $resolver = new OptionsResolver();
-            $type->configureOptions($resolver);
-
-            $options = $resolver->resolve($options);
-            $type->buildGrid($builder, $options);
+        if ($type instanceof GridType) {
+            $type = $this->gridTypeFactory->resolveType($type);
+        } elseif (is_string($type)) {
+            $type = $this->gridTypeFactory->getType($type);
         }
+
+        if (!($type instanceof ResolvedGridType)) {
+            throw new UnexpectedTypeException('string|' . GridType::class . '|' . ResolvedGridType::class, $type);
+        }
+
+        $builder = $this->newBuilder($type, $options);
+
+        $type->buildGrid($builder, $builder->getOptions());
 
         return $builder;
     }
@@ -69,7 +61,7 @@ class DefaultGridFactory implements GridFactory
     /**
      * {@inheritDoc}
      */
-    public function createGrid($type, array $options = [])
+    public function createGrid($type = 'grid', array $options = [])
     {
         return $this->createBuilder($type, $options)->getGrid();
     }
@@ -79,8 +71,10 @@ class DefaultGridFactory implements GridFactory
      *
      * @return GridBuilder
      */
-    protected function newBuilder()
+    protected function newBuilder(ResolvedGridType $type, array $options = [])
     {
-        return new GridBuilder($this->elementTypeFactory);
+        $options = $type->getOptionsResolver()->resolve($options);
+
+        return new GridBuilder($type, $this->elementTypeFactory, $options);
     }
 }

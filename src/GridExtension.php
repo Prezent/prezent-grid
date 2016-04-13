@@ -12,7 +12,32 @@ use Prezent\Grid\Exception\InvalidArgumentException;
 interface GridExtension
 {
     /**
-     * Check if the extension has a column type
+     * Check if the extension has a grid type
+     *
+     * @param string $name
+     * @return bool
+     */
+    public function hasGridType($name);
+
+    /**
+     * Get a grid type
+     *
+     * @param string $name
+     * @throws InvalidArgumentException
+     * @return GridType
+     */
+    public function getGridType($name);
+
+    /**
+     * Get grid type extensions for a grid type
+     *
+     * @param string $name
+     * @return GridTypeExtension[]
+     */
+    public function getGridTypeExtensions($name);
+
+    /**
+     * Check if the extension has an element type
      *
      * @param string $name
      * @return bool
@@ -20,7 +45,7 @@ interface GridExtension
     public function hasElementType($name);
 
     /**
-     * Get a column type
+     * Get an element type
      *
      * @param string $name
      * @throws InvalidArgumentException
@@ -29,7 +54,7 @@ interface GridExtension
     public function getElementType($name);
 
     /**
-     * Get column type extensions for a type
+     * Get element type extensions for an element type
      *
      * @param string $name
      * @return ElementTypeExtension[]

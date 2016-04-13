@@ -8,12 +8,13 @@ use Prezent\Grid\ElementDescription;
 use Prezent\Grid\Grid;
 use Prezent\Grid\GridBuilder;
 use Prezent\Grid\ResolvedElementType;
+use Prezent\Grid\ResolvedGridType;
 
 class GridBuilderTest extends \PHPUnit_Framework_TestCase
 {
     public function testCreateFromString()
     {
-        $builder = new GridBuilder($this->createFactory());
+        $builder = new GridBuilder($this->createType(), $this->createFactory());
         $column = $builder->createColumn('column', ['option' => 'value']);
 
         $this->assertInstanceOf(ElementDescription::class, $column);
@@ -25,7 +26,7 @@ class GridBuilderTest extends \PHPUnit_Framework_TestCase
     {
         $type = $this->getMock(ElementType::class);
 
-        $builder = new GridBuilder($this->createFactory());
+        $builder = new GridBuilder($this->createType(), $this->createFactory());
         $column = $builder->createColumn($type, ['option' => 'value']);
 
         $this->assertInstanceOf(ElementDescription::class, $column);
@@ -39,7 +40,7 @@ class GridBuilderTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $builder = new GridBuilder($this->createFactory());
+        $builder = new GridBuilder($this->createType(), $this->createFactory());
         $column = $builder->createColumn($resolvedType, ['option' => 'value']);
 
         $this->assertInstanceOf(ElementDescription::class, $column);
@@ -52,13 +53,13 @@ class GridBuilderTest extends \PHPUnit_Framework_TestCase
      */
     public function testCreateInvalid()
     {
-        $builder = new GridBuilder($this->createFactory());
+        $builder = new GridBuilder($this->createType(), $this->createFactory());
         $builder->createColumn(new \DateTime(), ['option' => 'value']);
     }
 
     public function testAdd()
     {
-        $builder = new GridBuilder($this->createFactory());
+        $builder = new GridBuilder($this->createType(), $this->createFactory());
         $builder->addColumn('column', 'string', ['option' => 'value']);
 
         $this->assertTrue($builder->hasColumn('column'));
@@ -70,7 +71,7 @@ class GridBuilderTest extends \PHPUnit_Framework_TestCase
      */
     public function testAddInvalidColumnName()
     {
-        $builder = new GridBuilder($this->createFactory());
+        $builder = new GridBuilder($this->createType(), $this->createFactory());
         $builder->addColumn(new \DateTime(), 'string', ['option' => 'value']);
     }
 
@@ -79,13 +80,13 @@ class GridBuilderTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetInvalidColumn()
     {
-        $builder = new GridBuilder($this->createFactory());
+        $builder = new GridBuilder($this->createType(), $this->createFactory());
         $builder->getColumn('invalid');
     }
 
     public function testAddAction()
     {
-        $builder = new GridBuilder($this->createFactory());
+        $builder = new GridBuilder($this->createType(), $this->createFactory());
         $builder->addAction('action', ['option' => 'value']);
 
         $this->assertTrue($builder->hasAction('action'));
@@ -97,13 +98,13 @@ class GridBuilderTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetInvalidAction()
     {
-        $builder = new GridBuilder($this->createFactory());
+        $builder = new GridBuilder($this->createType(), $this->createFactory());
         $builder->getAction('invalid');
     }
 
     public function testGetGrid()
     {
-        $builder = new GridBuilder($this->createFactory());
+        $builder = new GridBuilder($this->createType(), $this->createFactory());
         $builder->addColumn('column', 'string', ['option' => 'value']);
 
         $grid = $builder->getGrid();
@@ -111,6 +112,13 @@ class GridBuilderTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf(Grid::class, $grid);
         $this->assertTrue($grid->hasColumn('column'));
         $this->assertInstanceOf(ElementDescription::class, $grid->getColumn('column'));
+    }
+
+    private function createType()
+    {
+        return $this->getMockBuilder(ResolvedGridType::class)
+            ->disableOriginalConstructor()
+            ->getMock();
     }
 
     private function createFactory()

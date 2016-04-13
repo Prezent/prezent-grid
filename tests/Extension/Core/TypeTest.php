@@ -1,6 +1,6 @@
 <?php
 
-namespace Prezent\Grid\Tests\Extension\Core\Type;
+namespace Prezent\Grid\Tests\Extension\Core;
 
 use Prezent\Grid\Tests\PHPUnit\GridFactoryProvider;
 

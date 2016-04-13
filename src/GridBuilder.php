@@ -13,6 +13,11 @@ use Prezent\Grid\Exception\UnexpectedTypeException;
 class GridBuilder
 {
     /**
+     * @var ResolvedGridType
+     */
+    private $type;
+
+    /**
      * @var ElementDescription[]
      */
     private $columns = [];
@@ -23,13 +28,22 @@ class GridBuilder
     private $actions = [];
 
     /**
+     * @var array
+     */
+    private $options;
+
+    /**
      * Constructor
      *
+     * @param ResolvedGridType $type
      * @param ElementTypeFactory $elementTypeFactory
+     * @param array $options
      */
-    public function __construct(ElementTypeFactory $elementTypeFactory)
+    public function __construct(ResolvedGridType $type, ElementTypeFactory $elementTypeFactory, array $options = [])
     {
+        $this->type = $type;
         $this->elementTypeFactory = $elementTypeFactory;
+        $this->options = $options;
     }
 
     /**
@@ -136,7 +150,17 @@ class GridBuilder
      */
     public function getGrid()
     {
-        return new Grid($this->columns, $this->actions);
+        return new Grid($this->type, $this->columns, $this->actions, $this->options);
+    }
+
+    /**
+     * Get options
+     *
+     * @return array
+     */
+    public function getOptions()
+    {
+        return $this->options;
     }
 
     /**

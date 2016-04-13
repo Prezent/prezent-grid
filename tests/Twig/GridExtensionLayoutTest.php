@@ -62,6 +62,7 @@ class GridExtensionLayoutTest extends \PHPUnit_Framework_TestCase
     {
         $output = $this->twig->renderer->renderBlock('grid', $this->createView(), [['foo' => 'bar']]);
 
+        $this->assertMatchesXpath('/table[@class="table-class"]', $output);
         $this->assertMatchesXpath('/table/thead/tr', $output);
         $this->assertMatchesXpath('/table/tbody/tr', $output);
     }
@@ -90,7 +91,7 @@ class GridExtensionLayoutTest extends \PHPUnit_Framework_TestCase
 
     public function createView()
     {
-        $grid = $this->gridFactory->createBuilder()
+        $grid = $this->gridFactory->createBuilder('grid', ['attr' => ['class' => 'table-class']])
             ->addColumn('foo', 'string', ['property_path' => '[foo]'])
             ->addAction('edit', ['url' => '/edit/foo'])
             ->getGrid();

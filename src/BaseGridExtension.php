@@ -14,6 +14,16 @@ use Prezent\Grid\Exception\UnexpectedTypeException;
 abstract class BaseGridExtension implements GridExtension
 {
     /**
+     * @var GridType[]
+     */
+    private $gridTypes = null;
+
+    /**
+     * @var GridTypeExtension[]
+     */
+    private $gridTypeExtensions = null;
+
+    /**
      * @var ElementType[]
      */
     private $elementTypes = null;
@@ -22,6 +32,46 @@ abstract class BaseGridExtension implements GridExtension
      * @var ElementTypeExtension[]
      */
     private $elementTypeExtensions = null;
+
+    /**
+     * {@inheritDoc}
+     */
+    public function hasGridType($name)
+    {
+        if (null == $this->gridTypes) {
+            $this->initGridTypes();
+        }
+
+        return isset($this->gridTypes[$name]);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getGridType($name)
+    {
+        if (!$this->hasGridType($name)) {
+            throw new InvalidArgumentException(sprintf('The grid type "%s" cannot be loaded', $name));
+        }
+
+        return $this->gridTypes[$name];
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getGridTypeExtensions($name)
+    {
+        if (null == $this->gridTypeExtensions) {
+            $this->initGridTypeExtensions();
+        }
+
+        if (!isset($this->gridTypeExtensions[$name])) {
+            return [];
+        }
+
+        return $this->gridTypeExtensions[$name];
+    }
 
     /**
      * {@inheritDoc}
@@ -64,6 +114,26 @@ abstract class BaseGridExtension implements GridExtension
     }
 
     /**
+     * Get grid types
+     *
+     * @return array
+     */
+    protected function loadGridTypes()
+    {
+        return [];
+    }
+
+    /**
+     * Get grid type extensions
+     *
+     * @return array
+     */
+    protected function loadGridTypeExtensions()
+    {
+        return [];
+    }
+
+    /**
      * Get element types
      *
      * @return array
@@ -81,6 +151,42 @@ abstract class BaseGridExtension implements GridExtension
     protected function loadElementTypeExtensions()
     {
         return [];
+    }
+
+    /**
+     * Initialize grid types
+     *
+     * @return void
+     */
+    private function initGridTypes()
+    {
+        $this->gridTypes = [];
+
+        foreach ($this->loadGridTypes() as $gridType) {
+            if (!$gridType instanceof GridType) {
+                throw new UnexpectedTypeException(GridType::class, $gridType);
+            }
+
+            $this->gridTypes[$gridType->getName()] = $gridType;
+        }
+    }
+
+    /**
+     * Initialize grid type extensions
+     *
+     * @return void
+     */
+    private function initGridTypeExtensions()
+    {
+        $this->gridTypeExtensions = [];
+
+        foreach ($this->loadGridTypeExtensions() as $gridTypeExtension) {
+            if (!$gridTypeExtension instanceof GridTypeExtension) {
+                throw new UnexpectedTypeException(GridTypeExtension::class, $gridTypeExtension);
+            }
+
+            $this->gridTypeExtensions[$gridTypeExtension->getExtendedType()][] = $gridTypeExtension;
+        }
     }
 
     /**
