@@ -37,6 +37,11 @@ class MyGrid extends BaseGridType
             ->addAction('edit', ['url' => '/edit/{id}'])
         ;
     }
+
+    public function getName()
+    {
+        return 'my_grid';
+    }
 }
 ```
 

@@ -23,7 +23,7 @@ namespace My\Grids;
 use Prezent\Grid\BaseGridType;
 use Prezent\Grid\GridBuilder;
 
-class MyGrid extends BaseGridType
+class MyGridType extends BaseGridType
 {
     public function buildGrid(GridBuilder $builder, array $options = [])
     {
@@ -36,6 +36,11 @@ class MyGrid extends BaseGridType
             ->addColumn('created', 'datetime', ['pattern' => 'yyyy qqq'])
             ->addAction('edit', ['url' => '/edit/{id}'])
         ;
+    }
+
+    public function getName()
+    {
+        return 'my_grid';
     }
 }
 ```
