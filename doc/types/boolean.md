@@ -3,6 +3,10 @@ Boolean column type
 
 The boolean column type casts the value as a `bool` and displays `"yes"` or `"no"`.
 
+## Class
+
+`Prezent\Grid\Extension\Core\Type\BooleanType`
+
 ## Options
 
 None
@@ -27,4 +31,4 @@ You can also supply a callback that returns an URL. The callback is passed the r
 
 ## Parent type
 
-[column](column.md)
+[`Prezent\Grid\Extension\Core\Type\ColumnType`](column.md)

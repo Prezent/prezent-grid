@@ -2,6 +2,7 @@
 
 namespace Prezent\Grid;
 
+use Prezent\Grid\Extension\Core\GridType as CoreGridType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
@@ -36,13 +37,8 @@ abstract class BaseGridType implements GridType
     /**
      * {@inheritDoc}
      */
-    abstract public function getName();
-
-    /**
-     * {@inheritDoc}
-     */
     public function getParent()
     {
-        return 'grid';
+        return CoreGridType::class;
     }
 }

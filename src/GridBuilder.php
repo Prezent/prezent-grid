@@ -4,6 +4,7 @@ namespace Prezent\Grid;
 
 use Prezent\Grid\Exception\InvalidArgumentException;
 use Prezent\Grid\Exception\UnexpectedTypeException;
+use Prezent\Grid\Extension\Core\Type\ActionType;
 
 /**
  * Grid builder
@@ -112,7 +113,7 @@ class GridBuilder
      */
     public function addAction($name, array $options = [])
     {
-        $this->actions[$name] = $this->createColumn('action', $options);
+        $this->actions[$name] = $this->createColumn(ActionType::class, $options);
 
         return $this;
     }

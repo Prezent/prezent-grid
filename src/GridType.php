@@ -38,14 +38,7 @@ interface GridType
     public function configureOptions(OptionsResolver $resolver);
 
     /**
-     * Get the grid type name
-     *
-     * @return string
-     */
-    public function getName();
-
-    /**
-     * Get the parent type
+     * Get the parent type name
      *
      * @return string
      */

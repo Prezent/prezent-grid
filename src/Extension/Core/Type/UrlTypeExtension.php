@@ -65,6 +65,6 @@ class UrlTypeExtension extends BaseElementTypeExtension
      */
     public function getExtendedType()
     {
-        return 'element';
+        return ElementType::class;
     }
 }

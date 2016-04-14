@@ -70,12 +70,11 @@ class DefaultGridTypeFactory implements GridTypeFactory
      */
     public function resolveType(GridType $type)
     {
-        $name = $type->getName();
         $typeExtensions = [];
         $parentType = $type->getParent();
 
         foreach ($this->extensions as $extension) {
-            $typeExtensions = array_merge($typeExtensions, $extension->getGridTypeExtensions($name));
+            $typeExtensions = array_merge($typeExtensions, $extension->getGridTypeExtensions(get_class($type)));
         }
 
         if ($parentType instanceof GridType) {

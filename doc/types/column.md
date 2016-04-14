@@ -3,6 +3,10 @@ Column type
 
 The base column type
 
+## Class
+
+`Prezent\Grid\Extension\Core\Type\ColumnType`
+
 ## Options
 
 ### `property_path`
@@ -25,4 +29,4 @@ You can also supply a callback that returns an URL. The callback is passed the r
 
 ## Parent type
 
-[element](element.md)
+[`Prezent\Grid\Extension\Core\Type\ElementType`](element.md)

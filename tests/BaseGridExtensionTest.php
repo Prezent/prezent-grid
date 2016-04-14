@@ -15,11 +15,11 @@ class BaseGridExtensionTest extends \PHPUnit_Framework_TestCase
         $gridExtension = $this->getMockBuilder(BaseGridExtension::class)
             ->getMockForAbstractClass();
 
-        $this->assertFalse($gridExtension->hasGridType('grid'));
-        $this->assertCount(0, $gridExtension->getGridTypeExtensions('grid'));
+        $this->assertFalse($gridExtension->hasGridType(GridType::class));
+        $this->assertCount(0, $gridExtension->getGridTypeExtensions(GridType::class));
 
-        $this->assertFalse($gridExtension->hasElementType('column'));
-        $this->assertCount(0, $gridExtension->getElementTypeExtensions('column'));
+        $this->assertFalse($gridExtension->hasElementType(ElementType::class));
+        $this->assertCount(0, $gridExtension->getElementTypeExtensions(ElementType::class));
     }
 
     public function testLoadGrid()
@@ -27,10 +27,10 @@ class BaseGridExtensionTest extends \PHPUnit_Framework_TestCase
         $extension = $this->createExtension();
 
         $this->assertFalse($extension->hasGridType('invalid'));
-        $this->assertTrue($extension->hasGridType('grid'));
-        $this->assertInstanceOf(GridType::class, $extension->getGridType('grid'));
+        $this->assertTrue($extension->hasGridType('MockGridType'));
+        $this->assertInstanceOf(GridType::class, $extension->getGridType('MockGridType'));
 
-        $typeExtensions = $extension->getGridTypeExtensions('grid');
+        $typeExtensions = $extension->getGridTypeExtensions('MockGridType');
 
         $this->assertCount(1, $typeExtensions);
         $this->assertInstanceOf(GridTypeExtension::class, $typeExtensions[0]);
@@ -41,10 +41,10 @@ class BaseGridExtensionTest extends \PHPUnit_Framework_TestCase
         $extension = $this->createExtension();
 
         $this->assertFalse($extension->hasElementType('invalid'));
-        $this->assertTrue($extension->hasElementType('column'));
-        $this->assertInstanceOf(ElementType::class, $extension->getElementType('column'));
+        $this->assertTrue($extension->hasElementType('MockElementType'));
+        $this->assertInstanceOf(ElementType::class, $extension->getElementType('MockElementType'));
 
-        $typeExtensions = $extension->getElementTypeExtensions('column');
+        $typeExtensions = $extension->getElementTypeExtensions('MockElementType');
 
         $this->assertCount(1, $typeExtensions);
         $this->assertInstanceOf(ElementTypeExtension::class, $typeExtensions[0]);
@@ -118,17 +118,15 @@ class BaseGridExtensionTest extends \PHPUnit_Framework_TestCase
 
     private function createExtension($gridTypes = [], $gridTypeExtensions = [], $elementTypes = [], $elementTypeExtensions = [])
     {
-        $gridType = $this->getMockBuilder(GridType::class)->getMock();
-        $gridType->method('getName')->willReturn('grid');
+        $gridType = $this->getMockBuilder(GridType::class)->setMockClassName('MockGridType')->getMock();
 
-        $gridTypeExtension = $this->getMockBuilder(GridTypeExtension::class)->getMock();
-        $gridTypeExtension->method('getExtendedType')->willReturn('grid');
+        $gridTypeExtension = $this->getMockBuilder(GridTypeExtension::class)->setMockClassName('MockGridTypeExtension')->getMock();
+        $gridTypeExtension->method('getExtendedType')->willReturn(get_class($gridType));
 
-        $elementType = $this->getMockBuilder(ElementType::class)->getMock();
-        $elementType->method('getName')->willReturn('column');
+        $elementType = $this->getMockBuilder(ElementType::class)->setMockClassName('MockElementType')->getMock();
 
-        $elementTypeExtension = $this->getMockBuilder(ElementTypeExtension::class)->getMock();
-        $elementTypeExtension->method('getExtendedType')->willReturn('column');
+        $elementTypeExtension = $this->getMockBuilder(ElementTypeExtension::class)->setMockClassName('MockElementTypeExtension')->getMock();
+        $elementTypeExtension->method('getExtendedType')->willReturn(get_class($elementType));
 
         $gridExtension = $this->getMockBuilder(BaseGridExtension::class)
             ->setMethods(['loadGridTypes', 'loadGridTypeExtensions', 'loadElementTypes', 'loadElementTypeExtensions'])

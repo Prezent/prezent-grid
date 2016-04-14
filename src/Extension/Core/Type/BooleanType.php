@@ -20,12 +20,4 @@ class BooleanType extends BaseElementType
     {
         $view->vars['value'] = $view->vars['value'] ? 'yes' : 'no';
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getName()
-    {
-        return 'boolean';
-    }
 }

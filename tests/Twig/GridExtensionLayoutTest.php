@@ -2,6 +2,8 @@
 
 namespace Prezent\Tests\Grid\Twig;
 
+use Prezent\Grid\Extension\Core\GridType;
+use Prezent\Grid\Extension\Core\Type\StringType;
 use Prezent\Grid\GridView;
 use Prezent\Grid\Tests\PHPUnit\GridFactoryProvider;
 use Prezent\Grid\Tests\PHPUnit\TwigProvider;
@@ -70,7 +72,7 @@ class GridExtensionLayoutTest extends \PHPUnit_Framework_TestCase
     public function testRenderUrl()
     {
         $grid = $this->gridFactory->createBuilder()
-            ->addColumn('foo', 'string', [
+            ->addColumn('foo', StringType::class, [
                 'property_path' => '[foo]',
                 'url' => '/get/{[foo]}'
             ])
@@ -91,8 +93,8 @@ class GridExtensionLayoutTest extends \PHPUnit_Framework_TestCase
 
     public function createView()
     {
-        $grid = $this->gridFactory->createBuilder('grid', ['attr' => ['class' => 'table-class']])
-            ->addColumn('foo', 'string', ['property_path' => '[foo]'])
+        $grid = $this->gridFactory->createBuilder(GridType::class, ['attr' => ['class' => 'table-class']])
+            ->addColumn('foo', StringType::class, ['property_path' => '[foo]'])
             ->addAction('edit', ['url' => '/edit/foo'])
             ->getGrid();
 

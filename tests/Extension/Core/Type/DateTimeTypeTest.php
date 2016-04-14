@@ -2,6 +2,7 @@
 
 namespace Prezent\Grid\Tests\Extension\Core\Type;
 
+use Prezent\Grid\Extension\Core\Type\DateTimeType;
 use Prezent\Grid\Tests\Extension\Core\TypeTest;
 
 class DateTimeTypeTest extends TypeTest
@@ -14,7 +15,7 @@ class DateTimeTypeTest extends TypeTest
         $data = (object)['date' => new \DateTime('2015-01-01 12:00:00')];
 
         $grid = $this->gridFactory->createBuilder()
-            ->addColumn('date', 'datetime', $options)
+            ->addColumn('date', DateTimeType::class, $options)
             ->getGrid();
 
         $view = $grid->createView();
@@ -31,7 +32,7 @@ class DateTimeTypeTest extends TypeTest
         $data = (object)['date' => '2000-01-01'];
 
         $grid = $this->gridFactory->createBuilder()
-            ->addColumn('date', 'datetime')
+            ->addColumn('date', DateTimeType::class)
             ->getGrid();
 
         $view = $grid->createView();

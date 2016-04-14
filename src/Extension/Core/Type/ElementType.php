@@ -35,20 +35,12 @@ class ElementType extends BaseElementType
     {
         $blockTypes = [];
         for ($type = $view->getType(); $type != null; $type = $type->getParent()) {
-            $blockTypes[] = $type->getName();
+            $blockTypes[] = $type->getBlockPrefix();
         }
 
         $view->vars['block_types'] = $blockTypes;
         $view->vars['label']       = $options['label'] === null ? $view->name : $options['label'];
         $view->vars['attr']        = $options['attr'];
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getName()
-    {
-        return 'element';
     }
 
     /**

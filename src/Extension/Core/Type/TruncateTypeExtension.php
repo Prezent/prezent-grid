@@ -46,6 +46,6 @@ class TruncateTypeExtension extends BaseElementTypeExtension
      */
     public function getExtendedType()
     {
-        return 'string';
+        return StringType::class;
     }
 }

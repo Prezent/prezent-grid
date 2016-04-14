@@ -16,12 +16,14 @@ Create a grid builder and add columns and actions to it.
 ```php
 <?php
 
+use Prezent\Grid\Extension\Core\Type\StringType;
+
 $builder = $gridFactory->createBuilder();
 
 // Add some columns
 $builder
-    ->addColumn('id', 'string')
-    ->addColumn('name', 'string', ['label' => 'Full name'])
+    ->addColumn('id', StringType::class)
+    ->addColumn('name', StringType::class, ['label' => 'Full name'])
 ;
 
 // Add an action
@@ -48,10 +50,10 @@ $data = [
 ];
 
 $builder
-    ->addColumn('name', 'string', [
+    ->addColumn('name', StringType::class, [
         'property_path' => '[name]',
     ])
-    ->addColumn('partner', 'string' [
+    ->addColumn('partner',  StringType::class[
         'property_path' => '[partner][name]',
     ])
 ;
@@ -69,6 +71,7 @@ Grids can also have options. Use the `configureOptions` method to define which o
 <?php
 
 use Prezent\Grid\BaseGridType;
+use Prezent\Grid\Extension\Core\Type\StringType;
 use Prezent\Grid\GridBuilder;
 use Prezent\Grid\GridView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -78,12 +81,12 @@ class MyGridType extends BaseGridType
     public function buildGrid(GridBuilder $builder, array $options = [])
     {
         $builder
-            ->addColumn('id', 'string')
-            ->addColumn('name', 'string', ['label' => 'Full name'])
+            ->addColumn('id', StringType::class)
+            ->addColumn('name', StringType::class, ['label' => 'Full name'])
         ;
 
         if ($options['show_email']) {
-            $builder->addColumn('email', 'string');
+            $builder->addColumn('email', StringType::class);
         }
     }
 
@@ -100,11 +103,6 @@ class MyGridType extends BaseGridType
             ->addDefaults(['show_email' => false])
             ->setAllowedTypes(['show_email' => 'bool'])
         ;
-    }
-
-    public function getName()
-    {
-        return 'my_grid';
     }
 }
 ```
@@ -153,7 +151,7 @@ You can now use the grid factory to create the grid for you:
 ```php
 <?php
 
-$grid = $gridFactory->createGrid('my_grid');
+$grid = $gridFactory->createGrid(MyGridType::class);
 ```
 
 You can also modify the grid afterwards if you have the grid factory create the builder instead:
@@ -162,7 +160,7 @@ You can also modify the grid afterwards if you have the grid factory create the 
 ```php
 <?php
 
-$builder = $gridFactory->createBuilder('my_grid');
+$builder = $gridFactory->createBuilder(MyGridType::class);
 $builder->addAction('extra', ['url' => '/extra/{id}']);
 
 $grid = $builder->getGrid();
@@ -171,7 +169,7 @@ $grid = $builder->getGrid();
 ## Extending a grid type
 
 Grids can be extended in much the same way as column types or Symfony form types. Simply overide the `getParent` method
-to set the name of the parent grid type. The example below extends the MyGrid type to add an extra action:
+to set the class name of the parent grid type. The example below extends the `MyGridType` to add an extra action:
 
 ```php
 <?php
@@ -186,14 +184,9 @@ class MyExtendedGrid extends BaseGridType
         $builder->addAction('extra', ['url' => '/extra/{id}']);
     }
 
-    public function getName()
-    {
-        return 'my_extended_grid';
-    }
-
     public function getParent()
     {
-        return 'my_grid';
+        return MyGridType::class;
     }
 }
 ```
@@ -206,6 +199,7 @@ It is even possible to extend all grids of a certain type. The example below set
 <?php
 
 use Prezent\Grid\BaseGridTypeExtension;
+use Prezent\Grid\Extension\Core\GridType;
 use Prezent\Grid\GridView;
 
 class MyGridTypeExtension extends BaseGridTypeExtension
@@ -217,7 +211,7 @@ class MyGridTypeExtension extends BaseGridTypeExtension
 
     public function getExtendedType()
     {
-        return 'grid';
+        return GridType::class;
     }
 }
 ```

@@ -4,6 +4,10 @@ String column type
 The string column type casts the value as a `string`. Object values must implement the `__toString()` method.
 Array values are printed using `print_r`.
 
+## Class
+
+`Prezent\Grid\Extension\Core\Type\StringType`
+
 ## Options
 
 None
@@ -28,4 +32,4 @@ You can also supply a callback that returns an URL. The callback is passed the r
 
 ## Parent type
 
-[column](column.md)
+[`Prezent\Grid\Extension\Core\Type\ColumnType`](column.md)

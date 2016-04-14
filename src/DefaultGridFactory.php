@@ -4,6 +4,7 @@ namespace Prezent\Grid;
 
 use Prezent\Grid\Exception\InvalidArgumentException;
 use Prezent\Grid\Exception\UnexpectedTypeException;
+use Prezent\Grid\Extension\Core\GridType as CoreGridType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
@@ -39,7 +40,7 @@ class DefaultGridFactory implements GridFactory
     /**
      * {@inheritDoc}
      */
-    public function createBuilder($type = 'grid', array $options = [])
+    public function createBuilder($type = CoreGridType::class, array $options = [])
     {
         if ($type instanceof GridType) {
             $type = $this->gridTypeFactory->resolveType($type);
@@ -61,7 +62,7 @@ class DefaultGridFactory implements GridFactory
     /**
      * {@inheritDoc}
      */
-    public function createGrid($type = 'grid', array $options = [])
+    public function createGrid($type = CoreGridType::class, array $options = [])
     {
         return $this->createBuilder($type, $options)->getGrid();
     }

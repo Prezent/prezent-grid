@@ -70,12 +70,11 @@ class DefaultElementTypeFactory implements ElementTypeFactory
      */
     public function resolveType(ElementType $type)
     {
-        $name = $type->getName();
         $typeExtensions = [];
         $parentType = $type->getParent();
 
         foreach ($this->extensions as $extension) {
-            $typeExtensions = array_merge($typeExtensions, $extension->getElementTypeExtensions($name));
+            $typeExtensions = array_merge($typeExtensions, $extension->getElementTypeExtensions(get_class($type)));
         }
 
         if ($parentType instanceof ElementType) {

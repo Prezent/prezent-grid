@@ -14,6 +14,7 @@ First, create a new column type that extends from the current base column type:
 
 use Prezent\Grid\BaseElementType;
 use Prezent\Grid\ElementView;
+use Prezent\Grid\Extension\Core\Type\ColumnType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class XmlType extends BaseElementType
@@ -38,14 +39,9 @@ class XmlType extends BaseElementType
         ]);
     }
 
-    public function getName()
-    {
-        return 'simple_xml';
-    }
-
     public function getParent()
     {
-        return 'column';
+        return ColumnType::class;
     }
 }
 ```
@@ -84,7 +80,7 @@ You can now use your column type like any built-in type:
 ```php
 <?php
 
-$builder->addColumn('xml', 'simple_xml', [
+$builder->addColumn('xml', XmlType::class, [
     'label' => 'XML contents',
     'white_space' => false,
 ]);
@@ -100,6 +96,7 @@ Start off creating a column type extension that extends the column type.
 
 use Prezent\Grid\BaseElementTypeExtension;
 use Prezent\Grid\ElementView;
+use Prezent\Grid\Extension\Core\Type\ColumnType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ColspanTypeExtension extends BaseElementTypeExtension
@@ -118,7 +115,7 @@ class ColspanTypeExtension extends BaseElementTypeExtension
 
     public function getExtendedType()
     {
-        return 'column';
+        return ColumnType::class;
     }
 }
 ```
@@ -158,7 +155,7 @@ And now you can use this new option on all column types:
 ```php
 <?php
 
-$builder->addColumn('name', 'string', [
+$builder->addColumn('name', StringType::class, [
     'colspan' => 2,
 ]);
 ```

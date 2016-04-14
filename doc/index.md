@@ -38,11 +38,6 @@ class MyGridType extends BaseGridType
             ->addAction('edit', ['url' => '/edit/{id}'])
         ;
     }
-
-    public function getName()
-    {
-        return 'my_grid';
-    }
 }
 ```
 
@@ -53,12 +48,14 @@ In your controller, create the grid and assign it to your view:
 
 namespace My\Controllers;
 
+use My\Grids\MyGridType;
+
 class MyController
 {
     public function indexAction()
     {
         $data = $this->db->findSomeData();
-        $grid = $this->getService('grid_factory')->createGrid('my_grid');
+        $grid = $this->getService('grid_factory')->createGrid(MyGridType::class);
 
         $this->view->data = $data;
         $this->view->grid = $grid->createView();

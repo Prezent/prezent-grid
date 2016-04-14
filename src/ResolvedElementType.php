@@ -53,13 +53,13 @@ class ResolvedElementType
     }
 
     /**
-     * Get the type name
+     * Get the template block prefix
      *
      * @return string
      */
-    public function getName()
+    public function getBlockPrefix()
     {
-        return $this->innerType->getName();
+        return $this->innerType->getBlockPrefix();
     }
 
     /**

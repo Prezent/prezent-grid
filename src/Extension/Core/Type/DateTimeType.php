@@ -63,12 +63,4 @@ class DateTimeType extends BaseElementType
 
         $view->vars['value'] = $formatter->format($view->vars['value']);
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getName()
-    {
-        return 'datetime';
-    }
 }

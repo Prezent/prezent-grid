@@ -25,7 +25,7 @@ class ResolvedGridType
     /**
      * @var ResolvedGridType
      */
-    private $parent = null;
+    private $parent;
 
     /**
      * @var OptionsResolver

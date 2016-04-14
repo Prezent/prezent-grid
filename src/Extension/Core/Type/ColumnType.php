@@ -67,16 +67,8 @@ class ColumnType extends BaseElementType
     /**
      * {@inheritDoc}
      */
-    public function getName()
-    {
-        return 'column';
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function getParent()
     {
-        return 'element';
+        return ElementType::class;
     }
 }

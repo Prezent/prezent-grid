@@ -3,6 +3,10 @@ Element type
 
 The base element type
 
+## Class
+
+`Prezent\Grid\Extension\Core\Type\ElementType`
+
 ## Options
 
 ### `label`

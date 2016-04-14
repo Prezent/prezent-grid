@@ -3,6 +3,10 @@ Action type
 
 A row action
 
+## Class
+
+`Prezent\Grid\Extension\Core\Type\ActionType`
+
 ## Options
 
 None
@@ -23,4 +27,4 @@ You can also supply a callback that returns an URL. The callback is passed the r
 
 ## Parent type
 
-[element](element.md)
+[`Prezent\Grid\Extension\Core\Type\ElementType`](element.md)

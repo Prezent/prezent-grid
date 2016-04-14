@@ -29,12 +29,4 @@ class StringType extends BaseElementType
 
         $view->vars['value'] = (string) $view->vars['value'];
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getName()
-    {
-        return 'string';
-    }
 }

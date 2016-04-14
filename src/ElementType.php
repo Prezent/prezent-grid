@@ -38,14 +38,14 @@ interface ElementType
     public function bindView(ElementView $view, $item);
 
     /**
-     * Get the element type name
+     * Get the prefix of the template block name
      *
      * @return string
      */
-    public function getName();
+    public function getBlockPrefix();
 
     /**
-     * Get the parent type
+     * Get the parent type name
      *
      * @return string
      */

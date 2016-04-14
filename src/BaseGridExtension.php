@@ -167,7 +167,7 @@ abstract class BaseGridExtension implements GridExtension
                 throw new UnexpectedTypeException(GridType::class, $gridType);
             }
 
-            $this->gridTypes[$gridType->getName()] = $gridType;
+            $this->gridTypes[get_class($gridType)] = $gridType;
         }
     }
 
@@ -203,7 +203,7 @@ abstract class BaseGridExtension implements GridExtension
                 throw new UnexpectedTypeException(ElementType::class, $elementType);
             }
 
-            $this->elementTypes[$elementType->getName()] = $elementType;
+            $this->elementTypes[get_class($elementType)] = $elementType;
         }
     }
 

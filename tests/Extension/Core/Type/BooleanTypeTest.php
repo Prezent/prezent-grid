@@ -2,6 +2,7 @@
 
 namespace Prezent\Grid\Tests\Extension\Core\Type;
 
+use Prezent\Grid\Extension\Core\Type\BooleanType;
 use Prezent\Grid\Tests\Extension\Core\TypeTest;
 
 class BooleanTypeTest extends TypeTest
@@ -11,8 +12,8 @@ class BooleanTypeTest extends TypeTest
         $data = (object)['foo' => true, 'bar' => false];
 
         $grid = $this->gridFactory->createBuilder()
-            ->addColumn('foo', 'boolean')
-            ->addColumn('bar', 'boolean')
+            ->addColumn('foo', BooleanType::class)
+            ->addColumn('bar', BooleanType::class)
             ->getGrid();
 
         $view = $grid->createView();

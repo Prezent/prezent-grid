@@ -28,6 +28,11 @@ class Grid
     private $actions;
 
     /**
+     * @var array
+     */
+    private $options;
+
+    /**
      * Constructor
      *
      * @param ResolvedGridType $type

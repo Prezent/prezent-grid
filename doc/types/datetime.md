@@ -3,6 +3,10 @@ Datetime column type
 
 The datetime column formats a `DateTime` or `DateTimeImmutable` object as a string.
 
+## Class
+
+`Prezent\Grid\Extension\Core\Type\DateTimeType`
+
 ## Options
 
 ### `date_format`
@@ -42,4 +46,4 @@ You can also supply a callback that returns an URL. The callback is passed the r
 
 ## Parent type
 
-[column](column.md)
+[`Prezent\Grid\Extension\Core\Type\ColumnType`](column.md)

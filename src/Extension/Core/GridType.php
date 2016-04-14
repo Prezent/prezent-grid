@@ -36,14 +36,6 @@ class GridType extends BaseGridType
     /**
      * {@inheritDoc}
      */
-    public function getName()
-    {
-        return 'grid';
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function getParent()
     {
     }

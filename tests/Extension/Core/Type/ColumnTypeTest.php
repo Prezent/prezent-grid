@@ -2,6 +2,7 @@
 
 namespace Prezent\Grid\Tests\Extension\Core\Type;
 
+use Prezent\Grid\Extension\Core\Type\ColumnType;
 use Prezent\Grid\Tests\Extension\Core\TypeTest;
 
 class ColumnTypeTest extends TypeTest
@@ -9,7 +10,7 @@ class ColumnTypeTest extends TypeTest
     public function testDefaultsFromName()
     {
         $grid = $this->gridFactory->createBuilder()
-            ->addColumn('foo', 'column')
+            ->addColumn('foo', ColumnType::class)
             ->getGrid();
 
         $view = $grid->createView();
@@ -24,9 +25,9 @@ class ColumnTypeTest extends TypeTest
         $data->other = 'col2';
 
         $grid = $this->gridFactory->createBuilder()
-            ->addColumn('one', 'column')
-            ->addColumn('two', 'column', ['property_path' => 'other'])
-            ->addColumn('three', 'column', ['property_path' => function ($item) {
+            ->addColumn('one', ColumnType::class)
+            ->addColumn('two', ColumnType::class, ['property_path' => 'other'])
+            ->addColumn('three', ColumnType::class, ['property_path' => function ($item) {
                 return get_class($item);
             }])
             ->getGrid();

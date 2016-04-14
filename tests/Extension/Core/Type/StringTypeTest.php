@@ -2,6 +2,7 @@
 
 namespace Prezent\Grid\Tests\Extension\Core\Type;
 
+use Prezent\Grid\Extension\Core\Type\StringType;
 use Prezent\Grid\Tests\Extension\Core\TypeTest;
 
 class StringTypeTest extends TypeTest
@@ -50,7 +51,7 @@ class StringTypeTest extends TypeTest
     private function createGridView()
     {
         $grid = $this->gridFactory->createBuilder()
-            ->addColumn('foo', 'string')
+            ->addColumn('foo', StringType::class)
             ->getGrid();
 
         return $grid->createView();

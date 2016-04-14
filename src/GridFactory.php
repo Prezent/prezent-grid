@@ -2,6 +2,8 @@
 
 namespace Prezent\Grid;
 
+use Prezent\Grid\Extension\Core\GridType as CoreGridType;
+
 /**
  * Grid factory
  *
@@ -16,7 +18,7 @@ interface GridFactory
      * @param array $options
      * @return GridBuilder
      */
-    public function createBuilder($type = 'grid', array $options = []);
+    public function createBuilder($type = CoreGridType::class, array $options = []);
 
     /**
      * Create a grid
@@ -25,5 +27,5 @@ interface GridFactory
      * @param array $options
      * @return Grid
      */
-    public function createGrid($type = 'grid', array $options = []);
+    public function createGrid($type = CoreGridType::class, array $options = []);
 }
