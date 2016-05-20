@@ -56,7 +56,12 @@ class DefaultElementTypeFactory implements ElementTypeFactory
             }
 
             if (!$type) {
-                throw new InvalidArgumentException(sprintf('Could not load element type "%s"', $name));
+                // Support fully-qualified class names
+                if (class_exists($name) && in_array('Prezent\Grid\ElementType', class_implements($name))) {
+                    $type = new $name();
+                } else {
+                    throw new InvalidArgumentException(sprintf('Could not load element type "%s"', $name));
+                }
             }
 
             $this->types[$name] = $this->resolveType($type);

@@ -56,7 +56,12 @@ class DefaultGridTypeFactory implements GridTypeFactory
             }
 
             if (!$type) {
-                throw new InvalidArgumentException(sprintf('Could not load grid type "%s"', $name));
+                // Support fully-qualified class names
+                if (class_exists($name) && in_array('Prezent\Grid\GridType', class_implements($name))) {
+                    $type = new $name();
+                } else {
+                    throw new InvalidArgumentException(sprintf('Could not load grid type "%s"', $name));
+                }
             }
 
             $this->types[$name] = $this->resolveType($type);
