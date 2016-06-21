@@ -54,6 +54,7 @@ class CoreExtension extends BaseGridExtension
         return [
             new Type\ActionType(),
             new Type\BooleanType(),
+            new Type\CollectionType($this->accessor),
             new Type\ColumnType($this->accessor),
             new Type\DateTimeType(),
             new Type\ElementType(),
