@@ -56,7 +56,7 @@ class DateTimeType extends BaseElementType
             $view->vars['locale'],
             $view->vars['date_format'],
             $view->vars['time_format'],
-            \IntlTimeZone::createDefault(),
+            null,
             \IntlDateFormatter::GREGORIAN,
             $view->vars['pattern']
         );
