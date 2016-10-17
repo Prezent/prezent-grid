@@ -9,13 +9,13 @@ class ChainResolverTest extends \PHPUnit_Framework_TestCase
 {
     public function testChain()
     {
-        $resolver1 = $this->getMock(VariableResolver::class);
+        $resolver1 = $this->createMock(VariableResolver::class);
         $resolver1->expects($this->once())
             ->method('resolve')
             ->with($this->equalTo('foo'))
             ->willReturn('foobar');
 
-        $resolver2 = $this->getMock(VariableResolver::class);
+        $resolver2 = $this->createMock(VariableResolver::class);
         $resolver2->expects($this->once())
             ->method('resolve')
             ->with($this->equalTo('foobar'))

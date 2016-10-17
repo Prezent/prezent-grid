@@ -11,8 +11,8 @@ class ResolvedElementTypeTest extends \PHPUnit_Framework_TestCase
 {
     public function testConstruction()
     {
-        $type = $this->getMock(ElementType::class);
-        $extension = $this->getMock(ElementTypeExtension::class);
+        $type = $this->createMock(ElementType::class);
+        $extension = $this->createMock(ElementTypeExtension::class);
         $parent = $this->getMockBuilder(ResolvedElementType::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -27,7 +27,7 @@ class ResolvedElementTypeTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvalidConstruction()
     {
-        $type = $this->getMock(ElementType::class);
+        $type = $this->createMock(ElementType::class);
         $resolvedType = new ResolvedElementType($type, ['invalid']);
     }
 
@@ -74,7 +74,7 @@ class ResolvedElementTypeTest extends \PHPUnit_Framework_TestCase
 
     private function createType($class, array $required = [])
     {
-        $type = $this->getMock($class);
+        $type = $this->createMock($class);
 
         $type->expects($this->once())
             ->method('configureOptions')

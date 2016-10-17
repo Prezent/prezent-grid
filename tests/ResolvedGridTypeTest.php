@@ -12,8 +12,8 @@ class ResolvedGridTypeTest extends \PHPUnit_Framework_TestCase
 {
     public function testConstruction()
     {
-        $type = $this->getMock(GridType::class);
-        $extension = $this->getMock(GridTypeExtension::class);
+        $type = $this->createMock(GridType::class);
+        $extension = $this->createMock(GridTypeExtension::class);
         $parent = $this->getMockBuilder(ResolvedGridType::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -28,16 +28,16 @@ class ResolvedGridTypeTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvalidConstruction()
     {
-        $type = $this->getMock(GridType::class);
+        $type = $this->createMock(GridType::class);
         $resolvedType = new ResolvedGridType($type, ['invalid']);
     }
 
     public function testBuildGrid()
     {
-        $type = $this->getMock(GridType::class);
+        $type = $this->createMock(GridType::class);
         $type->expects($this->once())->method('buildGrid');
 
-        $extension = $this->getMock(GridTypeExtension::class);
+        $extension = $this->createMock(GridTypeExtension::class);
         $extension->expects($this->once())->method('buildGrid');
 
         $parent = $this->getMockBuilder(ResolvedGridType::class)->disableOriginalConstructor()->getMock();
@@ -52,16 +52,16 @@ class ResolvedGridTypeTest extends \PHPUnit_Framework_TestCase
 
     public function testBuildView()
     {
-        $type = $this->getMock(GridType::class);
+        $type = $this->createMock(GridType::class);
         $type->expects($this->once())->method('buildView');
 
-        $extension = $this->getMock(GridTypeExtension::class);
+        $extension = $this->createMock(GridTypeExtension::class);
         $extension->expects($this->once())->method('buildView');
 
         $parent = $this->getMockBuilder(ResolvedGridType::class)->disableOriginalConstructor()->getMock();
         $parent->expects($this->once())->method('buildView');
 
         $resolvedType = new ResolvedGridType($type, [$extension], $parent);
-        $resolvedType->buildView($this->getMock(GridView::class), []);
+        $resolvedType->buildView($this->createMock(GridView::class), []);
     }
 }

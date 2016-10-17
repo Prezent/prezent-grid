@@ -24,7 +24,7 @@ class GridBuilderTest extends \PHPUnit_Framework_TestCase
 
     public function testCreateFromType()
     {
-        $type = $this->getMock(ElementType::class);
+        $type = $this->createMock(ElementType::class);
 
         $builder = new GridBuilder($this->createType(), $this->createFactory());
         $column = $builder->createColumn($type, ['option' => 'value']);
@@ -127,7 +127,7 @@ class GridBuilderTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $factory = $this->getMock(ElementTypeFactory::class);
+        $factory = $this->createMock(ElementTypeFactory::class);
         $factory->expects($this->any())->method('getType')->willReturn($resolvedType);
         $factory->expects($this->any())->method('resolveType')->willReturn($resolvedType);
 

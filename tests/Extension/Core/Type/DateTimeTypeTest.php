@@ -44,7 +44,7 @@ class DateTimeTypeTest extends TypeTest
         return [
             [
                 ['locale' => 'en_US'],
-                'Jan 1, 2015 12:00:00 PM',
+                'Jan 1, 2015, 12:00:00 PM',
             ],
             [
                 [
@@ -52,7 +52,7 @@ class DateTimeTypeTest extends TypeTest
                     'date_format' => \IntlDateFormatter::SHORT,
                     'time_format' => \IntlDateFormatter::SHORT,
                 ],
-                '1/1/15 12:00 PM',
+                '1/1/15, 12:00 PM',
             ],
             [
                 [
