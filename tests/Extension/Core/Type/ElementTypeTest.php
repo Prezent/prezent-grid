@@ -41,4 +41,20 @@ class ElementTypeTest extends TypeTest
 
         $this->assertEquals(['string', 'column', 'element'], $view->columns['foo']->vars['block_types']);
     }
+
+    public function testAttributeResolver()
+    {
+        $data = (object)['id' => 1, 'name' => 'foobar'];
+
+        $grid = $this->gridFactory->createBuilder()
+            ->addColumn('name', StringType::class, ['attr' => [
+                'data-id' => '{id}'
+            ]])
+            ->getGrid();
+
+        $view = $grid->createView();
+        $view->columns['name']->bind($data);
+
+        $this->assertEquals(['data-id' => '1'], $view->columns['name']->vars['attr']);
+    }
 }

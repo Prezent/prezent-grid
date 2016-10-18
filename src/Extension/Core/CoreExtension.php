@@ -57,7 +57,7 @@ class CoreExtension extends BaseGridExtension
             new Type\CollectionType($this->accessor),
             new Type\ColumnType($this->accessor),
             new Type\DateTimeType(),
-            new Type\ElementType(),
+            new Type\ElementType($this->resolver),
             new Type\StringType(),
         ];
     }
