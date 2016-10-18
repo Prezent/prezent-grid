@@ -1,6 +1,11 @@
 Upgrading from previous versions
 ================================
 
+## Upgrading from 0.8 to 0.9
+
+HTML attributes set using the `attr` option are now parsed using the variable resolver. If you have any properties
+that contain `{` or `}` braces then you should escape them using a backslash.
+
 ## Upgrading from 0.7 to 0.8
 
 Grid and element types no longer have names. You can remove all `getName()` methods. Instead, refer to grid types and element

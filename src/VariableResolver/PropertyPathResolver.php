@@ -42,12 +42,14 @@ class PropertyPathResolver implements VariableResolver
             return $variable;
         }
 
-        return preg_replace_callback('/\{([^\}]+)\}/', function ($match) use ($item) {
+        $variable = preg_replace_callback('/(?<!\\\\)\\{((?:[^\\}]|\\\\})+)\\}/', function ($match) use ($item) {
             try {
                 return $this->accessor->getValue($item, $match[1]);
             } catch (ExceptionInterface $e) {
                 throw new InvalidArgumentException(sprintf('Invalid property path "%s"', $match[1]), null, $e);
             }
         }, $variable);
+
+        return str_replace(['\\{', '\\}'], ['{', '}'], $variable);
     }
 }

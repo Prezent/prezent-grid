@@ -37,4 +37,15 @@ class PropertyPathResolverTest extends \PHPUnit_Framework_TestCase
 
         $value = $resolver->resolve('Value is {foo}', $data);
     }
+
+    public function testEscape()
+    {
+        $resolver = new PropertyPathResolver(PropertyAccess::createPropertyAccessor());
+
+        $data = new \stdClass();
+        $data->foo = 'bar';
+
+        $value = $resolver->resolve('Value of \{foo\} is {foo}', $data);
+        $this->assertEquals('Value of {foo} is bar', $value);
+    }
 }
