@@ -5,7 +5,7 @@
     "keywords": ["grid", "datagrid", "list"],
     "homepage": "http://www.prezent.nl",
     "require": {
-        "php": "~5.5",
+        "php": "^5.5|^7.0",
         "ext-intl": "*",
         "symfony/options-resolver": "~2.3|~3.0",
         "symfony/property-access": "~2.3|~3.0",
