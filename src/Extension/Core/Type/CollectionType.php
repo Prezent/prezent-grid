@@ -43,7 +43,7 @@ class CollectionType extends BaseElementType
                 'item_separator',
             ])
             ->setAllowedTypes('item_max_count', ['boolean', 'integer'])
-            ->setAllowedTypes('item_property_path', 'string')
+            ->setAllowedTypes('item_property_path', ['null', 'string', 'callable'])
             ->setAllowedTypes('item_separator', 'string')
             ->setDefaults([
                 'item_max_count' => false,
