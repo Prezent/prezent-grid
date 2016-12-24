@@ -23,4 +23,25 @@ class BooleanTypeTest extends TypeTest
         $this->assertEquals('yes', $view->columns['foo']->vars['value']);
         $this->assertEquals('no', $view->columns['bar']->vars['value']);
     }
+
+    public function testOutputMessages()
+    {
+        $data = (object)['foo' => true, 'bar' => false];
+
+        $grid = $this->gridFactory->createBuilder()
+            ->addColumn('foo', BooleanType::class, [
+                'true_message' => 'Success',
+            ])
+            ->addColumn('bar', BooleanType::class, [
+                'false_message' => 'Failure',
+            ])
+            ->getGrid();
+
+        $view = $grid->createView();
+        $view->columns['foo']->bind($data);
+        $view->columns['bar']->bind($data);
+
+        $this->assertEquals('Success', $view->columns['foo']->vars['value']);
+        $this->assertEquals('Failure', $view->columns['bar']->vars['value']);
+    }
 }
