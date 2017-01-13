@@ -14,9 +14,10 @@ class RenderBlockNode extends \Twig_Node_Expression_Function
     {
         $compiler->addDebugInfo($this);
         $arguments = iterator_to_array($this->getNode('arguments'));
+        $class = \Prezent\Grid\Twig\GridExtension::class;
 
         $compiler
-            ->write('$this->env->getExtension(\'grid\')->renderer->renderBlock(')
+            ->write('$this->env->getExtension(\''.$class.'\')->renderer->renderBlock(')
             ->raw('\''.$this->getAttribute('name').'\', ')
             ->subcompile($arguments[0]);
 
