@@ -24,9 +24,11 @@ class GridThemeNode extends \Twig_Node
      */
     public function compile(\Twig_Compiler $compiler)
     {
+        $class = \Prezent\Grid\Twig\GridExtension::class;
+
         $compiler
             ->addDebugInfo($this)
-            ->write('$this->env->getExtension(\'grid\')->renderer->setTheme(')
+            ->write('$this->env->getExtension(\''.$class.'\')->renderer->setTheme(')
             ->subcompile($this->getNode('grid'))
             ->raw(', ')
             ->subcompile($this->getNode('resources'))
