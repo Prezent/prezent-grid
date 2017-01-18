@@ -7,10 +7,10 @@
     "require": {
         "php": "^5.5|^7.0",
         "ext-intl": "*",
-        "symfony/options-resolver": "~2.3|~3.0",
-        "symfony/property-access": "~2.3|~3.0",
-        "twig/extensions": "~1.2",
-        "twig/twig": "~1.23"
+        "symfony/options-resolver": "^2.3|^3.0",
+        "symfony/property-access": "^2.3|^3.0",
+        "twig/extensions": "^1.4",
+        "twig/twig": "^1.26"
     },
     "license": "MIT",
     "authors": [
