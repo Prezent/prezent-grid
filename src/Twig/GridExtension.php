@@ -64,12 +64,4 @@ class GridExtension extends \Twig_Extension implements \Twig_Extension_InitRunti
             new GridThemeTokenParser(),
         ];
     }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getName()
-    {
-        return 'grid';
-    }
 }
