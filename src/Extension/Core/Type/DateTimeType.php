@@ -24,7 +24,7 @@ class DateTimeType extends BaseElementType
             'locale'      => \Locale::getDefault(),
             'date_format' => \IntlDateFormatter::MEDIUM,
             'time_format' => \IntlDateFormatter::MEDIUM,
-            'pattern'     => '',
+            'pattern'     => null,
         ]);
     }
 
