@@ -74,10 +74,12 @@
 {%- endblock -%}
 
 {%- block grid_action -%}
-    {% if content is not defined %}
-        {% set content = label %}
+    {% if visible %}
+        {% if content is not defined %}
+            {% set content = label %}
+        {% endif %}
+        <a href="{{ url }}" {{ block('grid_attributes') }}>{{ content }}</a>
     {% endif %}
-    <a href="{{ url }}" {{ block('grid_attributes') }}>{{ content }}</a>
 {%- endblock -%}
 
 {%- block grid_attributes -%}

@@ -9,7 +9,10 @@ A row action
 
 ## Options
 
-None
+### `visible`
+
+A boolean, a property path that returns a boolean or a callback that returns a boolean. The callback is passed
+the row data as the only argument. Indicates if the action is visible for the row.
 
 ## Inherited options
 

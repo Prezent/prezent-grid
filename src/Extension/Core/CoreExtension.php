@@ -70,6 +70,7 @@ class CoreExtension extends BaseGridExtension
         return [
             new Type\TruncateTypeExtension(),
             new Type\UrlTypeExtension($this->resolver),
+            new Type\VisibleTypeExtension($this->accessor),
         ];
     }
 }

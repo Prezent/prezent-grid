@@ -11,7 +11,8 @@ The base column type
 
 ### `property_path`
 
-A path to a property in the row data. Defaults to the column name.
+A path to a property in the row data or a callback that returns a value. The callback is passed the
+row data as the only argument. Defaults to the column name.
 
 ## Inherited options
 
