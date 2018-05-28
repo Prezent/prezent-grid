@@ -78,7 +78,11 @@
         {% if content is not defined %}
             {% set content = label %}
         {% endif %}
-        <a href="{{ url }}" {{ block('grid_attributes') }}>{{ content }}</a>
+        {% if url is defined %}
+            <a href="{{ url }}" {{ block('grid_attributes') }}>{{ content }}</a>
+        {% else %}
+            <span {{ block('grid_attributes') }}>{{ content }}</span>
+        {% endif %}
     {% endif %}
 {%- endblock -%}
 
