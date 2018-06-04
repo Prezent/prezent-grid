@@ -20,7 +20,7 @@ class GridType extends BaseGridType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver
-            ->setDefault('attr', [])
+            ->setDefaults(['attr' => []])
             ->setAllowedTypes('attr', 'array')
         ;
     }
