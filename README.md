@@ -1,6 +1,8 @@
 prezent/grid
 ============
 
+[![Build Status](https://travis-ci.org/Prezent/prezent-grid.svg?branch=master)](https://travis-ci.org/Prezent/prezent-grid)
+
 A framework-independent library for building and rendering generic datagrids in PHP.
 
 ## Installation
