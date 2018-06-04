@@ -8,7 +8,7 @@ use Prezent\Grid\ElementTypeExtension;
 use Prezent\Grid\GridType;
 use Prezent\Grid\GridTypeExtension;
 
-class BaseGridExtensionTest extends \PHPUnit_Framework_TestCase
+class BaseGridExtensionTest extends \PHPUnit\Framework\TestCase
 {
     public function testDefault()
     {

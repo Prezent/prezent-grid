@@ -10,7 +10,7 @@ use Prezent\Grid\GridView;
 use Prezent\Grid\ResolvedElementType;
 use Prezent\Grid\ResolvedGridType;
 
-class GridTest extends \PHPUnit_Framework_TestCase
+class GridTest extends \PHPUnit\Framework\TestCase
 {
     public function testColumns()
     {

@@ -4,7 +4,7 @@ namespace Prezent\Grid\Tests\VariableResolver;
 
 use Prezent\Grid\VariableResolver\CallbackResolver;
 
-class CallbackResolverTest extends \PHPUnit_Framework_TestCase
+class CallbackResolverTest extends \PHPUnit\Framework\TestCase
 {
     public function testCallback()
     {

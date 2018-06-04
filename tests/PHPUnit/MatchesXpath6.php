@@ -2,7 +2,7 @@
 
 namespace Prezent\Grid\Tests\PHPUnit;
 
-class MatchesXpath extends \PHPUnit\Framework\Constraint\Constraint
+class MatchesXpath6 extends \PHPUnit\Framework\Constraint\Constraint
 {
     /**
      * @var string
@@ -27,7 +27,7 @@ class MatchesXpath extends \PHPUnit\Framework\Constraint\Constraint
         $this->count = $count;
     }
 
-    protected function matches($html): bool
+    protected function matches($html)
     {
         $dom = new \DomDocument('UTF-8');
         try {
@@ -47,7 +47,7 @@ class MatchesXpath extends \PHPUnit\Framework\Constraint\Constraint
         return $nodeList->length == $this->count;
     }
 
-    public function toString(): string
+    public function toString()
     {
         return 'matches xpath \'' . $this->expression . '\' ' . $this->count . ' times';
     }

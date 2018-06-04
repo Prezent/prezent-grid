@@ -5,7 +5,7 @@ namespace Prezent\Grid\Twig\Tests\TokenParser;
 use Prezent\Grid\Twig\TokenParser\GridThemeTokenParser;
 use Prezent\Grid\Twig\Node\GridThemeNode;
 
-class GridThemeTokenParserTest extends \PHPUnit_Framework_TestCase
+class GridThemeTokenParserTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @dataProvider getTestsForGridTheme

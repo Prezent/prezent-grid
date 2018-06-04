@@ -11,7 +11,7 @@ use Prezent\Grid\GridType;
 use Prezent\Grid\ResolvedGridType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class GridFactoryTest extends \PHPUnit_Framework_TestCase
+class GridFactoryTest extends \PHPUnit\Framework\TestCase
 {
     public function testCreateTypedBuilder()
     {

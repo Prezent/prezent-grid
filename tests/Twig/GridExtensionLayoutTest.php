@@ -8,7 +8,7 @@ use Prezent\Grid\GridView;
 use Prezent\Grid\Tests\PHPUnit\GridFactoryProvider;
 use Prezent\Grid\Tests\PHPUnit\TwigProvider;
 
-class GridExtensionLayoutTest extends \PHPUnit_Framework_TestCase
+class GridExtensionLayoutTest extends \PHPUnit\Framework\TestCase
 {
     use GridFactoryProvider, TwigProvider;
 

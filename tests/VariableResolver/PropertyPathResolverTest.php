@@ -5,7 +5,7 @@ namespace Prezent\Grid\Tests\VariableResolver;
 use Prezent\Grid\VariableResolver\PropertyPathResolver;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 
-class PropertyPathResolverTest extends \PHPUnit_Framework_TestCase
+class PropertyPathResolverTest extends \PHPUnit\Framework\TestCase
 {
     public function testPropertyPath()
     {

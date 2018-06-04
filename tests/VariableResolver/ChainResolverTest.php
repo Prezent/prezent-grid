@@ -5,7 +5,7 @@ namespace Prezent\Grid\Tests\VariableResolver;
 use Prezent\Grid\VariableResolver;
 use Prezent\Grid\VariableResolver\ChainResolver;
 
-class ChainResolverTest extends \PHPUnit_Framework_TestCase
+class ChainResolverTest extends \PHPUnit\Framework\TestCase
 {
     public function testChain()
     {

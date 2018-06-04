@@ -7,7 +7,7 @@ use Prezent\Grid\GridView;
 use Prezent\Grid\ResolvedElementType;
 use Prezent\Grid\Twig\GridRenderer;
 
-class GridRendererTest extends \PHPUnit_Framework_TestCase
+class GridRendererTest extends \PHPUnit\Framework\TestCase
 {
     public function testDefaultTheme()
     {

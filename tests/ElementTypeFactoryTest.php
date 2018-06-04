@@ -9,7 +9,7 @@ use Prezent\Grid\Extension\Core\Type;
 use Prezent\Grid\DefaultElementTypeFactory;
 use Prezent\Grid\ResolvedElementType;
 
-class ElementTypeFactoryTest extends \PHPUnit_Framework_TestCase
+class ElementTypeFactoryTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @expectedException Prezent\Grid\Exception\UnexpectedTypeException

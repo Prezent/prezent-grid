@@ -7,7 +7,7 @@ use Prezent\Grid\ElementTypeExtension;
 use Prezent\Grid\ElementView;
 use Prezent\Grid\ResolvedElementType;
 
-class ResolvedElementTypeTest extends \PHPUnit_Framework_TestCase
+class ResolvedElementTypeTest extends \PHPUnit\Framework\TestCase
 {
     public function testConstruction()
     {

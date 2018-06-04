@@ -4,7 +4,7 @@ namespace Prezent\Grid\Tests\Extension\Core;
 
 use Prezent\Grid\Tests\PHPUnit\GridFactoryProvider;
 
-abstract class TypeTest extends \PHPUnit_Framework_TestCase
+abstract class TypeTest extends \PHPUnit\Framework\TestCase
 {
     use GridFactoryProvider;
 

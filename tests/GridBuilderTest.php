@@ -10,7 +10,7 @@ use Prezent\Grid\GridBuilder;
 use Prezent\Grid\ResolvedElementType;
 use Prezent\Grid\ResolvedGridType;
 
-class GridBuilderTest extends \PHPUnit_Framework_TestCase
+class GridBuilderTest extends \PHPUnit\Framework\TestCase
 {
     public function testCreateFromString()
     {

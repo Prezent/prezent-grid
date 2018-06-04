@@ -8,7 +8,7 @@ use Prezent\Grid\GridTypeExtension;
 use Prezent\Grid\GridView;
 use Prezent\Grid\ResolvedGridType;
 
-class ResolvedGridTypeTest extends \PHPUnit_Framework_TestCase
+class ResolvedGridTypeTest extends \PHPUnit\Framework\TestCase
 {
     public function testConstruction()
     {
