@@ -239,7 +239,7 @@ class GridRenderer
         }
 
         $stack = new \SplStack();
-        $stack->push($variables);
+        $stack->push($this->environment->mergeGlobals($variables));
 
         $this->variableStack[$view]->push([
             'item' => $item,
