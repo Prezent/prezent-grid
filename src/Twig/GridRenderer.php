@@ -225,7 +225,7 @@ class GridRenderer
         if ($view instanceof GridView) {
             $variables = array_merge(['grid' => $view, 'data' => $item], $view->vars);
         }
-        
+
         if ($view instanceof ElementView) {
             if ($item) {
                 $boundView = clone $view;
@@ -262,7 +262,7 @@ class GridRenderer
 
         $this->blocks[$theme] = array_keys($theme->getBlocks());
 
-        if ($parent = $theme->getParent([])) {
+        if ($parent = $theme->getParent($this->environment->mergeGlobals([]))) {
             $this->loadBlocks($parent);
             $this->blocks[$theme] = array_merge($this->blocks[$theme], $this->blocks[$parent]);
         }
