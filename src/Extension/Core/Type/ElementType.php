@@ -39,8 +39,10 @@ class ElementType extends BaseElementType
             ->setDefaults([
                 'label' => null,
                 'attr'  => [],
+                'block_name' => null,
             ])
             ->setAllowedTypes('attr', 'array')
+            ->setAllowedTypes('block_name', ['string', 'null'])
         ;
     }
 
@@ -50,6 +52,11 @@ class ElementType extends BaseElementType
     public function buildView(ElementView $view, array $options)
     {
         $blockTypes = [];
+
+        if ($options['block_name']) {
+            $blockTypes[] = $options['block_name'];
+        }
+
         for ($type = $view->getType(); $type != null; $type = $type->getParent()) {
             $blockTypes[] = $type->getBlockPrefix();
         }

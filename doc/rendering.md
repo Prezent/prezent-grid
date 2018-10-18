@@ -118,6 +118,10 @@ The same applies to the widgets used for the cell rows:
 
 This also works if you add your own column types, as long as they extend the existing `element` type or one of it's children.
 
+If you want to customize a single column without creating a special column type for it, set the `block_name` option for a column. For
+example, if you set `block_name` to `status`, the renderer will look for `grid_header_status_widget` and `grid_status_widget` blocks
+when rendering your grid.
+
 ## Grid theming
 
 You can set the custom templates to use for a grid with the `grid_theme` tag:

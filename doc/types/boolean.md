@@ -37,6 +37,11 @@ of `{name}` will be rendered as `foo` if the `name` property of the row is `'foo
 
 For every attribute you can also supply a callback that returns a value. The callback is passed the row as only parameter.
 
+### `block_name`
+
+A custom block name to use when rendering the column. For example, if you set `block_name` to `status`, the renderer will
+look for `grid_header_status_widget` and `grid_status_widget` blocks when rendering your grid.
+
 ## Parent type
 
 [`Prezent\Grid\Extension\Core\Type\ColumnType`](column.md)
