@@ -17,6 +17,7 @@ class GridRendererTest extends \PHPUnit\Framework\TestCase
         $theme->method('getBlocks')->willReturn([]);
 
         $environment = $this->createMock(\Twig_Environment::class);
+        $environment->method('mergeGlobals')->will($this->returnArgument(0));
         $environment->expects($this->once())
             ->method('loadTemplate')
             ->willReturn($theme);
@@ -32,8 +33,11 @@ class GridRendererTest extends \PHPUnit\Framework\TestCase
             ->method('renderBlock')
             ->with($this->equalTo('grid'));
 
+        $environment = $this->createMock(\Twig_Environment::class);
+        $environment->method('mergeGlobals')->will($this->returnArgument(0));
+
         $renderer = new GridRenderer([$theme]);
-        $renderer->setEnvironment($this->createMock(\Twig_Environment::class));
+        $renderer->setEnvironment($environment);
 
         $renderer->renderBlock('grid', new GridView(), [], []);
     }
@@ -45,8 +49,11 @@ class GridRendererTest extends \PHPUnit\Framework\TestCase
 
         $type = $this->getMockBuilder(ResolvedElementType::class)->disableOriginalConstructor()->getMock();
 
+        $environment = $this->createMock(\Twig_Environment::class);
+        $environment->method('mergeGlobals')->will($this->returnArgument(0));
+
         $renderer = new GridRenderer([$theme]);
-        $renderer->setEnvironment($this->createMock(\Twig_Environment::class));
+        $renderer->setEnvironment($environment);
 
         $view = new ElementView('column', $type);
         $view->vars['foo'] = 'bar';
@@ -71,8 +78,11 @@ class GridRendererTest extends \PHPUnit\Framework\TestCase
 
         $type = $this->getMockBuilder(ResolvedElementType::class)->disableOriginalConstructor()->getMock();
 
+        $environment = $this->createMock(\Twig_Environment::class);
+        $environment->method('mergeGlobals')->will($this->returnArgument(0));
+
         $renderer = new GridRenderer([$theme]);
-        $renderer->setEnvironment($this->createMock(\Twig_Environment::class));
+        $renderer->setEnvironment($environment);
 
         $view = new ElementView('column', $type);
         $view->vars['foo'] = 'bar';
@@ -103,8 +113,11 @@ class GridRendererTest extends \PHPUnit\Framework\TestCase
 
         $type = $this->getMockBuilder(ResolvedElementType::class)->disableOriginalConstructor()->getMock();
 
+        $environment = $this->createMock(\Twig_Environment::class);
+        $environment->method('mergeGlobals')->will($this->returnArgument(0));
+
         $renderer = new GridRenderer([$theme]);
-        $renderer->setEnvironment($this->createMock(\Twig_Environment::class));
+        $renderer->setEnvironment($environment);
 
         $view = new ElementView('column', $type);
         $view->vars['block_types'] = ['string', 'column'];
@@ -127,8 +140,11 @@ class GridRendererTest extends \PHPUnit\Framework\TestCase
 
         $type = $this->getMockBuilder(ResolvedElementType::class)->disableOriginalConstructor()->getMock();
 
+        $environment = $this->createMock(\Twig_Environment::class);
+        $environment->method('mergeGlobals')->will($this->returnArgument(0));
+
         $renderer = new GridRenderer([$theme]);
-        $renderer->setEnvironment($this->createMock(\Twig_Environment::class));
+        $renderer->setEnvironment($environment);
 
         $view = new ElementView('column', $type);
         $view->vars['block_types'] = ['string', 'column'];
