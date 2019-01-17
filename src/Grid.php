@@ -62,6 +62,16 @@ class Grid
     }
 
     /**
+     * Get all columns
+     *
+     * @return array
+     */
+    public function getColumns()
+    {
+        return $this->columns;
+    }
+
+    /**
      * Check if a column exists
      *
      * @param string $name
@@ -85,6 +95,16 @@ class Grid
         }
 
         return $this->columns[$name];
+    }
+
+    /**
+     * Get all actions
+     *
+     * @return array
+     */
+    public function getActions()
+    {
+        return $this->actions;
     }
 
     /**
