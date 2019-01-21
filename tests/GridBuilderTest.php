@@ -75,6 +75,19 @@ class GridBuilderTest extends \PHPUnit\Framework\TestCase
         $builder->addColumn(new \DateTime(), 'string', ['option' => 'value']);
     }
 
+    public function testRemove()
+    {
+        $builder = new GridBuilder($this->createType(), $this->createFactory());
+        $builder->addColumn('column', 'string', ['option' => 'value']);
+
+        $this->assertTrue($builder->hasColumn('column'));
+
+        $builder->removeColumn('column');
+        $this->assertFalse($builder->hasColumn('column'));
+
+        $builder->removeColumn('does-not-exist'); // No exception
+    }
+
     /**
      * @expectedException Prezent\Grid\Exception\InvalidArgumentException
      */
@@ -91,6 +104,19 @@ class GridBuilderTest extends \PHPUnit\Framework\TestCase
 
         $this->assertTrue($builder->hasAction('action'));
         $this->assertInstanceOf(ElementDescription::class, $builder->getAction('action'));
+    }
+
+    public function testRemoveAction()
+    {
+        $builder = new GridBuilder($this->createType(), $this->createFactory());
+        $builder->addAction('action', ['option' => 'value']);
+
+        $this->assertTrue($builder->hasAction('action'));
+
+        $builder->removeAction('action');
+        $this->assertFalse($builder->hasAction('action'));
+
+        $builder->removeAction('does-not-exist'); // No exception
     }
 
     /**

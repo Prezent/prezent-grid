@@ -79,6 +79,21 @@ class GridBuilder
     }
 
     /**
+     * Remove a column
+     *
+     * @param string $name
+     * @return self
+     */
+    public function removeColumn($name)
+    {
+        if ($this->hasColumn($name)) {
+            unset($this->columns[$name]);
+        }
+
+        return $this;
+    }
+
+    /**
      * Check if a column exists
      *
      * @param string $name
@@ -114,6 +129,21 @@ class GridBuilder
     public function addAction($name, array $options = [])
     {
         $this->actions[$name] = $this->createColumn(ActionType::class, $options);
+
+        return $this;
+    }
+
+    /**
+     * Remove an action
+     *
+     * @param string $name
+     * @return self
+     */
+    public function removeAction($name)
+    {
+        if ($this->hasAction($name)) {
+            unset($this->actions[$name]);
+        }
 
         return $this;
     }
@@ -183,7 +213,7 @@ class GridBuilder
         if ($type instanceof ResolvedElementType) {
             return $type;
         }
-        
+
         throw new UnexpectedTypeException('string|' . ElementType::class . '|' . ResolvedElementType::class, $type);
     }
 }
