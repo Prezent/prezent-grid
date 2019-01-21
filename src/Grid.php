@@ -98,6 +98,21 @@ class Grid
     }
 
     /**
+     * Remove a column
+     *
+     * @param string $name
+     * @return self
+     */
+    public function removeColumn($name)
+    {
+        if ($this->hasColumn($name)) {
+            unset($this->columns[$name]);
+        }
+
+        return $this;
+    }
+
+    /**
      * Get all actions
      *
      * @return array
@@ -131,6 +146,21 @@ class Grid
         }
 
         return $this->actions[$name];
+    }
+
+    /**
+     * Remove an action
+     *
+     * @param string $name
+     * @return self
+     */
+    public function removeAction($name)
+    {
+        if ($this->hasAction($name)) {
+            unset($this->actions[$name]);
+        }
+
+        return $this;
     }
 
     /**

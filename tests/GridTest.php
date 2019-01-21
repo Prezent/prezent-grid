@@ -51,6 +51,21 @@ class GridTest extends \PHPUnit\Framework\TestCase
         $grid->getColumn('column');
     }
 
+    public function testRemoveColumn()
+    {
+        $type = $this->getMockBuilder(ResolvedElementType::class)->disableOriginalConstructor()->getMock();
+        $column = new ElementDescription($type, ['option' => 'value']);
+
+        $grid = $this->createGrid(['column' => $column]);
+
+        $this->assertTrue($grid->hasColumn('column'));
+
+        $grid->removeColumn('column');
+        $this->assertFalse($grid->hasColumn('column'));
+
+        $grid->removeColumn('does-not-exist'); // No exception
+    }
+
     public function testActions()
     {
         $type = $this->getMockBuilder(ResolvedElementType::class)->disableOriginalConstructor()->getMock();
@@ -88,6 +103,21 @@ class GridTest extends \PHPUnit\Framework\TestCase
         $this->assertFalse($grid->hasAction('action'));
 
         $grid->getAction('action');
+    }
+
+    public function testRemoveAction()
+    {
+        $type = $this->getMockBuilder(ResolvedElementType::class)->disableOriginalConstructor()->getMock();
+        $action = new ElementDescription($type, ['option' => 'value']);
+
+        $grid = $this->createGrid([], ['action' => $action]);
+
+        $this->assertTrue($grid->hasAction('action'));
+
+        $grid->removeAction('action');
+        $this->assertFalse($grid->hasAction('action'));
+
+        $grid->removeAction('does-not-exist'); // No exception
     }
 
     public function testCreateView()
