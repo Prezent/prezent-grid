@@ -105,6 +105,6 @@ class CollectionType extends BaseElementType
             }
         }
 
-        $view->vars['value'] = implode($view->vars['item_separator'], $collection);
+        $view->vars['value'] = $collection;
     }
 }

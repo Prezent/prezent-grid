@@ -98,3 +98,11 @@
         {%- endfor -%}
     {% endif %}
 {%- endblock -%}
+
+{%- block grid_collection_widget -%}
+    {% if value is iterable %}
+        {{ value|join(item_separator) }}
+    {% else %}
+        {{ value }}
+    {% endif %}
+{%- endblock -%}
