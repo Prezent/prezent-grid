@@ -5,17 +5,18 @@ namespace Prezent\Tests\Grid;
 use Prezent\Grid\BaseGridExtension;
 use Prezent\Grid\ElementType;
 use Prezent\Grid\ElementTypeExtension;
+use Prezent\Grid\Exception\InvalidArgumentException;
+use Prezent\Grid\Exception\UnexpectedTypeException;
 use Prezent\Grid\Extension\Core\Type;
 use Prezent\Grid\DefaultElementTypeFactory;
 use Prezent\Grid\ResolvedElementType;
 
 class ElementTypeFactoryTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @expectedException Prezent\Grid\Exception\UnexpectedTypeException
-     */
     public function testConstruction()
     {
+        $this->expectException(UnexpectedTypeException::class);
+
         $factory = new DefaultElementTypeFactory(['invalid']);
     }
 
@@ -104,22 +105,20 @@ class ElementTypeFactoryTest extends \PHPUnit\Framework\TestCase
         $this->assertInstanceOf(ResolvedElementType::class, $factory->resolveType($type));
     }
 
-    /**
-     * @expectedException Prezent\Grid\Exception\UnexpectedTypeException
-     */
     public function testGetTypeNotString()
     {
+        $this->expectException(UnexpectedTypeException::class);
+
         $type = $this->getMockBuilder(ElementType::class)->getMock();
         $factory = new DefaultElementTypeFactory([]);
 
         $factory->getType($type);
     }
 
-    /**
-     * @expectedException Prezent\Grid\Exception\InvalidArgumentException
-     */
     public function testGetTypeNotFound()
     {
+        $this->expectException(InvalidArgumentException::class);
+
         $factory = new DefaultElementTypeFactory([]);
         $factory->getType('does-not-exist');
     }

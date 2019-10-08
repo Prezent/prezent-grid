@@ -8,7 +8,7 @@ abstract class TypeTest extends \PHPUnit\Framework\TestCase
 {
     use GridFactoryProvider;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->setUpGridFactory();
     }

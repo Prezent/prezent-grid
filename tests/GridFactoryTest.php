@@ -3,6 +3,7 @@
 namespace Prezent\Tests\Grid;
 
 use Prezent\Grid\ElementTypeFactory;
+use Prezent\Grid\Exception\UnexpectedTypeException;
 use Prezent\Grid\GridTypeFactory;
 use Prezent\Grid\DefaultGridFactory;
 use Prezent\Grid\Grid;
@@ -43,11 +44,10 @@ class GridFactoryTest extends \PHPUnit\Framework\TestCase
         $this->assertInstanceOf(Grid::class, $gridFactory->createGrid('grid'));
     }
 
-    /**
-     * @expectedException Prezent\Grid\Exception\UnexpectedTypeException
-     */
     public function testCreateWrongType()
     {
+        $this->expectException(UnexpectedTypeException::class);
+
         $elementTypeFactory = $this->getMockBuilder(ElementTypeFactory::class)->getMock();
         $gridFactory = new DefaultGridFactory($this->createGridTypeFactory(), $elementTypeFactory);
 

@@ -5,6 +5,8 @@ namespace Prezent\Tests\Grid;
 use Prezent\Grid\ElementDescription;
 use Prezent\Grid\ElementType;
 use Prezent\Grid\ElementView;
+use Prezent\Grid\Exception\InvalidArgumentException;
+use Prezent\Grid\Exception\UnexpectedTypeException;
 use Prezent\Grid\Grid;
 use Prezent\Grid\GridView;
 use Prezent\Grid\ResolvedElementType;
@@ -23,28 +25,25 @@ class GridTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($column, $grid->getColumn('column'));
     }
 
-    /**
-     * @expectedException Prezent\Grid\Exception\UnexpectedTypeException
-     */
     public function testUnnamedColumn()
     {
+        $this->expectException(UnexpectedTypeException::class);
+
         $column = $this->getMockBuilder(ElementDescription::class)->disableOriginalConstructor()->getMock();
         $grid = $this->createGrid([$column]);
     }
 
-    /**
-     * @expectedException Prezent\Grid\Exception\UnexpectedTypeException
-     */
     public function testInvalidColumn()
     {
+        $this->expectException(UnexpectedTypeException::class);
+
         $grid = $this->createGrid(['column' => 'invalid']);
     }
 
-    /**
-     * @expectedException Prezent\Grid\Exception\InvalidArgumentException
-     */
     public function testColumnNotFound()
     {
+        $this->expectException(InvalidArgumentException::class);
+
         $grid = $this->createGrid();
         $this->assertFalse($grid->hasColumn('column'));
 
@@ -77,28 +76,25 @@ class GridTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($action, $grid->getAction('action'));
     }
 
-    /**
-     * @expectedException Prezent\Grid\Exception\UnexpectedTypeException
-     */
     public function testUnnamedAction()
     {
+        $this->expectException(UnexpectedTypeException::class);
+
         $action = $this->getMockBuilder(ElementDescription::class)->disableOriginalConstructor()->getMock();
         $grid = $this->createGrid([], [$action]);
     }
 
-    /**
-     * @expectedException Prezent\Grid\Exception\UnexpectedTypeException
-     */
     public function testInvalidAction()
     {
+        $this->expectException(UnexpectedTypeException::class);
+
         $grid = $this->createGrid([], ['action' => 'invalid']);
     }
 
-    /**
-     * @expectedException Prezent\Grid\Exception\InvalidArgumentException
-     */
     public function testActionNotFound()
     {
+        $this->expectException(InvalidArgumentException::class);
+
         $grid = $this->createGrid();
         $this->assertFalse($grid->hasAction('action'));
 

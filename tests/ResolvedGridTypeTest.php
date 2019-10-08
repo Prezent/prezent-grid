@@ -2,6 +2,7 @@
 
 namespace Prezent\Grid\Tests;
 
+use Prezent\Grid\Exception\UnexpectedTypeException;
 use Prezent\Grid\GridBuilder;
 use Prezent\Grid\GridType;
 use Prezent\Grid\GridTypeExtension;
@@ -23,11 +24,10 @@ class ResolvedGridTypeTest extends \PHPUnit\Framework\TestCase
         $this->assertInstanceOf(ResolvedGridType::class, $resolvedType);
     }
 
-    /**
-     * @expectedException Prezent\Grid\Exception\UnexpectedTypeException
-     */
     public function testInvalidConstruction()
     {
+        $this->expectException(UnexpectedTypeException::class);
+
         $type = $this->createMock(GridType::class);
         $resolvedType = new ResolvedGridType($type, ['invalid']);
     }

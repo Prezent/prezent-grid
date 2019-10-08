@@ -14,10 +14,12 @@ class GridThemeTokenParserTest extends \PHPUnit\Framework\TestCase
     {
         $env = new \Twig_Environment($this->createMock('Twig_LoaderInterface'), array('cache' => false, 'autoescape' => false, 'optimizations' => 0));
         $env->addTokenParser(new GridThemeTokenParser());
-        $stream = $env->tokenize(new \Twig_Source($source, 'template.html.twig'));
+        $source = new \Twig_Source($source, 'template.html.twig');
+        $stream = $env->tokenize($source);
         $parser = new \Twig_Parser($env);
 
         $expected->setTemplateName('template.html.twig');
+        $expected->setSourceContext($source);
 
         $this->assertEquals($expected, $parser->parse($stream)->getNode('body')->getNode(0));
     }

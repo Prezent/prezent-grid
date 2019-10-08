@@ -2,6 +2,7 @@
 
 namespace Prezent\Grid\Tests\VariableResolver;
 
+use Prezent\Grid\Exception\InvalidArgumentException;
 use Prezent\Grid\VariableResolver\PropertyPathResolver;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 
@@ -26,11 +27,10 @@ class PropertyPathResolverTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(['foo' => 'bar'], $value);
     }
 
-    /**
-     * @expectedException Prezent\Grid\Exception\InvalidArgumentException
-     */
     public function testInvalidPropertyPath()
     {
+        $this->expectException(InvalidArgumentException::class);
+
         $resolver = new PropertyPathResolver(PropertyAccess::createPropertyAccessor());
 
         $data = new \stdClass();

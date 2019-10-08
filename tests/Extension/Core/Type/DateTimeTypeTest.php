@@ -2,6 +2,7 @@
 
 namespace Prezent\Grid\Tests\Extension\Core\Type;
 
+use Prezent\Grid\Exception\UnexpectedTypeException;
 use Prezent\Grid\Extension\Core\Type\DateTimeType;
 use Prezent\Grid\Tests\Extension\Core\TypeTest;
 
@@ -24,11 +25,10 @@ class DateTimeTypeTest extends TypeTest
         $this->assertEquals($expected, $view->columns['date']->vars['value']);
     }
 
-    /**
-     * @expectedException Prezent\Grid\Exception\UnexpectedTypeException
-     */
     public function testNotDateTime()
     {
+        $this->expectException(UnexpectedTypeException::class);
+
         $data = (object)['date' => '2000-01-01'];
 
         $grid = $this->gridFactory->createBuilder()

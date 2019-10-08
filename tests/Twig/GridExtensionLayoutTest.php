@@ -84,11 +84,10 @@ class GridExtensionLayoutTest extends \PHPUnit\Framework\TestCase
         $this->assertMatchesXpath('/a[@href="/get/bar"][contains(., "bar")]', $output);
     }
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->setUpTwig();
         $this->setUpGridFactory();
-
     }
 
     public function createView()

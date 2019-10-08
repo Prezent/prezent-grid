@@ -5,6 +5,8 @@ namespace Prezent\Grid\Tests;
 use Prezent\Grid\BaseGridExtension;
 use Prezent\Grid\ElementType;
 use Prezent\Grid\ElementTypeExtension;
+use Prezent\Grid\Exception\InvalidArgumentException;
+use Prezent\Grid\Exception\UnexpectedTypeException;
 use Prezent\Grid\GridType;
 use Prezent\Grid\GridTypeExtension;
 
@@ -50,11 +52,10 @@ class BaseGridExtensionTest extends \PHPUnit\Framework\TestCase
         $this->assertInstanceOf(ElementTypeExtension::class, $typeExtensions[0]);
     }
 
-    /**
-     * @expectedException Prezent\Grid\Exception\InvalidArgumentException
-     */
     public function testUnknownGridType()
     {
+        $this->expectException(InvalidArgumentException::class);
+
         $extension = $this->createExtension();
         $extension->getGridType('invalid');
     }
@@ -65,11 +66,10 @@ class BaseGridExtensionTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals([], $extension->getGridTypeExtensions('invalid'));
     }
 
-    /**
-     * @expectedException Prezent\Grid\Exception\InvalidArgumentException
-     */
     public function testUnknownElementType()
     {
+        $this->expectException(InvalidArgumentException::class);
+
         $extension = $this->createExtension();
         $extension->getElementType('invalid');
     }
@@ -80,38 +80,34 @@ class BaseGridExtensionTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals([], $extension->getElementTypeExtensions('invalid'));
     }
 
-    /**
-     * @expectedException Prezent\Grid\Exception\UnexpectedTypeException
-     */
     public function testInvalidGridType()
     {
+        $this->expectException(UnexpectedTypeException::class);
+
         $extension = $this->createExtension(['invalid']);
         $extension->getGridType('invalid');
     }
 
-    /**
-     * @expectedException Prezent\Grid\Exception\UnexpectedTypeException
-     */
     public function testInvalidGridTypeExtension()
     {
+        $this->expectException(UnexpectedTypeException::class);
+
         $extension = $this->createExtension([], ['invalid']);
         $extension->getGridTypeExtensions('invalid');
     }
 
-    /**
-     * @expectedException Prezent\Grid\Exception\UnexpectedTypeException
-     */
     public function testInvalidElementType()
     {
+        $this->expectException(UnexpectedTypeException::class);
+
         $extension = $this->createExtension([], [], ['invalid']);
         $extension->getElementType('invalid');
     }
 
-    /**
-     * @expectedException Prezent\Grid\Exception\UnexpectedTypeException
-     */
     public function testInvalidElementTypeExtension()
     {
+        $this->expectException(UnexpectedTypeException::class);
+
         $extension = $this->createExtension([], [], [], ['invalid']);
         $extension->getElementTypeExtensions('invalid');
     }

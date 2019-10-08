@@ -2,6 +2,7 @@
 
 namespace Prezent\Grid\Tests\VariableResolver;
 
+use Prezent\Grid\Exception\UnexpectedTypeException;
 use Prezent\Grid\VariableResolver;
 use Prezent\Grid\VariableResolver\ChainResolver;
 
@@ -27,11 +28,10 @@ class ChainResolverTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals('foobarbaz', $value);
     }
 
-    /**
-     * @expectedException Prezent\Grid\Exception\UnexpectedTypeException
-     */
     public function testInvalidResolver()
     {
+        $this->expectException(UnexpectedTypeException::class);
+
         $chain = new ChainResolver([new \stdClass()]);
     }
 }

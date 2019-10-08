@@ -5,6 +5,8 @@ namespace Prezent\Tests\Grid;
 use Prezent\Grid\ElementType;
 use Prezent\Grid\ElementTypeFactory;
 use Prezent\Grid\ElementDescription;
+use Prezent\Grid\Exception\InvalidArgumentException;
+use Prezent\Grid\Exception\UnexpectedTypeException;
 use Prezent\Grid\Grid;
 use Prezent\Grid\GridBuilder;
 use Prezent\Grid\ResolvedElementType;
@@ -48,11 +50,10 @@ class GridBuilderTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(['option' => 'value'], $column->getOptions());
     }
 
-    /**
-     * @expectedException Prezent\Grid\Exception\UnexpectedTypeException
-     */
     public function testCreateInvalid()
     {
+        $this->expectException(UnexpectedTypeException::class);
+
         $builder = new GridBuilder($this->createType(), $this->createFactory());
         $builder->createColumn(new \DateTime(), ['option' => 'value']);
     }
@@ -66,11 +67,10 @@ class GridBuilderTest extends \PHPUnit\Framework\TestCase
         $this->assertInstanceOf(ElementDescription::class, $builder->getColumn('column'));
     }
 
-    /**
-     * @expectedException Prezent\Grid\Exception\UnexpectedTypeException
-     */
     public function testAddInvalidColumnName()
     {
+        $this->expectException(UnexpectedTypeException::class);
+
         $builder = new GridBuilder($this->createType(), $this->createFactory());
         $builder->addColumn(new \DateTime(), 'string', ['option' => 'value']);
     }
@@ -88,11 +88,10 @@ class GridBuilderTest extends \PHPUnit\Framework\TestCase
         $builder->removeColumn('does-not-exist'); // No exception
     }
 
-    /**
-     * @expectedException Prezent\Grid\Exception\InvalidArgumentException
-     */
     public function testGetInvalidColumn()
     {
+        $this->expectException(InvalidArgumentException::class);
+
         $builder = new GridBuilder($this->createType(), $this->createFactory());
         $builder->getColumn('invalid');
     }
@@ -119,11 +118,10 @@ class GridBuilderTest extends \PHPUnit\Framework\TestCase
         $builder->removeAction('does-not-exist'); // No exception
     }
 
-    /**
-     * @expectedException Prezent\Grid\Exception\InvalidArgumentException
-     */
     public function testGetInvalidAction()
     {
+        $this->expectException(InvalidArgumentException::class);
+
         $builder = new GridBuilder($this->createType(), $this->createFactory());
         $builder->getAction('invalid');
     }

@@ -22,7 +22,6 @@ class MatchesXpath extends \PHPUnit\Framework\Constraint\Constraint
      */
     public function __construct($expression, $count = 1)
     {
-        parent::__construct();
         $this->expression = $expression;
         $this->count = $count;
     }

@@ -2,6 +2,8 @@
 
 namespace Prezent\Grid\Tests\Extension\Core\Type;
 
+use Prezent\Grid\Exception\InvalidArgumentException;
+use Prezent\Grid\Exception\UnexpectedTypeException;
 use Prezent\Grid\Extension\Core\Type\StringType;
 use Prezent\Grid\Tests\Extension\Core\TypeTest;
 
@@ -24,7 +26,7 @@ class StringTypeTest extends TypeTest
         $view = $this->createGridView();
         $view->columns['foo']->bind($data);
 
-        $this->assertContains('foo', $view->columns['foo']->vars['value']);
+        $this->assertStringContainsString('foo', $view->columns['foo']->vars['value']);
     }
 
     public function testArrayStringCast()
@@ -34,14 +36,13 @@ class StringTypeTest extends TypeTest
         $view = $this->createGridView();
         $view->columns['foo']->bind($data);
 
-        $this->assertContains('baz', $view->columns['foo']->vars['value']);
+        $this->assertStringContainsString('baz', $view->columns['foo']->vars['value']);
     }
 
-    /**
-     * @expectedException Prezent\Grid\Exception\InvalidArgumentException
-     */
     public function testStringCastFailure()
     {
+        $this->expectException(InvalidArgumentException::class);
+
         $data = (object)['foo' => new \stdClass()];
 
         $view = $this->createGridView();
