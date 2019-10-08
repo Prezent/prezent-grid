@@ -6,9 +6,6 @@ matrix:
     include:
         - php: 7.2
           env: TWIG="1.*"
-          env: COMPOSER_FLAGS="--prefer-lowest"
-        - php: 7.2
-          env: TWIG="1.*"
         - php: 7.2
           env: TWIG="2.*"
         - php: 7.3
@@ -20,6 +17,6 @@ before_install:
   - if [ "$TWIG" != "" ]; then composer require --dev --no-update twig/twig=$TWIG; fi
 
 install:
-  - composer update $COMPOSER_FLAGS --prefer-dist
+  - composer update --prefer-dist
 
 script: phpunit
