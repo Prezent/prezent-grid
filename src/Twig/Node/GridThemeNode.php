@@ -2,6 +2,9 @@
 
 namespace Prezent\Grid\Twig\Node;
 
+use Twig\Compiler;
+use Twig\Node\Node;
+
 /**
  * The 'grid_theme' node.
  *
@@ -10,9 +13,9 @@ namespace Prezent\Grid\Twig\Node;
  * @author Fabien Potencier <fabien@symfony.com>
  * @author Sander Marechal
  */
-class GridThemeNode extends \Twig_Node
+class GridThemeNode extends Node
 {
-    public function __construct(\Twig_Node $grid, \Twig_Node $resources, $lineno, $tag = null)
+    public function __construct(Node $grid, Node $resources, $lineno, $tag = null)
     {
         parent::__construct(['grid' => $grid, 'resources' => $resources], [], $lineno, $tag);
     }
@@ -20,9 +23,9 @@ class GridThemeNode extends \Twig_Node
     /**
      * Compiles the node to PHP.
      *
-     * @param \Twig_Compiler $compiler A Twig_Compiler instance
+     * @param Compiler $compiler A Twig_Compiler instance
      */
-    public function compile(\Twig_Compiler $compiler)
+    public function compile(Compiler $compiler)
     {
         $class = \Prezent\Grid\Twig\GridExtension::class;
 

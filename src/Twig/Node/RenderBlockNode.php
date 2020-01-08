@@ -2,15 +2,18 @@
 
 namespace Prezent\Grid\Twig\Node;
 
+use Twig\Compiler;
+use Twig\Node\Expression\FunctionExpression;
+
 /**
  * Compile a grid block
  *
- * @see \Twig_Node_Expression_Function
+ * @see FunctionExpression
  * @author Sander Marechal
  */
-class RenderBlockNode extends \Twig_Node_Expression_Function
+class RenderBlockNode extends FunctionExpression
 {
-    public function compile(\Twig_Compiler $compiler)
+    public function compile(Compiler $compiler)
     {
         $compiler->addDebugInfo($this);
         $arguments = iterator_to_array($this->getNode('arguments'));

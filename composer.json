@@ -9,8 +9,7 @@
         "ext-intl": "*",
         "symfony/options-resolver": "^2.6|^3.0|^4.0",
         "symfony/property-access": "^2.6|^3.0|^4.0",
-        "twig/extensions": "^1.4",
-        "twig/twig": "^1.27|^2.0"
+        "twig/twig": "^2.0|^3.0"
     },
     "license": "MIT",
     "authors": [
