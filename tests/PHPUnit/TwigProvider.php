@@ -5,6 +5,7 @@ namespace Prezent\Grid\Tests\PHPUnit;
 use Prezent\Grid\Twig\GridExtension;
 use Prezent\Grid\Twig\GridRenderer;
 use Twig\Environment;
+use Twig\Extra\String\StringExtension;
 use Twig\Loader\FilesystemLoader;
 
 trait TwigProvider
@@ -21,7 +22,7 @@ trait TwigProvider
 
         $environment = new Environment($loader, array('strict_variables' => true));
         $environment->addExtension($this->twig);
-        $environment->addExtension(new \Twig_Extensions_Extension_Text());
+        $environment->addExtension(new StringExtension());
 
         $this->twig->initRuntime($environment);
     }

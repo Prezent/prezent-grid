@@ -67,7 +67,7 @@
 
 {%- block grid_string_widget -%}
     {% if truncate %}
-        {{ block('grid_widget')|trim|truncate(truncate is same as (true) ? 32 : truncate, truncate_word, truncate_separator)|raw }}
+        {{ block('grid_widget')|trim|u.truncate(truncate is same as (true) ? 32 : truncate, truncate_separator)|raw }}
     {% else %}
         {{ block('grid_widget')|raw }}
     {% endif %}

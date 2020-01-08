@@ -9,7 +9,8 @@
         "ext-intl": "*",
         "symfony/options-resolver": "^2.6|^3.0|^4.0",
         "symfony/property-access": "^2.6|^3.0|^4.0",
-        "twig/twig": "^2.0|^3.0"
+        "twig/twig": "^2.0|^3.0",
+        "twig/string-extra": "^3.0"
     },
     "require-dev": {
         "symfony/phpunit-bridge": "^3.3|^4.0"

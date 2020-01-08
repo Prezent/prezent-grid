@@ -22,11 +22,9 @@ class TruncateTypeExtension extends BaseElementTypeExtension
         $resolver
             ->setDefaults([
                 'truncate'           => false,
-                'truncate_word'      => false,
                 'truncate_separator' => '...',
             ])
             ->setAllowedTypes('truncate', ['bool', 'int'])
-            ->setAllowedTypes('truncate_word', 'bool')
             ->setAllowedTypes('truncate_separator', 'string')
         ;
     }
@@ -37,7 +35,6 @@ class TruncateTypeExtension extends BaseElementTypeExtension
     public function buildView(ElementView $view, array $options)
     {
         $view->vars['truncate'] = $options['truncate'];
-        $view->vars['truncate_word'] = $options['truncate_word'];
         $view->vars['truncate_separator'] = $options['truncate_separator'];
     }
 
