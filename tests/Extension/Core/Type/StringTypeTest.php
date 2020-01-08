@@ -6,6 +6,7 @@ use Prezent\Grid\Exception\InvalidArgumentException;
 use Prezent\Grid\Exception\UnexpectedTypeException;
 use Prezent\Grid\Extension\Core\Type\StringType;
 use Prezent\Grid\Tests\Extension\Core\TypeTest;
+use Twig\Token;
 
 class StringTypeTest extends TypeTest
 {
@@ -21,7 +22,7 @@ class StringTypeTest extends TypeTest
 
     public function testObjectStringCast()
     {
-        $data = (object)['foo' => new \Twig_Token(\Twig_Token::TEXT_TYPE, 'foo', 0)];
+        $data = (object)['foo' => new Token(Token::TEXT_TYPE, 'foo', 0)];
 
         $view = $this->createGridView();
         $view->columns['foo']->bind($data);

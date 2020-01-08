@@ -5,13 +5,13 @@ sudo: false
 matrix:
     include:
         - php: 7.2
-          env: TWIG="1.*"
+          env: TWIG="2.*"
         - php: 7.2
-          env: TWIG="2.*"
-        - php: 7.3
-          env: TWIG="1.*"
+          env: TWIG="3.*"
         - php: 7.3
           env: TWIG="2.*"
+        - php: 7.3
+          env: TWIG="3.*"
 
 before_install:
   - if [ "$TWIG" != "" ]; then composer require --dev --no-update twig/twig=$TWIG; fi

@@ -5,6 +5,8 @@ namespace Prezent\Grid\Twig;
 use Prezent\Grid\ElementView;
 use Prezent\Grid\GridView;
 use Prezent\Grid\View;
+use Twig\Environment;
+use Twig\Template;
 
 /**
  * Grid renderer
@@ -14,7 +16,7 @@ use Prezent\Grid\View;
 class GridRenderer
 {
     /**
-     * @var \Twig_Environment
+     * @var Environment
      */
     private $environment;
 
@@ -41,7 +43,7 @@ class GridRenderer
     /**
      * Constructor
      *
-     * @param array $themes default themes, either as string or as \Twig_Template
+     * @param array $themes default themes, either as string or as \Twig\Template
      */
     public function __construct(array $themes = [])
     {
@@ -54,16 +56,16 @@ class GridRenderer
     /**
      * Setter for environment
      *
-     * @param \Twig_Environment $environment
+     * @param Environment $environment
      * @return self
      */
-    public function setEnvironment(\Twig_Environment $environment)
+    public function setEnvironment(Environment $environment)
     {
         $this->environment = $environment;
 
         foreach ($this->defaultThemes as &$theme) {
-            if (!($theme instanceof \Twig_Template)) {
-                $theme = $this->environment->loadTemplate($theme);
+            if (!($theme instanceof Template)) {
+                $theme = $this->environment->load($theme)->unwrap();
             }
 
             $this->loadBlocks($theme);
@@ -82,8 +84,8 @@ class GridRenderer
         $this->themes[$view] = [];
 
         foreach ($themes as $theme) {
-            if (!($theme instanceof \Twig_Template)) {
-                $theme = $this->environment->loadTemplate($theme);
+            if (!($theme instanceof Template)) {
+                $theme = $this->environment->load($theme)->unwrap();
             }
 
             $this->loadBlocks($theme);
@@ -158,7 +160,7 @@ class GridRenderer
      *
      * @param string $name
      * @param View $view
-     * @return \Twig_Template|null
+     * @return Template|null
      */
     private function findThemeForBlock($name, View $view)
     {
@@ -254,7 +256,7 @@ class GridRenderer
      *
      * @return void
      */
-    private function loadBlocks(\Twig_Template $theme)
+    private function loadBlocks(Template $theme)
     {
         if (isset($this->blocks[$theme])) {
             return;
