@@ -5,6 +5,7 @@ namespace Prezent\Grid\Twig\Tests\TokenParser;
 use Prezent\Grid\Twig\TokenParser\GridThemeTokenParser;
 use Prezent\Grid\Twig\Node\GridThemeNode;
 use Twig\Environment;
+use Twig\Loader\LoaderInterface;
 use Twig\Node\Expression\ArrayExpression;
 use Twig\Node\Expression\ConstantExpression;
 use Twig\Node\Expression\NameExpression;
@@ -18,7 +19,7 @@ class GridThemeTokenParserTest extends \PHPUnit\Framework\TestCase
      */
     public function testCompile($source, $expected)
     {
-        $env = new Environment($this->createMock('Twig_LoaderInterface'), array('cache' => false, 'autoescape' => false, 'optimizations' => 0));
+        $env = new Environment($this->createMock(LoaderInterface::class), array('cache' => false, 'autoescape' => false, 'optimizations' => 0));
         $env->addTokenParser(new GridThemeTokenParser());
         $source = new Source($source, 'template.html.twig');
         $stream = $env->tokenize($source);

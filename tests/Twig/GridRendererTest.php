@@ -6,6 +6,8 @@ use Prezent\Grid\ElementView;
 use Prezent\Grid\GridView;
 use Prezent\Grid\ResolvedElementType;
 use Prezent\Grid\Twig\GridRenderer;
+use Twig\Environment;
+use Twig\Template;
 
 class GridRendererTest extends \PHPUnit\Framework\TestCase
 {
@@ -13,10 +15,10 @@ class GridRendererTest extends \PHPUnit\Framework\TestCase
     {
         $renderer = new GridRenderer();
 
-        $theme = $this->getMockBuilder(\Twig_Template::class)->disableOriginalConstructor()->getMock();
+        $theme = $this->getMockBuilder(Template::class)->disableOriginalConstructor()->getMock();
         $theme->method('getBlocks')->willReturn([]);
 
-        $environment = $this->createMock(\Twig_Environment::class);
+        $environment = $this->createMock(Environment::class);
         $environment->method('mergeGlobals')->will($this->returnArgument(0));
         $environment->expects($this->once())
             ->method('loadTemplate')
@@ -27,13 +29,13 @@ class GridRendererTest extends \PHPUnit\Framework\TestCase
 
     public function testRenderBlock()
     {
-        $theme = $this->getMockBuilder(\Twig_Template::class)->disableOriginalConstructor()->getMock();
+        $theme = $this->getMockBuilder(Template::class)->disableOriginalConstructor()->getMock();
         $theme->method('getBlocks')->willReturn([]);
         $theme->expects($this->once())
             ->method('renderBlock')
             ->with($this->equalTo('grid'));
 
-        $environment = $this->createMock(\Twig_Environment::class);
+        $environment = $this->createMock(Environment::class);
         $environment->method('mergeGlobals')->will($this->returnArgument(0));
 
         $renderer = new GridRenderer([$theme]);
@@ -44,12 +46,12 @@ class GridRendererTest extends \PHPUnit\Framework\TestCase
 
     public function testVariables()
     {
-        $theme = $this->getMockBuilder(\Twig_Template::class)->disableOriginalConstructor()->getMock();
+        $theme = $this->getMockBuilder(Template::class)->disableOriginalConstructor()->getMock();
         $theme->method('getBlocks')->willReturn([]);
 
         $type = $this->getMockBuilder(ResolvedElementType::class)->disableOriginalConstructor()->getMock();
 
-        $environment = $this->createMock(\Twig_Environment::class);
+        $environment = $this->createMock(Environment::class);
         $environment->method('mergeGlobals')->will($this->returnArgument(0));
 
         $renderer = new GridRenderer([$theme]);
@@ -73,12 +75,12 @@ class GridRendererTest extends \PHPUnit\Framework\TestCase
 
     public function testVariableInheritance()
     {
-        $theme = $this->getMockBuilder(\Twig_Template::class)->disableOriginalConstructor()->getMock();
+        $theme = $this->getMockBuilder(Template::class)->disableOriginalConstructor()->getMock();
         $theme->method('getBlocks')->willReturn([]);
 
         $type = $this->getMockBuilder(ResolvedElementType::class)->disableOriginalConstructor()->getMock();
 
-        $environment = $this->createMock(\Twig_Environment::class);
+        $environment = $this->createMock(Environment::class);
         $environment->method('mergeGlobals')->will($this->returnArgument(0));
 
         $renderer = new GridRenderer([$theme]);
@@ -108,12 +110,12 @@ class GridRendererTest extends \PHPUnit\Framework\TestCase
 
     public function testWidgetInheritance()
     {
-        $theme = $this->getMockBuilder(\Twig_Template::class)->disableOriginalConstructor()->getMock();
+        $theme = $this->getMockBuilder(Template::class)->disableOriginalConstructor()->getMock();
         $theme->method('getBlocks')->willReturn(['grid_column_widget' => []]);
 
         $type = $this->getMockBuilder(ResolvedElementType::class)->disableOriginalConstructor()->getMock();
 
-        $environment = $this->createMock(\Twig_Environment::class);
+        $environment = $this->createMock(Environment::class);
         $environment->method('mergeGlobals')->will($this->returnArgument(0));
 
         $renderer = new GridRenderer([$theme]);
@@ -131,16 +133,16 @@ class GridRendererTest extends \PHPUnit\Framework\TestCase
 
     public function testThemeInheritance()
     {
-        $parent = $this->getMockBuilder(\Twig_Template::class)->disableOriginalConstructor()->getMock();
+        $parent = $this->getMockBuilder(Template::class)->disableOriginalConstructor()->getMock();
         $parent->method('getBlocks')->willReturn(['grid_column_widget' => []]);
 
-        $theme = $this->getMockBuilder(\Twig_Template::class)->disableOriginalConstructor()->getMock();
+        $theme = $this->getMockBuilder(Template::class)->disableOriginalConstructor()->getMock();
         $theme->method('getBlocks')->willReturn(['grid_string_widget' => []]);
         $theme->method('getParent')->willReturn($parent);
 
         $type = $this->getMockBuilder(ResolvedElementType::class)->disableOriginalConstructor()->getMock();
 
-        $environment = $this->createMock(\Twig_Environment::class);
+        $environment = $this->createMock(Environment::class);
         $environment->method('mergeGlobals')->will($this->returnArgument(0));
 
         $renderer = new GridRenderer([$theme]);

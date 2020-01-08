@@ -4,6 +4,8 @@ namespace Prezent\Grid\Tests\PHPUnit;
 
 use Prezent\Grid\Twig\GridExtension;
 use Prezent\Grid\Twig\GridRenderer;
+use Twig\Environment;
+use Twig\Loader\FilesystemLoader;
 
 trait TwigProvider
 {
@@ -15,9 +17,9 @@ trait TwigProvider
     {
         $renderer = new GridRenderer(['grid.html.twig']);
         $this->twig = new GridExtension($renderer);
-        $loader = new \Twig_Loader_Filesystem(__DIR__ . '/../../src/Resources/views/Grid');
+        $loader = new FilesystemLoader(__DIR__ . '/../../src/Resources/views/Grid');
 
-        $environment = new \Twig_Environment($loader, array('strict_variables' => true));
+        $environment = new Environment($loader, array('strict_variables' => true));
         $environment->addExtension($this->twig);
         $environment->addExtension(new \Twig_Extensions_Extension_Text());
 

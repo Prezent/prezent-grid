@@ -21,9 +21,9 @@ class GridThemeTokenParser extends AbstractTokenParser
     /**
      * Parses a token and returns a node.
      *
-     * @param Token $token A Twig_Token instance
+     * @param Token $token A Token instance
      *
-     * @return Node A Twig_Node instance
+     * @return Node A Node instance
      */
     public function parse(Token $token)
     {

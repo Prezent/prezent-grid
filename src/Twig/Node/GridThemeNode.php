@@ -23,7 +23,7 @@ class GridThemeNode extends Node
     /**
      * Compiles the node to PHP.
      *
-     * @param Compiler $compiler A Twig_Compiler instance
+     * @param Compiler $compiler A Compiler instance
      */
     public function compile(Compiler $compiler)
     {
