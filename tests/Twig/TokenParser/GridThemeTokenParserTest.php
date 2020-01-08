@@ -25,7 +25,6 @@ class GridThemeTokenParserTest extends \PHPUnit\Framework\TestCase
         $stream = $env->tokenize($source);
         $parser = new Parser($env);
 
-        $expected->setTemplateName('template.html.twig');
         $expected->setSourceContext($source);
 
         $this->assertEquals($expected, $parser->parse($stream)->getNode('body')->getNode(0));

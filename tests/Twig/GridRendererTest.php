@@ -11,22 +11,6 @@ use Twig\Template;
 
 class GridRendererTest extends \PHPUnit\Framework\TestCase
 {
-    public function testDefaultTheme()
-    {
-        $renderer = new GridRenderer();
-
-        $theme = $this->getMockBuilder(Template::class)->disableOriginalConstructor()->getMock();
-        $theme->method('getBlocks')->willReturn([]);
-
-        $environment = $this->createMock(Environment::class);
-        $environment->method('mergeGlobals')->will($this->returnArgument(0));
-        $environment->expects($this->once())
-            ->method('loadTemplate')
-            ->willReturn($theme);
-
-        $renderer->setEnvironment($environment);
-    }
-
     public function testRenderBlock()
     {
         $theme = $this->getMockBuilder(Template::class)->disableOriginalConstructor()->getMock();

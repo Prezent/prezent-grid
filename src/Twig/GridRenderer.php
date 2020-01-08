@@ -65,7 +65,7 @@ class GridRenderer
 
         foreach ($this->defaultThemes as &$theme) {
             if (!($theme instanceof Template)) {
-                $theme = $this->environment->loadTemplate($theme);
+                $theme = $this->environment->load($theme)->unwrap();
             }
 
             $this->loadBlocks($theme);
@@ -85,7 +85,7 @@ class GridRenderer
 
         foreach ($themes as $theme) {
             if (!($theme instanceof Template)) {
-                $theme = $this->environment->loadTemplate($theme);
+                $theme = $this->environment->load($theme)->unwrap();
             }
 
             $this->loadBlocks($theme);
