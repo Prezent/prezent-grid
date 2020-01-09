@@ -45,31 +45,13 @@ class GridRenderer
      *
      * @param array $themes default themes, either as string or as \Twig\Template
      */
-    public function __construct(array $themes = [])
+    public function __construct(array $themes, Environment $environment)
     {
-        $this->defaultThemes = $themes ?: [dirname(__DIR__) . '/Resources/views/Grid/grid.html.twig'];
+        $this->defaultThemes = $themes ?: [dirname(__DIR__) . '/Resources/views/grid/grid.html.twig'];
         $this->themes = new \SplObjectStorage();
         $this->variableStack = new \SplObjectStorage();
         $this->blocks = new \SplObjectStorage();
-    }
-
-    /**
-     * Setter for environment
-     *
-     * @param Environment $environment
-     * @return self
-     */
-    public function setEnvironment(Environment $environment)
-    {
         $this->environment = $environment;
-
-        foreach ($this->defaultThemes as &$theme) {
-            if (!($theme instanceof Template)) {
-                $theme = $this->environment->load($theme)->unwrap();
-            }
-
-            $this->loadBlocks($theme);
-        }
     }
 
     /**
@@ -84,10 +66,6 @@ class GridRenderer
         $this->themes[$view] = [];
 
         foreach ($themes as $theme) {
-            if (!($theme instanceof Template)) {
-                $theme = $this->environment->load($theme)->unwrap();
-            }
-
             $this->loadBlocks($theme);
             $this->themes[$view] = array_merge($this->themes[$view], [$theme]);
         }
@@ -149,6 +127,7 @@ class GridRenderer
         $template = $theme ?: reset($this->defaultThemes);
 
         // Render the block
+        $this->loadBlocks($template);
         $output = $template->renderBlock($name, $variables);
         $variableStack->pop();
 
@@ -180,6 +159,8 @@ class GridRenderer
 
         // Search default themes
         foreach ($this->defaultThemes as $theme) {
+            $this->loadBlocks($theme);
+
             if (in_array($name, $this->blocks[$theme])) {
                 return $theme;
             }
@@ -256,8 +237,12 @@ class GridRenderer
      *
      * @return void
      */
-    private function loadBlocks(Template $theme)
+    private function loadBlocks(&$theme)
     {
+        if (!($theme instanceof Template)) {
+            $theme = $this->environment->load($theme)->unwrap();
+        }
+
         if (isset($this->blocks[$theme])) {
             return;
         }

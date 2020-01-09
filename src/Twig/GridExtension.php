@@ -19,43 +19,23 @@ use Twig\TwigFunction;
 class GridExtension extends AbstractExtension implements RuntimeExtensionInterface
 {
     /**
-     * @var GridRenderer The renderer is public for faster access in compiled twig templates
-     */
-    public $renderer;
-
-    /**
-     * Constructor
-     *
-     * @param GridRenderer $renderer
-     */
-    public function __construct(GridRenderer $renderer)
-    {
-        $this->renderer = $renderer;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function initRuntime(Environment $environment)
-    {
-        $this->renderer->setEnvironment($environment);
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function getFunctions()
     {
+        $blockOptions = ['node_class' => RenderBlockNode::class, 'is_safe' => ['html'], ''];
+        $blockItemOptions = ['node_class' => RenderItemBlockNode::class, 'is_safe' => ['html']];
+
         return [
-            new TwigFunction('grid', null, ['node_class' => RenderItemBlockNode::class, 'is_safe' => ['html']]),
-            new TwigFunction('grid_header_row', null, ['node_class' => RenderBlockNode::class, 'is_safe' => ['html']]),
-            new TwigFunction('grid_header_column', null, ['node_class' => RenderBlockNode::class, 'is_safe' => ['html']]),
-            new TwigFunction('grid_header_widget', null, ['node_class' => RenderBlockNode::class, 'is_safe' => ['html']]),
-            new TwigFunction('grid_row', null, ['node_class' => RenderItemBlockNode::class, 'is_safe' => ['html']]),
-            new TwigFunction('grid_column', null, ['node_class' => RenderItemBlockNode::class, 'is_safe' => ['html']]),
-            new TwigFunction('grid_widget', null, ['node_class' => RenderItemBlockNode::class, 'is_safe' => ['html']]),
-            new TwigFunction('grid_actions', null, ['node_class' => RenderItemBlockNode::class, 'is_safe' => ['html']]),
-            new TwigFunction('grid_action', null, ['node_class' => RenderItemBlockNode::class, 'is_safe' => ['html']]),
+            new TwigFunction('grid', null, $blockItemOptions),
+            new TwigFunction('grid_header_row', null, $blockOptions),
+            new TwigFunction('grid_header_column', null, $blockOptions),
+            new TwigFunction('grid_header_widget', null, $blockOptions),
+            new TwigFunction('grid_row', null, $blockItemOptions),
+            new TwigFunction('grid_column', null, $blockItemOptions),
+            new TwigFunction('grid_widget', null, $blockItemOptions),
+            new TwigFunction('grid_actions', null, $blockItemOptions),
+            new TwigFunction('grid_action', null, $blockItemOptions),
         ];
     }
 

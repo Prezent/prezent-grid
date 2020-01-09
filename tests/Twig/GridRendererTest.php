@@ -22,9 +22,7 @@ class GridRendererTest extends \PHPUnit\Framework\TestCase
         $environment = $this->createMock(Environment::class);
         $environment->method('mergeGlobals')->will($this->returnArgument(0));
 
-        $renderer = new GridRenderer([$theme]);
-        $renderer->setEnvironment($environment);
-
+        $renderer = new GridRenderer([$theme], $environment);
         $renderer->renderBlock('grid', new GridView(), [], []);
     }
 
@@ -38,8 +36,7 @@ class GridRendererTest extends \PHPUnit\Framework\TestCase
         $environment = $this->createMock(Environment::class);
         $environment->method('mergeGlobals')->will($this->returnArgument(0));
 
-        $renderer = new GridRenderer([$theme]);
-        $renderer->setEnvironment($environment);
+        $renderer = new GridRenderer([$theme], $environment);
 
         $view = new ElementView('column', $type);
         $view->vars['foo'] = 'bar';
@@ -67,8 +64,7 @@ class GridRendererTest extends \PHPUnit\Framework\TestCase
         $environment = $this->createMock(Environment::class);
         $environment->method('mergeGlobals')->will($this->returnArgument(0));
 
-        $renderer = new GridRenderer([$theme]);
-        $renderer->setEnvironment($environment);
+        $renderer = new GridRenderer([$theme], $environment);
 
         $view = new ElementView('column', $type);
         $view->vars['foo'] = 'bar';
@@ -102,8 +98,7 @@ class GridRendererTest extends \PHPUnit\Framework\TestCase
         $environment = $this->createMock(Environment::class);
         $environment->method('mergeGlobals')->will($this->returnArgument(0));
 
-        $renderer = new GridRenderer([$theme]);
-        $renderer->setEnvironment($environment);
+        $renderer = new GridRenderer([$theme], $environment);
 
         $view = new ElementView('column', $type);
         $view->vars['block_types'] = ['string', 'column'];
@@ -129,8 +124,7 @@ class GridRendererTest extends \PHPUnit\Framework\TestCase
         $environment = $this->createMock(Environment::class);
         $environment->method('mergeGlobals')->will($this->returnArgument(0));
 
-        $renderer = new GridRenderer([$theme]);
-        $renderer->setEnvironment($environment);
+        $renderer = new GridRenderer([$theme], $environment);
 
         $view = new ElementView('column', $type);
         $view->vars['block_types'] = ['string', 'column'];

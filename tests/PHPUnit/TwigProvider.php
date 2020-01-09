@@ -7,24 +7,29 @@ use Prezent\Grid\Twig\GridRenderer;
 use Twig\Environment;
 use Twig\Extra\String\StringExtension;
 use Twig\Loader\FilesystemLoader;
+use Twig\RuntimeLoader\RuntimeLoaderInterface;
 
 trait TwigProvider
 {
-    private $twig;
-
+    private $renderer;
     private $constraintClass;
 
     private function setUpTwig()
     {
-        $renderer = new GridRenderer(['grid.html.twig']);
-        $this->twig = new GridExtension($renderer);
-        $loader = new FilesystemLoader(__DIR__ . '/../../src/Resources/views/Grid');
+        $templateLoader = new FilesystemLoader(__DIR__ . '/../../src/Resources/views/grid');
 
-        $environment = new Environment($loader, array('strict_variables' => true));
-        $environment->addExtension($this->twig);
+        $environment = new Environment($templateLoader, array('strict_variables' => true));
+        $environment->addExtension(new GridExtension());
         $environment->addExtension(new StringExtension());
 
-        $this->twig->initRuntime($environment);
+        $this->renderer = new GridRenderer(['grid.html.twig'], $environment);
+
+        $runtimeLoader = $this->getMockBuilder(RuntimeLoaderInterface::class)->getMock();
+        $runtimeLoader->expects($this->any())->method('load')->will($this->returnValueMap([
+            [GridRenderer::class, $this->renderer],
+        ]));
+
+        $environment->addRuntimeLoader($runtimeLoader);
     }
 
     public static function assertMatchesXpath($expression, $html, $count = 1, $message = '')

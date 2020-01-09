@@ -2,6 +2,7 @@
 
 namespace Prezent\Grid\Twig\Node;
 
+use Prezent\Grid\Twig\GridRenderer;
 use Twig\Compiler;
 use Twig\Node\Expression\FunctionExpression;
 
@@ -17,10 +18,9 @@ class RenderItemBlockNode extends FunctionExpression
     {
         $compiler->addDebugInfo($this);
         $arguments = iterator_to_array($this->getNode('arguments'));
-        $class = \Prezent\Grid\Twig\GridExtension::class;
 
         $compiler
-            ->write('$this->env->getExtension(\''.$class.'\')->renderer->renderBlock(')
+            ->write('$this->env->getRuntime(\''. GridRenderer::class . '\')->renderBlock(')
             ->raw('\''.$this->getAttribute('name').'\'');
 
         foreach ($arguments as $argument) {
