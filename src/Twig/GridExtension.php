@@ -8,6 +8,7 @@ use Prezent\Grid\Twig\TokenParser\GridThemeTokenParser;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\Extension\RuntimeExtensionInterface;
+use Twig\TwigFilter;
 use Twig\TwigFunction;
 
 /**
@@ -39,6 +40,13 @@ class GridExtension extends AbstractExtension implements RuntimeExtensionInterfa
         ];
     }
 
+    public function getFilters()
+    {
+        return [
+            new TwigFilter('truncate', [$this, 'truncate'], ['needs_environment' => true, 'is_safe' => ['html']]),
+        ];
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -47,5 +55,28 @@ class GridExtension extends AbstractExtension implements RuntimeExtensionInterfa
         return [
             new GridThemeTokenParser(),
         ];
+    }
+
+    /**
+     * Truncate a string, taken from twig/extensions
+     *
+     * Ported to the GridExtension so this extension can be compatible with both Twig 2 and Twig 3 without
+     * changing the base grid.html.twig template.
+     *
+     * @see: https://github.com/twigphp/Twig-extensions/blob/master/src/TextExtension.php#L36
+     */
+    public function truncate(Environment $env, $value, $length = 30, $preserve = false, $separator = '...')
+    {
+        if (mb_strlen($value, $env->getCharset()) > $length) {
+            if ($preserve) {
+                // If breakpoint is on the last word, return the value without separator.
+                if (false === ($breakpoint = mb_strpos($value, ' ', $length, $env->getCharset()))) {
+                    return $value;
+                }
+                $length = $breakpoint;
+            }
+            return rtrim(mb_substr($value, 0, $length, $env->getCharset())).$separator;
+        }
+        return $value;
     }
 }

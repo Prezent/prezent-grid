@@ -20,7 +20,6 @@ trait TwigProvider
 
         $environment = new Environment($templateLoader, array('strict_variables' => true));
         $environment->addExtension(new GridExtension());
-        $environment->addExtension(new StringExtension());
 
         $this->renderer = new GridRenderer(['grid.html.twig'], $environment);
 

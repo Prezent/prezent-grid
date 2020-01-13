@@ -11,12 +11,6 @@
         "symfony/property-access": "^3.0|^4.0|^5.0",
         "twig/twig": "^2.0|^3.0"
     },
-    "require-dev": {
-        "twig/string-extra": "^3.0"
-    },
-    "suggest": {
-        "twig/string-extra": "To use the truncate filter"
-    },
     "license": "MIT",
     "authors": [
         {
