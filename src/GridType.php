@@ -15,7 +15,7 @@ interface GridType
      * Build the grid
      *
      * @param GridBuilder $builder
-     * @param array $options
+     * @param array<string, mixed> $options
      * @return void
      */
     public function buildGrid(GridBuilder $builder, array $options = []);
@@ -24,7 +24,7 @@ interface GridType
      * Build the grid view
      *
      * @param GridView $view
-     * @param array $options
+     * @param array<string, mixed> $options
      * @return void
      */
     public function buildView(GridView $view, array $options = []);

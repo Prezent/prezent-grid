@@ -23,7 +23,7 @@ interface ElementTypeExtension
      * Set up the view for this type
      *
      * @param ElementView $view
-     * @param array $options
+     * @param array<string, mixed> $options
      * @return void
      */
     public function buildView(ElementView $view, array $options);
