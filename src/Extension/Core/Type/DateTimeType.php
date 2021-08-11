@@ -24,6 +24,7 @@ class DateTimeType extends BaseElementType
             'locale'      => \Locale::getDefault(),
             'date_format' => \IntlDateFormatter::MEDIUM,
             'time_format' => \IntlDateFormatter::MEDIUM,
+            'timezone'    => null,
             'pattern'     => '',
         ]);
     }
@@ -36,6 +37,7 @@ class DateTimeType extends BaseElementType
         $view->vars['locale']      = $options['locale'];
         $view->vars['date_format'] = $options['date_format'];
         $view->vars['time_format'] = $options['time_format'];
+        $view->vars['timezone']    = $options['timezone'];
         $view->vars['pattern']     = $options['pattern'];
     }
 
@@ -56,7 +58,7 @@ class DateTimeType extends BaseElementType
             $view->vars['locale'],
             $view->vars['date_format'],
             $view->vars['time_format'],
-            null,
+            $view->vars['timezone'],
             \IntlDateFormatter::GREGORIAN,
             $view->vars['pattern']
         );
