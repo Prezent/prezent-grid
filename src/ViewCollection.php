@@ -38,13 +38,14 @@ class ViewCollection implements \ArrayAccess, \IteratorAggregate, \Countable
     /**
      * {@inheritDoc}
      */
-    public function offsetExists($name)
+    public function offsetExists($name): bool
     {
         return isset($this->views[$name]);
     }
 
     /**
      * {@inheritDoc}
+     * @return mixed
      */
     public function offsetGet($name)
     {
@@ -54,7 +55,7 @@ class ViewCollection implements \ArrayAccess, \IteratorAggregate, \Countable
     /**
      * {@inheritDoc}
      */
-    public function offsetSet($name, $view)
+    public function offsetSet($name, $view): void
     {
         if (!($view instanceof View)) {
             throw new UnexpectedTypeException(View::class, $view);
@@ -66,7 +67,7 @@ class ViewCollection implements \ArrayAccess, \IteratorAggregate, \Countable
     /**
      * {@inheritDoc}
      */
-    public function offsetUnset($name)
+    public function offsetUnset($name): void
     {
         unset($this->views[$name]);
     }
@@ -74,7 +75,7 @@ class ViewCollection implements \ArrayAccess, \IteratorAggregate, \Countable
     /**
      * {@inheritDoc}
      */
-    public function getIterator()
+    public function getIterator(): \Traversable
     {
         return new \ArrayIterator($this->views);
     }
@@ -82,7 +83,7 @@ class ViewCollection implements \ArrayAccess, \IteratorAggregate, \Countable
     /**
      * {@inheritDoc}
      */
-    public function count()
+    public function count(): int
     {
         return count($this->views);
     }
