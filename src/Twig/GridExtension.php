@@ -22,7 +22,7 @@ class GridExtension extends AbstractExtension implements RuntimeExtensionInterfa
     /**
      * {@inheritdoc}
      */
-    public function getFunctions()
+    public function getFunctions(): array
     {
         $blockOptions = ['node_class' => RenderBlockNode::class, 'is_safe' => ['html'], ''];
         $blockItemOptions = ['node_class' => RenderItemBlockNode::class, 'is_safe' => ['html']];
@@ -40,7 +40,7 @@ class GridExtension extends AbstractExtension implements RuntimeExtensionInterfa
         ];
     }
 
-    public function getFilters()
+    public function getFilters(): array
     {
         return [
             new TwigFilter('truncate', [$this, 'truncate'], ['needs_environment' => true, 'is_safe' => ['html']]),
@@ -50,7 +50,7 @@ class GridExtension extends AbstractExtension implements RuntimeExtensionInterfa
     /**
      * {@inheritdoc}
      */
-    public function getTokenParsers()
+    public function getTokenParsers(): array
     {
         return [
             new GridThemeTokenParser(),
