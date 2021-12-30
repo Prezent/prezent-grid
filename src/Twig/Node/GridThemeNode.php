@@ -25,7 +25,7 @@ class GridThemeNode extends Node
      *
      * @param Compiler $compiler A Compiler instance
      */
-    public function compile(Compiler $compiler)
+    public function compile(Compiler $compiler): void
     {
         $class = \Prezent\Grid\Twig\GridRenderer::class;
 
