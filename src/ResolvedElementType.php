@@ -73,6 +73,16 @@ class ResolvedElementType
     }
 
     /**
+     * Get the inner element type
+     *
+     * @return ElementType
+     */
+    public function getInnerType()
+    {
+        return $this->innerType;
+    }
+
+    /**
      * Create the view for the element
      *
      * @param string $name
