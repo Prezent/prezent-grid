@@ -21,13 +21,27 @@ class RenderItemBlockNode extends FunctionExpression
 
         $compiler
             ->write('$this->env->getRuntime(\''. GridRenderer::class . '\')->renderBlock(')
-            ->raw('\''.$this->getAttribute('name').'\'');
+            ->raw('\''.$this->getAttribute('name').'\', ')
+            ->subcompile($arguments[0]);
 
-        foreach ($arguments as $argument) {
-            $compiler->raw(', ');
-            $compiler->subcompile($argument);
+        // item
+        if (isset($arguments[1])) {
+            $compiler
+                ->raw(', ')
+                ->subcompile($arguments[1]);
+        } else {
+            $compiler->raw(', null');
         }
 
-        $compiler->raw(')');
+        // variables
+        if (isset($arguments[2])) {
+            $compiler
+                ->raw(', ')
+                ->subcompile($arguments[2]);
+        } else {
+            $compiler->raw(', []');
+        }
+
+        $compiler->raw(', true)');
     }
 }

@@ -5,6 +5,7 @@ namespace Prezent\Grid\Tests\Twig;
 use Prezent\Grid\ElementView;
 use Prezent\Grid\GridView;
 use Prezent\Grid\ResolvedElementType;
+use Prezent\Grid\ResolvedGridType;
 use Prezent\Grid\Twig\GridRenderer;
 use Twig\Environment;
 use Twig\Template;
@@ -22,8 +23,10 @@ class GridRendererTest extends \PHPUnit\Framework\TestCase
         $environment = $this->createMock(Environment::class);
         $environment->method('mergeGlobals')->will($this->returnArgument(0));
 
+        $type = $this->getMockBuilder(ResolvedGridType::class)->disableOriginalConstructor()->getMock();
+
         $renderer = new GridRenderer([$theme], $environment);
-        $renderer->renderBlock('grid', new GridView(), [], []);
+        $renderer->renderBlock('grid', new GridView($type), [], []);
     }
 
     public function testVariables()

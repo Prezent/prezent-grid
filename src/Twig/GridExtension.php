@@ -3,6 +3,7 @@
 namespace Prezent\Grid\Twig;
 
 use Prezent\Grid\Twig\Node\RenderBlockNode;
+use Prezent\Grid\Twig\Node\RenderGridBlockNode;
 use Prezent\Grid\Twig\Node\RenderItemBlockNode;
 use Prezent\Grid\Twig\TokenParser\GridThemeTokenParser;
 use Twig\Environment;
@@ -25,10 +26,11 @@ class GridExtension extends AbstractExtension implements RuntimeExtensionInterfa
     public function getFunctions(): array
     {
         $blockOptions = ['node_class' => RenderBlockNode::class, 'is_safe' => ['html'], ''];
+        $blockGridOptions = ['node_class' => RenderGridBlockNode::class, 'is_safe' => ['html']];
         $blockItemOptions = ['node_class' => RenderItemBlockNode::class, 'is_safe' => ['html']];
 
         return [
-            new TwigFunction('grid', null, $blockItemOptions),
+            new TwigFunction('grid', null, $blockGridOptions),
             new TwigFunction('grid_header_row', null, $blockOptions),
             new TwigFunction('grid_header_column', null, $blockOptions),
             new TwigFunction('grid_header_widget', null, $blockOptions),

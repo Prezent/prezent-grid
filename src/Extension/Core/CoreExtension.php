@@ -42,7 +42,7 @@ class CoreExtension extends BaseGridExtension
     protected function loadGridTypes()
     {
         return [
-            new GridType(),
+            new GridType($this->resolver),
         ];
     }
 

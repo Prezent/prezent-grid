@@ -12,7 +12,7 @@
 {%- endblock grid -%}
 
 {%- block grid_header_row -%}
-    <tr>
+    <tr {% with {attr: row_attr} %}{{ block('grid_attributes') }}{% endwith %}>
         {% for column in grid.columns %}
             {{- grid_header_column(column) -}}
         {% endfor %}

@@ -9,4 +9,11 @@ namespace Prezent\Grid;
  */
 interface View
 {
+    /**
+     * Bind an item to the view
+     *
+     * @param mixed $item
+     * @return void
+     */
+    public function bind($item);
 }

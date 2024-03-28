@@ -173,7 +173,7 @@ class Grid
         $columnViews = [];
         $actionViews = [];
 
-        $view = new GridView();
+        $view = new GridView($this->type);
         $this->type->buildView($view, $this->options);
 
         foreach ($this->columns as $name => $column) {

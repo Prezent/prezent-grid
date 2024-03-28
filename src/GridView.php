@@ -10,6 +10,11 @@ namespace Prezent\Grid;
 class GridView implements View
 {
     /**
+     * @var ResolvedGridType
+     */
+    private $type;
+
+    /**
      * @var ViewCollection
      */
     public $columns = [];
@@ -30,9 +35,21 @@ class GridView implements View
      * @param array $columns
      * @param array $actions
      */
-    public function __construct(array $columns = [], array $actions = [])
+    public function __construct(ResolvedGridType $type, array $columns = [], array $actions = [])
     {
+        $this->type = $type;
         $this->columns = new ViewCollection($columns);
         $this->actions = new ViewCollection($actions);
+    }
+
+    /**
+     * Bind an item to the view
+     *
+     * @param mixed $item
+     * @return void
+     */
+    public function bind($item)
+    {
+        $this->type->bindView($this, $item);
     }
 }

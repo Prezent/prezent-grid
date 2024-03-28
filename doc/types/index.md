@@ -18,3 +18,4 @@ Grid consist of columns and actions. Both are implemented as grid elements.
 
 * [column](column.md)
 * [element](element.md)
+* [grid](grid.md)

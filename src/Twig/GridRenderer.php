@@ -78,15 +78,16 @@ class GridRenderer
      * @param GridView|ElementView $view
      * @param mixed $item
      * @param array $variables
+     * @param bool $bind
      * @return string
      */
-    public function renderBlock($name, View $view, $item = null, array $variables = [])
+    public function renderBlock($name, View $view, $item = null, array $variables = [], $bind = false)
     {
         // Environment stacking
         //
         // Every nested call to renderBlock adds the variables to the
         // twig rendering environment for that block
-        $variableStack = $this->getVariableStack($view, $item);
+        $variableStack = $this->getVariableStack($view, $item, $bind);
         $variables = array_merge($variableStack->top(), $variables);
         $variableStack->push($variables);
 
@@ -189,9 +190,10 @@ class GridRenderer
      *
      * @param GridView|ElementView $view
      * @param mixed $item
+     * @param bool $bind
      * @return \SplStack
      */
-    private function getVariableStack(View $view, $item)
+    private function getVariableStack(View $view, $item, $bind = false)
     {
         if (!$this->variableStack->contains($view)) {
             $this->variableStack->attach($view, new \SplStack());
@@ -203,21 +205,19 @@ class GridRenderer
             }
         }
 
-        $variables = [];
+        $variables = $view->vars;
+
+        if ($item && $bind) {
+            $boundView = clone $view;
+            $boundView->bind($item);
+            $variables = $boundView->vars;
+        }
 
         if ($view instanceof GridView) {
-            $variables = array_merge(['grid' => $view, 'data' => $item], $view->vars);
+            $variables = array_merge(['grid' => $view, 'data' => $item], $variables);
         }
 
         if ($view instanceof ElementView) {
-            if ($item) {
-                $boundView = clone $view;
-                $boundView->bind($item);
-                $variables = $boundView->vars;
-            } else {
-                $variables = $view->vars;
-            }
-
             $variables = array_merge(['column' => $view, 'item' => $item], $variables);
         }
 

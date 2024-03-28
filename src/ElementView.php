@@ -16,9 +16,9 @@ class ElementView implements View
     public $name;
 
     /**
-     * @var array
+     * @var ResolvedElementType
      */
-    public $vars = [];
+    private $type;
 
     /**
      * @var View
@@ -26,9 +26,9 @@ class ElementView implements View
     public $parent;
 
     /**
-     * @var ResolvedElementType
+     * @var array
      */
-    private $type;
+    public $vars = [];
 
     /**
      * Constructor

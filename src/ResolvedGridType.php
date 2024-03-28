@@ -103,6 +103,26 @@ class ResolvedGridType
     }
 
     /**
+     * Bind an item to the view
+     *
+     * @param GridView $view
+     * @param mixed $item
+     * @return void
+     */
+    public function bindView(GridView $view, $item)
+    {
+        if ($this->parent) {
+            $this->parent->bindView($view, $item);
+        }
+
+        $this->innerType->bindView($view, $item);
+
+        foreach ($this->typeExtensions as $typeExtension) {
+            $typeExtension->bindView($view, $item);
+        }
+    }
+
+    /**
      * Get the optionsResolver
      *
      * @return OptionsResolver

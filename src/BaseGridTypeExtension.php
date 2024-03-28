@@ -36,5 +36,12 @@ abstract class BaseGridTypeExtension implements GridTypeExtension
     /**
      * {@inheritDoc}
      */
+    public function bindView(GridView $view, $item)
+    {
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     abstract public function getExtendedType();
 }

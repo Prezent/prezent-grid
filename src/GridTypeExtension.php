@@ -38,6 +38,15 @@ interface GridTypeExtension
     public function buildView(GridView $view, array $options);
 
     /**
+     * Bind an item to the view
+     *
+     * @param GridView $view
+     * @param mixed $item
+     * @return void
+     */
+    public function bindView(GridView $view, $item);
+
+    /**
      * Get the grid type name of the extended type
      *
      * @return string
