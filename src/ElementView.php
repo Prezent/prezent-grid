@@ -36,7 +36,7 @@ class ElementView implements View
      * @param string $name Element name
      * @param ResolvedElementType $type
      */
-    public function __construct($name, ResolvedElementType $type, View $parent = null)
+    public function __construct($name, ResolvedElementType $type, ?View $parent = null)
     {
         $this->name = $name;
         $this->type = $type;

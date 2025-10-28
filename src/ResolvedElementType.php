@@ -37,9 +37,9 @@ class ResolvedElementType
      *
      * @param ElementType $innerType
      * @param ElementTypeExtension[] $typeExtensions
-     * @param ResolvedElementType $parent
+     * @param ?ResolvedElementType $parent
      */
-    public function __construct(ElementType $innerType, array $typeExtensions = [], ResolvedElementType $parent = null)
+    public function __construct(ElementType $innerType, array $typeExtensions = [], ?ResolvedElementType $parent = null)
     {
         foreach ($typeExtensions as $typeExtension) {
             if (!($typeExtension instanceof ElementTypeExtension)) {
@@ -90,7 +90,7 @@ class ResolvedElementType
      * @param array $options
      * @return View
      */
-    public function createView($name, View $parent = null, array $options = [])
+    public function createView($name, ?View $parent = null, array $options = [])
     {
         $view = new ElementView($name, $this, $parent);
         $options = $this->getOptionsResolver()->resolve($options);

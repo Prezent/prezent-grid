@@ -37,9 +37,9 @@ class ResolvedGridType
      *
      * @param GridType $innerType
      * @param GridTypeExtension[] $typeExtensions
-     * @param ResolvedGridType $parent
+     * @param ?ResolvedGridType $parent
      */
-    public function __construct(GridType $innerType, array $typeExtensions = [], ResolvedGridType $parent = null)
+    public function __construct(GridType $innerType, array $typeExtensions = [], ?ResolvedGridType $parent = null)
     {
         foreach ($typeExtensions as $typeExtension) {
             if (!($typeExtension instanceof GridTypeExtension)) {
