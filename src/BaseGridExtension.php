@@ -36,7 +36,7 @@ abstract class BaseGridExtension implements GridExtension
     /**
      * {@inheritDoc}
      */
-    public function hasGridType($name)
+    public function hasGridType(string $name): bool
     {
         if (null == $this->gridTypes) {
             $this->initGridTypes();
@@ -48,7 +48,7 @@ abstract class BaseGridExtension implements GridExtension
     /**
      * {@inheritDoc}
      */
-    public function getGridType($name)
+    public function getGridType(string $name): GridType
     {
         if (!$this->hasGridType($name)) {
             throw new InvalidArgumentException(sprintf('The grid type "%s" cannot be loaded', $name));
@@ -60,7 +60,7 @@ abstract class BaseGridExtension implements GridExtension
     /**
      * {@inheritDoc}
      */
-    public function getGridTypeExtensions($name)
+    public function getGridTypeExtensions(string $name): array
     {
         if (null == $this->gridTypeExtensions) {
             $this->initGridTypeExtensions();
@@ -76,7 +76,7 @@ abstract class BaseGridExtension implements GridExtension
     /**
      * {@inheritDoc}
      */
-    public function hasElementType($name)
+    public function hasElementType(string $name): bool
     {
         if (null == $this->elementTypes) {
             $this->initElementTypes();
@@ -88,7 +88,7 @@ abstract class BaseGridExtension implements GridExtension
     /**
      * {@inheritDoc}
      */
-    public function getElementType($name)
+    public function getElementType(string $name): ElementType
     {
         if (!$this->hasElementType($name)) {
             throw new InvalidArgumentException(sprintf('The column type "%s" cannot be loaded', $name));
@@ -100,7 +100,7 @@ abstract class BaseGridExtension implements GridExtension
     /**
      * {@inheritDoc}
      */
-    public function getElementTypeExtensions($name)
+    public function getElementTypeExtensions(string $name): array
     {
         if (null == $this->elementTypeExtensions) {
             $this->initElementTypeExtensions();

@@ -17,7 +17,7 @@ interface GridExtension
      * @param string $name
      * @return bool
      */
-    public function hasGridType($name);
+    public function hasGridType(string $name): bool;
 
     /**
      * Get a grid type
@@ -26,7 +26,7 @@ interface GridExtension
      * @throws InvalidArgumentException
      * @return GridType
      */
-    public function getGridType($name);
+    public function getGridType(string $name): GridType;
 
     /**
      * Get grid type extensions for a grid type
@@ -34,7 +34,7 @@ interface GridExtension
      * @param string $name
      * @return GridTypeExtension[]
      */
-    public function getGridTypeExtensions($name);
+    public function getGridTypeExtensions(string $name): array;
 
     /**
      * Check if the extension has an element type
@@ -42,7 +42,7 @@ interface GridExtension
      * @param string $name
      * @return bool
      */
-    public function hasElementType($name);
+    public function hasElementType(string $name): bool;
 
     /**
      * Get an element type
@@ -51,7 +51,7 @@ interface GridExtension
      * @throws InvalidArgumentException
      * @return ElementType
      */
-    public function getElementType($name);
+    public function getElementType(string $name): ElementType;
 
     /**
      * Get element type extensions for an element type
@@ -59,5 +59,5 @@ interface GridExtension
      * @param string $name
      * @return ElementTypeExtension[]
      */
-    public function getElementTypeExtensions($name);
+    public function getElementTypeExtensions(string $name): array;
 }
